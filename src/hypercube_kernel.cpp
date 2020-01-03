@@ -6,7 +6,7 @@
 #include <ap_fixed.h>
 #include <iomanip>
 // #include "my_lgamma.h"
-typedef ap_fixed<64, 32> score_t;
+typedef ap_fixed<32, 16> score_t;
 //typedef ap_fixed<32,10> score_t;
 //typedef double score_t;
 typedef unsigned int varset_t;
