@@ -5,17 +5,21 @@
 #include "hls_math.h"
 #include <iomanip>
 #include <chrono>
+#include <ap_axi_sdata.h>
+#include <ap_fixed.h>
 
 #define NUMOF_VARS 8
 #define NUMOF_DATASETS 1000
 
+#define DATA_BIT 8
+typedef ap_uint<DATA_BIT> data_t;
 static const std::string error_message =
     "Error: Result mismatch:\n"
     "i = %d CPU result = %d Device result = %d\n";
 
 using namespace std;
 
-void load_data(int data[NUMOF_DATASETS*NUMOF_VARS]){
+void load_data(char data[NUMOF_DATASETS*NUMOF_VARS]){
 	ifstream ifs;
 	ifs.open("../asia.idt", std::ios::in);
 	if (!ifs) {
@@ -29,7 +33,7 @@ void load_data(int data[NUMOF_DATASETS*NUMOF_VARS]){
 		int pos = 0;
 		for(int j = 0; j < (int)line.size(); j++){
 			if(pos >= NUMOF_VARS) break;
-			if(line[j] != ' ') data[(pos++)*NUMOF_DATASETS+i] = (line[j] - '0');
+			if(line[j] != ' ') data[(pos++)*NUMOF_DATASETS+i] = (char)((int)(line[j] - '0'));
 		}
 		i++;
 	}
@@ -78,6 +82,8 @@ int main(int argc, char* argv[]) {
 
     // Creating Context and Command Queue for selected device
     cl::Context context(device);
+    std::chrono::system_clock::time_point  t1, t2, t3, t4;
+    t1 = std::chrono::system_clock::now();
     cl::CommandQueue q(context, device, CL_QUEUE_PROFILING_ENABLE);
 
     // Load xclbin
@@ -118,8 +124,10 @@ int main(int argc, char* argv[]) {
     krnl.setArg(narg++, buffer_best_order);}*/
 
     //We then need to map our OpenCL buffers to get the pointers
-    int *ptr_dataset = (int *) q.enqueueMapBuffer (buffer_dataset , CL_TRUE , CL_MAP_READ , 0, NUMOF_VARS * NUMOF_DATASETS * sizeof(int));
-    int *ptr_nof_vars = (int *) q.enqueueMapBuffer (buffer_nof_vars , CL_TRUE , CL_MAP_READ , 0, NUMOF_VARS * sizeof(int));
+    //int *ptr_dataset = (int *) q.enqueueMapBuffer (buffer_dataset , CL_TRUE , CL_MAP_READ , 0, NUMOF_VARS * NUMOF_DATASETS * sizeof(int));
+    //int *ptr_nof_vars = (int *) q.enqueueMapBuffer (buffer_nof_vars , CL_TRUE , CL_MAP_READ , 0, NUMOF_VARS * sizeof(int));
+    char *ptr_dataset = (char *) q.enqueueMapBuffer (buffer_dataset , CL_TRUE , CL_MAP_READ , 0, NUMOF_VARS * NUMOF_DATASETS * sizeof(char));
+    char *ptr_nof_vars = (char *) q.enqueueMapBuffer (buffer_nof_vars , CL_TRUE , CL_MAP_READ , 0, NUMOF_VARS * sizeof(char));
     //int *ptr_adjacent_matrix = (int *) q.enqueueMapBuffer (buffer_adjacent_matrix , CL_TRUE , CL_MAP_WRITE , 0, NUMOF_VARS * NUMOF_VARS * sizeof(int));
     //int *ptr_best_order = (int *) q.enqueueMapBuffer (buffer_best_order , CL_TRUE , CL_MAP_WRITE , 0, NUMOF_VARS * sizeof(int));
     float *ptr_best_score = (float *)q.enqueueMapBuffer (buffer_best_score , CL_TRUE , CL_MAP_WRITE , 0, 1 * sizeof(float));
@@ -129,9 +137,9 @@ int main(int argc, char* argv[]) {
     for(int i = 0; i < NUMOF_VARS; i++) ptr_nof_vars[i] = 2;
     //for(int i = 0; i < NUMOF_VARS*NUMOF_VARS; i++) ptr_adjacent_matrix[i] = 0;
 
-    std::chrono::system_clock::time_point  t1, t2, t3, t4;
 
-    t1 = std::chrono::system_clock::now();
+
+
     // Data will be migrated to kernel space
     q.enqueueMigrateMemObjects({buffer_dataset, buffer_nof_vars},0/* 0 means from host*/);
     	/* 0 means from host*/
@@ -145,9 +153,9 @@ int main(int argc, char* argv[]) {
     // source_results vector
     //q.enqueueMigrateMemObjects({buffer_adjacent_matrix, buffer_best_order},CL_MIGRATE_MEM_OBJECT_HOST);
     q.enqueueMigrateMemObjects({buffer_best_score},CL_MIGRATE_MEM_OBJECT_HOST);
-    t4 = std::chrono::system_clock::now();
-    q.finish();
 
+    q.finish();
+    t4 = std::chrono::system_clock::now();
     //Verify the result
     int match = 0;
     //Show the result
