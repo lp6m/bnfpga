@@ -1,0 +1,123 @@
+<profile>
+
+<section name = "Vivado HLS Report for 'hypercube_kernel'" level="0">
+<item name = "Date">Thu Jan  9 21:50:01 2020
+</item>
+<item name = "Version">2019.1 (Build 2552052 on Fri May 24 15:28:33 MDT 2019)</item>
+<item name = "Project">hypercube_kernel</item>
+<item name = "Solution">solution</item>
+<item name = "Product family">virtexuplus</item>
+<item name = "Target device">xcu200-fsgd2104-2-e</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing (ns)">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">3.33, 2.433, 0.90</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency (clock cycles)">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">, min, max, min, max, Type</keys>
+<column name="">?, ?, ?, ?, none</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="7">Instance, Module, min, max, min, max, Type</keys>
+<column name="grp_PE_1_fu_254737">PE_1, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_2_fu_254764">PE_2, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_3_fu_254789">PE_3, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_4_fu_254814">PE_4, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_5_fu_254839">PE_5, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_6_fu_254864">PE_6, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_7_fu_254889">PE_7, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_8_fu_254914">PE_8, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_9_fu_254939">PE_9, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_10_fu_254964">PE_10, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_11_fu_254989">PE_11, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_12_fu_255014">PE_12, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_13_fu_255039">PE_13, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_14_fu_255064">PE_14, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_15_fu_255089">PE_15, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_16_fu_255114">PE_16, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_17_fu_255139">PE_17, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_18_fu_255164">PE_18, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_19_fu_255189">PE_19, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_20_fu_255214">PE_20, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_21_fu_255239">PE_21, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_22_fu_255264">PE_22, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_23_fu_255289">PE_23, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_24_fu_255314">PE_24, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_25_fu_255339">PE_25, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_26_fu_255364">PE_26, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_27_fu_255389">PE_27, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_28_fu_255414">PE_28, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_29_fu_255439">PE_29, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_30_fu_255464">PE_30, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_31_fu_255489">PE_31, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_32_fu_255514">PE_32, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_33_fu_255539">PE_33, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_34_fu_255564">PE_34, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_35_fu_255589">PE_35, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_36_fu_255614">PE_36, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_37_fu_255639">PE_37, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_38_fu_255664">PE_38, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_39_fu_255689">PE_39, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_40_fu_255714">PE_40, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_41_fu_255739">PE_41, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_fu_255764">PE, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_47_fu_255789">PE_47, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_48_fu_255811">PE_48, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_49_fu_255833">PE_49, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_50_fu_255855">PE_50, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_51_fu_255877">PE_51, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_52_fu_255899">PE_52, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_53_fu_255921">PE_53, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_54_fu_255943">PE_54, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_55_fu_255965">PE_55, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_56_fu_255987">PE_56, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_57_fu_256009">PE_57, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_58_fu_256031">PE_58, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_59_fu_256053">PE_59, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_60_fu_256075">PE_60, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_61_fu_256097">PE_61, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_62_fu_256119">PE_62, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_63_fu_256141">PE_63, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_64_fu_256163">PE_64, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_65_fu_256185">PE_65, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_66_fu_256207">PE_66, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_67_fu_256229">PE_67, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_68_fu_256251">PE_68, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_69_fu_256273">PE_69, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE31_fu_256295">PE31, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_43_fu_256317">PE_43, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_44_fu_256339">PE_44, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_45_fu_256361">PE_45, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_PE_46_fu_256383">PE_46, 1, 2704783, 1, 2704783, none</column>
+<column name="grp_val2index_fu_256405">val2index, 4, 4, 1, 1, function</column>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+<column name="- memcpy.dataset.V.addr.p_dataset.V">1001, 1001, 3, 1, 1, 1000, yes</column>
+<column name="- Loop 2">1000, 1000, 2, 1, 1, 1000, yes</column>
+<column name="- Loop 3">1260, 1260, 5, 5, 1, 252, yes</column>
+<column name="- Loop 4">281, 281, 2, 1, 1, 280, yes</column>
+<column name="- Loop 5">?, ?, ?, -, -, 11, no</column>
+<column name=" + Loop 5.1">211, 757339804, 211 ~ 189334951, -, -, 1 ~ 4, no</column>
+<column name=" + Loop 5.2">?, ?, 12, 5, 1, ?, yes</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+</profile>

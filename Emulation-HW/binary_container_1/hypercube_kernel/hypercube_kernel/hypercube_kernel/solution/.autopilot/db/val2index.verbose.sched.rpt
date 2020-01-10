@@ -1,0 +1,314 @@
+
+
+================================================================
+== Vivado HLS Report for 'val2index'
+================================================================
+* Date:           Thu Jan  9 20:32:02 2020
+
+* Version:        2019.1 (Build 2552052 on Fri May 24 15:28:33 MDT 2019)
+* Project:        hypercube_kernel
+* Solution:       solution
+* Product family: virtexuplus
+* Target device:  xcu200-fsgd2104-2-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   3.33|     2.417|        0.90|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +-----+-----+-----+-----+----------+
+    |  Latency  |  Interval | Pipeline |
+    | min | max | min | max |   Type   |
+    +-----+-----+-----+-----+----------+
+    |    4|    4|    1|    1| function |
+    +-----+-----+-----+-----+----------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        N/A
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 2
+HasVarLatency: 0
+IsPipeline: 1
+IsRtlPipelined: 1
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 1, depth = 5
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 5
+* Pipeline : 1
+  Pipeline-0 : II = 1, D = 5, States = { 1 2 3 4 5 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 3 
+3 --> 4 
+4 --> 5 
+5 --> 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 1.27>
+ST_1 : Operation 6 [1/1] (0.00ns)   --->   "%K_read = call i4 @_ssdm_op_Read.ap_auto.i4(i4 %K) nounwind" [../../../../src/hypercube_kernel.cpp:293]   --->   Operation 6 'read' 'K_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 7 [1/1] (0.00ns)   --->   "%val_read = call i31 @_ssdm_op_Read.ap_auto.i31(i31 %val_r) nounwind" [../../../../src/hypercube_kernel.cpp:293]   --->   Operation 7 'read' 'val_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 8 [1/1] (0.00ns)   --->   "%trunc_ln312 = trunc i31 %val_read to i1" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 8 'trunc' 'trunc_ln312' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 9 [1/1] (0.00ns)   --->   "%zext_ln316 = zext i4 %K_read to i5" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 9 'zext' 'zext_ln316' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 10 [1/1] (0.33ns)   --->   "%add_ln316 = add i5 -1, %zext_ln316" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 10 'add' 'add_ln316' <Predicate = true> <Delay = 0.33> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 11 [1/1] (0.00ns)   --->   "%sext_ln316 = sext i5 %add_ln316 to i32" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 11 'sext' 'sext_ln316' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 12 [1/1] (0.00ns)   --->   "%zext_ln317 = zext i32 %sext_ln316 to i64" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 12 'zext' 'zext_ln317' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 13 [1/1] (0.00ns)   --->   "%nck2_9_addr = getelementptr [10 x i7]* @nck2_9, i64 0, i64 %zext_ln317" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 13 'getelementptr' 'nck2_9_addr' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 14 [2/2] (0.59ns)   --->   "%nck2_9_load = load i7* %nck2_9_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 14 'load' 'nck2_9_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_1 : Operation 15 [1/1] (0.00ns)   --->   "%zext_ln312_1 = zext i1 %trunc_ln312 to i5" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 15 'zext' 'zext_ln312_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 16 [1/1] (0.00ns)   --->   "%zext_ln312_2 = zext i1 %trunc_ln312 to i2" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 16 'zext' 'zext_ln312_2' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 17 [1/1] (0.00ns)   --->   "%tmp_1 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %val_read, i32 1)" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 17 'bitselect' 'tmp_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 18 [1/1] (0.34ns)   --->   "%sub_ln316 = sub i5 %add_ln316, %zext_ln312_1" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 18 'sub' 'sub_ln316' <Predicate = true> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 19 [1/1] (0.00ns)   --->   "%sext_ln316_1 = sext i5 %sub_ln316 to i32" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 19 'sext' 'sext_ln316_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 20 [1/1] (0.00ns)   --->   "%tmp_2 = call i1 @_ssdm_op_BitSelect.i1.i5.i32(i5 %sub_ln316, i32 4)" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 20 'bitselect' 'tmp_2' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 21 [1/1] (0.00ns) (grouped into LUT with out node select_ln317_1)   --->   "%select_ln313 = select i1 %trunc_ln312, i2 -2, i2 1" [../../../../src/hypercube_kernel.cpp:313]   --->   Operation 21 'select' 'select_ln313' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_1 : Operation 22 [1/1] (0.00ns)   --->   "%zext_ln317_1 = zext i32 %sext_ln316_1 to i64" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 22 'zext' 'zext_ln317_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 23 [1/1] (0.00ns)   --->   "%nck2_8_addr = getelementptr [10 x i7]* @nck2_8, i64 0, i64 %zext_ln317_1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 23 'getelementptr' 'nck2_8_addr' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 24 [2/2] (0.59ns)   --->   "%nck2_8_load = load i7* %nck2_8_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 24 'load' 'nck2_8_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_1 : Operation 25 [1/1] (0.12ns)   --->   "%or_ln317_2 = or i1 %tmp_1, %tmp_2" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 25 'or' 'or_ln317_2' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_1 : Operation 26 [1/1] (0.00ns) (grouped into LUT with out node select_ln317_1)   --->   "%select_ln312_1 = select i1 %tmp_1, i2 %select_ln313, i2 %zext_ln312_2" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 26 'select' 'select_ln312_1' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_1 : Operation 27 [1/1] (0.27ns) (out node of the LUT)   --->   "%select_ln317_1 = select i1 %or_ln317_2, i2 %select_ln312_1, i2 %zext_ln312_2" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 27 'select' 'select_ln317_1' <Predicate = true> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_1 : Operation 28 [1/1] (0.00ns)   --->   "%tmp_3 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %val_read, i32 2)" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 28 'bitselect' 'tmp_3' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 29 [1/1] (0.00ns)   --->   "%tmp_5 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %val_read, i32 3)" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 29 'bitselect' 'tmp_5' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 30 [1/1] (0.00ns)   --->   "%trunc_ln312_1 = trunc i31 %val_read to i5" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 30 'trunc' 'trunc_ln312_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 31 [1/1] (0.00ns)   --->   "%tmp_9 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %val_read, i32 5)" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 31 'bitselect' 'tmp_9' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 32 [1/1] (0.00ns)   --->   "%tmp_11 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %val_read, i32 6)" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 32 'bitselect' 'tmp_11' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 33 [1/1] (0.00ns)   --->   "%tmp_13 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %val_read, i32 7)" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 33 'bitselect' 'tmp_13' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 34 [1/1] (0.00ns)   --->   "%tmp_15 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %val_read, i32 8)" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 34 'bitselect' 'tmp_15' <Predicate = true> <Delay = 0.00>
+
+State 2 <SV = 1> <Delay = 2.41>
+ST_2 : Operation 35 [1/1] (0.00ns) (grouped into LUT with out node select_ln312)   --->   "%tmp = call i1 @_ssdm_op_BitSelect.i1.i5.i32(i5 %add_ln316, i32 4)" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 35 'bitselect' 'tmp' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 36 [1/2] (0.59ns)   --->   "%nck2_9_load = load i7* %nck2_9_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 36 'load' 'nck2_9_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_2 : Operation 37 [1/1] (0.00ns) (grouped into LUT with out node select_ln312)   --->   "%or_ln317_1 = or i1 %tmp, %trunc_ln312" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 37 'or' 'or_ln317_1' <Predicate = true> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 38 [1/1] (0.00ns) (grouped into LUT with out node select_ln312)   --->   "%or_ln312 = or i1 %trunc_ln312, %or_ln317_1" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 38 'or' 'or_ln312' <Predicate = true> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 39 [1/1] (0.30ns) (out node of the LUT)   --->   "%select_ln312 = select i1 %or_ln312, i7 0, i7 %nck2_9_load" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 39 'select' 'select_ln312' <Predicate = true> <Delay = 0.30> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 40 [1/1] (0.00ns)   --->   "%zext_ln312 = zext i7 %select_ln312 to i8" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 40 'zext' 'zext_ln312' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 41 [1/2] (0.59ns)   --->   "%nck2_8_load = load i7* %nck2_8_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 41 'load' 'nck2_8_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_2 : Operation 42 [1/1] (0.00ns)   --->   "%zext_ln317_9 = zext i7 %nck2_8_load to i8" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 42 'zext' 'zext_ln317_9' <Predicate = (!or_ln317_2)> <Delay = 0.00>
+ST_2 : Operation 43 [1/1] (0.40ns)   --->   "%add_ln317 = add i8 %zext_ln317_9, %zext_ln312" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 43 'add' 'add_ln317' <Predicate = (!or_ln317_2)> <Delay = 0.40> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 44 [1/1] (0.30ns)   --->   "%select_ln317 = select i1 %or_ln317_2, i8 %zext_ln312, i8 %add_ln317" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 44 'select' 'select_ln317' <Predicate = true> <Delay = 0.30> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 45 [1/1] (0.00ns)   --->   "%zext_ln317_10 = zext i2 %select_ln317_1 to i5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 45 'zext' 'zext_ln317_10' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 46 [1/1] (0.34ns)   --->   "%sub_ln316_1 = sub i5 %add_ln316, %zext_ln317_10" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 46 'sub' 'sub_ln316_1' <Predicate = true> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 47 [1/1] (0.00ns)   --->   "%sext_ln316_2 = sext i5 %sub_ln316_1 to i32" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 47 'sext' 'sext_ln316_2' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 48 [1/1] (0.00ns)   --->   "%tmp_4 = call i1 @_ssdm_op_BitSelect.i1.i5.i32(i5 %sub_ln316_1, i32 4)" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 48 'bitselect' 'tmp_4' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 49 [1/1] (0.23ns)   --->   "%add_ln313 = add i2 1, %select_ln317_1" [../../../../src/hypercube_kernel.cpp:313]   --->   Operation 49 'add' 'add_ln313' <Predicate = (tmp_3)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 50 [1/1] (0.00ns)   --->   "%zext_ln317_2 = zext i32 %sext_ln316_2 to i64" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 50 'zext' 'zext_ln317_2' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 51 [1/1] (0.00ns)   --->   "%nck2_7_addr = getelementptr [10 x i6]* @nck2_7, i64 0, i64 %zext_ln317_2" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 51 'getelementptr' 'nck2_7_addr' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 52 [2/2] (0.59ns)   --->   "%nck2_7_load = load i6* %nck2_7_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 52 'load' 'nck2_7_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_2 : Operation 53 [1/1] (0.12ns)   --->   "%or_ln317_3 = or i1 %tmp_3, %tmp_4" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 53 'or' 'or_ln317_3' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 54 [1/1] (0.00ns) (grouped into LUT with out node select_ln317_3)   --->   "%select_ln312_2 = select i1 %tmp_3, i2 %add_ln313, i2 %select_ln317_1" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 54 'select' 'select_ln312_2' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 55 [1/1] (0.27ns) (out node of the LUT)   --->   "%select_ln317_3 = select i1 %or_ln317_3, i2 %select_ln312_2, i2 %select_ln317_1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 55 'select' 'select_ln317_3' <Predicate = true> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 56 [1/1] (0.00ns)   --->   "%zext_ln317_12 = zext i2 %select_ln317_3 to i3" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 56 'zext' 'zext_ln317_12' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 57 [1/1] (0.00ns)   --->   "%zext_ln317_13 = zext i2 %select_ln317_3 to i5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 57 'zext' 'zext_ln317_13' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 58 [1/1] (0.34ns)   --->   "%sub_ln316_2 = sub i5 %add_ln316, %zext_ln317_13" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 58 'sub' 'sub_ln316_2' <Predicate = true> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 59 [1/1] (0.00ns)   --->   "%sext_ln316_3 = sext i5 %sub_ln316_2 to i32" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 59 'sext' 'sext_ln316_3' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 60 [1/1] (0.00ns)   --->   "%tmp_6 = call i1 @_ssdm_op_BitSelect.i1.i5.i32(i5 %sub_ln316_2, i32 4)" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 60 'bitselect' 'tmp_6' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 61 [1/1] (0.23ns)   --->   "%add_ln313_1 = add i3 1, %zext_ln317_12" [../../../../src/hypercube_kernel.cpp:313]   --->   Operation 61 'add' 'add_ln313_1' <Predicate = (tmp_5)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 62 [1/1] (0.00ns)   --->   "%zext_ln317_3 = zext i32 %sext_ln316_3 to i64" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 62 'zext' 'zext_ln317_3' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 63 [1/1] (0.00ns)   --->   "%nck2_6_addr = getelementptr [10 x i5]* @nck2_6, i64 0, i64 %zext_ln317_3" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 63 'getelementptr' 'nck2_6_addr' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 64 [2/2] (0.59ns)   --->   "%nck2_6_load = load i5* %nck2_6_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 64 'load' 'nck2_6_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_2 : Operation 65 [1/1] (0.12ns)   --->   "%or_ln317_4 = or i1 %tmp_5, %tmp_6" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 65 'or' 'or_ln317_4' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 66 [1/1] (0.00ns) (grouped into LUT with out node select_ln317_5)   --->   "%select_ln312_3 = select i1 %tmp_5, i3 %add_ln313_1, i3 %zext_ln317_12" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 66 'select' 'select_ln312_3' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 67 [1/1] (0.27ns) (out node of the LUT)   --->   "%select_ln317_5 = select i1 %or_ln317_4, i3 %select_ln312_3, i3 %zext_ln317_12" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 67 'select' 'select_ln317_5' <Predicate = true> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 68 [1/1] (0.00ns)   --->   "%zext_ln317_16 = zext i3 %select_ln317_5 to i5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 68 'zext' 'zext_ln317_16' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 69 [1/1] (0.00ns) (grouped into LUT with out node select_ln317_7)   --->   "%tmp_7 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %val_read, i32 4)" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 69 'bitselect' 'tmp_7' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 70 [1/1] (0.34ns)   --->   "%sub_ln316_3 = sub i5 %add_ln316, %zext_ln317_16" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 70 'sub' 'sub_ln316_3' <Predicate = true> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 71 [1/1] (0.00ns)   --->   "%sext_ln316_4 = sext i5 %sub_ln316_3 to i32" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 71 'sext' 'sext_ln316_4' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 72 [1/1] (0.26ns)   --->   "%add_ln313_2 = add i3 1, %select_ln317_5" [../../../../src/hypercube_kernel.cpp:313]   --->   Operation 72 'add' 'add_ln313_2' <Predicate = true> <Delay = 0.26> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 73 [1/1] (0.00ns)   --->   "%zext_ln317_4 = zext i32 %sext_ln316_4 to i64" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 73 'zext' 'zext_ln317_4' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 74 [1/1] (0.00ns)   --->   "%nck2_5_addr = getelementptr [10 x i4]* @nck2_5, i64 0, i64 %zext_ln317_4" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 74 'getelementptr' 'nck2_5_addr' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 75 [2/2] (0.59ns)   --->   "%nck2_5_load = load i4* %nck2_5_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 75 'load' 'nck2_5_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_2 : Operation 76 [1/1] (0.10ns)   --->   "%or_ln317 = or i5 %trunc_ln312_1, %sub_ln316_3" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 76 'or' 'or_ln317' <Predicate = true> <Delay = 0.10> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 77 [1/1] (0.00ns)   --->   "%tmp_8 = call i1 @_ssdm_op_BitSelect.i1.i5.i32(i5 %or_ln317, i32 4)" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 77 'bitselect' 'tmp_8' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 78 [1/1] (0.00ns) (grouped into LUT with out node select_ln317_7)   --->   "%select_ln312_4 = select i1 %tmp_7, i3 %add_ln313_2, i3 %select_ln317_5" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 78 'select' 'select_ln312_4' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_2 : Operation 79 [1/1] (0.27ns) (out node of the LUT)   --->   "%select_ln317_7 = select i1 %tmp_8, i3 %select_ln312_4, i3 %select_ln317_5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 79 'select' 'select_ln317_7' <Predicate = true> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+
+State 3 <SV = 2> <Delay = 2.16>
+ST_3 : Operation 80 [1/2] (0.59ns)   --->   "%nck2_7_load = load i6* %nck2_7_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 80 'load' 'nck2_7_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_3 : Operation 81 [1/1] (0.00ns)   --->   "%zext_ln317_11 = zext i6 %nck2_7_load to i8" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 81 'zext' 'zext_ln317_11' <Predicate = (!or_ln317_3)> <Delay = 0.00>
+ST_3 : Operation 82 [1/1] (0.48ns)   --->   "%add_ln317_1 = add i8 %zext_ln317_11, %select_ln317" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 82 'add' 'add_ln317_1' <Predicate = (!or_ln317_3)> <Delay = 0.48> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 83 [1/1] (0.30ns)   --->   "%select_ln317_2 = select i1 %or_ln317_3, i8 %select_ln317, i8 %add_ln317_1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 83 'select' 'select_ln317_2' <Predicate = true> <Delay = 0.30> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 84 [1/2] (0.59ns)   --->   "%nck2_6_load = load i5* %nck2_6_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 84 'load' 'nck2_6_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_3 : Operation 85 [1/1] (0.00ns)   --->   "%zext_ln317_14 = zext i5 %nck2_6_load to i8" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 85 'zext' 'zext_ln317_14' <Predicate = (!or_ln317_4)> <Delay = 0.00>
+ST_3 : Operation 86 [1/1] (0.48ns)   --->   "%add_ln317_2 = add i8 %zext_ln317_14, %select_ln317_2" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 86 'add' 'add_ln317_2' <Predicate = (!or_ln317_4)> <Delay = 0.48> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 87 [1/1] (0.30ns)   --->   "%select_ln317_4 = select i1 %or_ln317_4, i8 %select_ln317_2, i8 %add_ln317_2" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 87 'select' 'select_ln317_4' <Predicate = true> <Delay = 0.30> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 88 [1/2] (0.59ns)   --->   "%nck2_5_load = load i4* %nck2_5_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 88 'load' 'nck2_5_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_3 : Operation 89 [1/1] (0.00ns)   --->   "%zext_ln317_18 = zext i3 %select_ln317_7 to i5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 89 'zext' 'zext_ln317_18' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 90 [1/1] (0.34ns)   --->   "%sub_ln316_4 = sub i5 %add_ln316, %zext_ln317_18" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 90 'sub' 'sub_ln316_4' <Predicate = true> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 91 [1/1] (0.00ns)   --->   "%sext_ln316_5 = sext i5 %sub_ln316_4 to i32" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 91 'sext' 'sext_ln316_5' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 92 [1/1] (0.00ns)   --->   "%tmp_10 = call i1 @_ssdm_op_BitSelect.i1.i5.i32(i5 %sub_ln316_4, i32 4)" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 92 'bitselect' 'tmp_10' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 93 [1/1] (0.26ns)   --->   "%add_ln313_3 = add i3 1, %select_ln317_7" [../../../../src/hypercube_kernel.cpp:313]   --->   Operation 93 'add' 'add_ln313_3' <Predicate = (tmp_9)> <Delay = 0.26> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 94 [1/1] (0.00ns)   --->   "%zext_ln317_5 = zext i32 %sext_ln316_5 to i64" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 94 'zext' 'zext_ln317_5' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 95 [1/1] (0.00ns)   --->   "%nck2_4_addr = getelementptr [10 x i3]* @nck2_4, i64 0, i64 %zext_ln317_5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 95 'getelementptr' 'nck2_4_addr' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 96 [2/2] (0.59ns)   --->   "%nck2_4_load = load i3* %nck2_4_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 96 'load' 'nck2_4_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_3 : Operation 97 [1/1] (0.12ns)   --->   "%or_ln317_5 = or i1 %tmp_9, %tmp_10" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 97 'or' 'or_ln317_5' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 98 [1/1] (0.00ns) (grouped into LUT with out node select_ln317_9)   --->   "%select_ln312_5 = select i1 %tmp_9, i3 %add_ln313_3, i3 %select_ln317_7" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 98 'select' 'select_ln312_5' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 99 [1/1] (0.27ns) (out node of the LUT)   --->   "%select_ln317_9 = select i1 %or_ln317_5, i3 %select_ln312_5, i3 %select_ln317_7" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 99 'select' 'select_ln317_9' <Predicate = true> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 100 [1/1] (0.00ns)   --->   "%zext_ln317_20 = zext i3 %select_ln317_9 to i5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 100 'zext' 'zext_ln317_20' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 101 [1/1] (0.34ns)   --->   "%sub_ln316_5 = sub i5 %add_ln316, %zext_ln317_20" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 101 'sub' 'sub_ln316_5' <Predicate = true> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 102 [1/1] (0.00ns)   --->   "%sext_ln316_6 = sext i5 %sub_ln316_5 to i32" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 102 'sext' 'sext_ln316_6' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 103 [1/1] (0.00ns)   --->   "%tmp_12 = call i1 @_ssdm_op_BitSelect.i1.i5.i32(i5 %sub_ln316_5, i32 4)" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 103 'bitselect' 'tmp_12' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 104 [1/1] (0.26ns)   --->   "%add_ln313_4 = add i3 1, %select_ln317_9" [../../../../src/hypercube_kernel.cpp:313]   --->   Operation 104 'add' 'add_ln313_4' <Predicate = (tmp_11)> <Delay = 0.26> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 105 [1/1] (0.00ns)   --->   "%zext_ln317_6 = zext i32 %sext_ln316_6 to i64" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 105 'zext' 'zext_ln317_6' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 106 [1/1] (0.00ns)   --->   "%nck2_3_addr = getelementptr [10 x i2]* @nck2_3, i64 0, i64 %zext_ln317_6" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 106 'getelementptr' 'nck2_3_addr' <Predicate = true> <Delay = 0.00>
+ST_3 : Operation 107 [2/2] (0.59ns)   --->   "%nck2_3_load = load i2* %nck2_3_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 107 'load' 'nck2_3_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_3 : Operation 108 [1/1] (0.12ns)   --->   "%or_ln317_6 = or i1 %tmp_11, %tmp_12" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 108 'or' 'or_ln317_6' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 109 [1/1] (0.00ns) (grouped into LUT with out node select_ln317_11)   --->   "%select_ln312_6 = select i1 %tmp_11, i3 %add_ln313_4, i3 %select_ln317_9" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 109 'select' 'select_ln312_6' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 110 [1/1] (0.27ns) (out node of the LUT)   --->   "%select_ln317_11 = select i1 %or_ln317_6, i3 %select_ln312_6, i3 %select_ln317_9" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 110 'select' 'select_ln317_11' <Predicate = true> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+
+State 4 <SV = 3> <Delay = 2.41>
+ST_4 : Operation 111 [1/1] (0.00ns)   --->   "%zext_ln317_15 = zext i8 %select_ln317_4 to i9" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 111 'zext' 'zext_ln317_15' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 112 [1/1] (0.00ns)   --->   "%zext_ln317_17 = zext i4 %nck2_5_load to i9" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 112 'zext' 'zext_ln317_17' <Predicate = (!tmp_8)> <Delay = 0.00>
+ST_4 : Operation 113 [1/1] (0.48ns)   --->   "%add_ln317_3 = add i9 %zext_ln317_17, %zext_ln317_15" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 113 'add' 'add_ln317_3' <Predicate = (!tmp_8)> <Delay = 0.48> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 114 [1/1] (0.30ns)   --->   "%select_ln317_6 = select i1 %tmp_8, i9 %zext_ln317_15, i9 %add_ln317_3" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 114 'select' 'select_ln317_6' <Predicate = true> <Delay = 0.30> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_4 : Operation 115 [1/2] (0.59ns)   --->   "%nck2_4_load = load i3* %nck2_4_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 115 'load' 'nck2_4_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_4 : Operation 116 [1/1] (0.00ns)   --->   "%zext_ln317_19 = zext i3 %nck2_4_load to i9" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 116 'zext' 'zext_ln317_19' <Predicate = (!or_ln317_5)> <Delay = 0.00>
+ST_4 : Operation 117 [1/1] (0.51ns)   --->   "%add_ln317_4 = add i9 %zext_ln317_19, %select_ln317_6" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 117 'add' 'add_ln317_4' <Predicate = (!or_ln317_5)> <Delay = 0.51> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 118 [1/1] (0.30ns)   --->   "%select_ln317_8 = select i1 %or_ln317_5, i9 %select_ln317_6, i9 %add_ln317_4" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 118 'select' 'select_ln317_8' <Predicate = true> <Delay = 0.30> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_4 : Operation 119 [1/2] (0.59ns)   --->   "%nck2_3_load = load i2* %nck2_3_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 119 'load' 'nck2_3_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_4 : Operation 120 [1/1] (0.00ns)   --->   "%zext_ln317_21 = zext i2 %nck2_3_load to i9" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 120 'zext' 'zext_ln317_21' <Predicate = (!or_ln317_6)> <Delay = 0.00>
+ST_4 : Operation 121 [1/1] (0.51ns)   --->   "%add_ln317_5 = add i9 %zext_ln317_21, %select_ln317_8" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 121 'add' 'add_ln317_5' <Predicate = (!or_ln317_6)> <Delay = 0.51> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 122 [1/1] (0.30ns)   --->   "%select_ln317_10 = select i1 %or_ln317_6, i9 %select_ln317_8, i9 %add_ln317_5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 122 'select' 'select_ln317_10' <Predicate = true> <Delay = 0.30> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_4 : Operation 123 [1/1] (0.00ns)   --->   "%zext_ln317_22 = zext i3 %select_ln317_11 to i4" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 123 'zext' 'zext_ln317_22' <Predicate = (!tmp_15)> <Delay = 0.00>
+ST_4 : Operation 124 [1/1] (0.00ns)   --->   "%zext_ln317_23 = zext i3 %select_ln317_11 to i5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 124 'zext' 'zext_ln317_23' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 125 [1/1] (0.34ns)   --->   "%sub_ln316_6 = sub i5 %add_ln316, %zext_ln317_23" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 125 'sub' 'sub_ln316_6' <Predicate = true> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 126 [1/1] (0.00ns)   --->   "%sext_ln316_7 = sext i5 %sub_ln316_6 to i32" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 126 'sext' 'sext_ln316_7' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 127 [1/1] (0.00ns)   --->   "%tmp_14 = call i1 @_ssdm_op_BitSelect.i1.i5.i32(i5 %sub_ln316_6, i32 4)" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 127 'bitselect' 'tmp_14' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 128 [1/1] (0.26ns)   --->   "%add_ln313_5 = add i4 1, %zext_ln317_22" [../../../../src/hypercube_kernel.cpp:313]   --->   Operation 128 'add' 'add_ln313_5' <Predicate = (tmp_13 & !tmp_15)> <Delay = 0.26> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 129 [1/1] (0.00ns)   --->   "%zext_ln317_7 = zext i32 %sext_ln316_7 to i64" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 129 'zext' 'zext_ln317_7' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 130 [1/1] (0.00ns)   --->   "%nck2_2_addr = getelementptr [10 x i2]* @nck2_2, i64 0, i64 %zext_ln317_7" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 130 'getelementptr' 'nck2_2_addr' <Predicate = true> <Delay = 0.00>
+ST_4 : Operation 131 [2/2] (0.59ns)   --->   "%nck2_2_load = load i2* %nck2_2_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 131 'load' 'nck2_2_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_4 : Operation 132 [1/1] (0.12ns)   --->   "%or_ln317_7 = or i1 %tmp_13, %tmp_14" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 132 'or' 'or_ln317_7' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 133 [1/1] (0.00ns) (grouped into LUT with out node sub_ln316_7)   --->   "%select_ln312_7 = select i1 %tmp_13, i4 %add_ln313_5, i4 %zext_ln317_22" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 133 'select' 'select_ln312_7' <Predicate = (!tmp_15)> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_4 : Operation 134 [1/1] (0.00ns) (grouped into LUT with out node sub_ln316_7)   --->   "%select_ln317_13 = select i1 %or_ln317_7, i4 %select_ln312_7, i4 %zext_ln317_22" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 134 'select' 'select_ln317_13' <Predicate = (!tmp_15)> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_4 : Operation 135 [1/1] (0.00ns) (grouped into LUT with out node sub_ln316_7)   --->   "%zext_ln317_25 = zext i4 %select_ln317_13 to i5" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 135 'zext' 'zext_ln317_25' <Predicate = (!tmp_15)> <Delay = 0.00>
+ST_4 : Operation 136 [1/1] (0.35ns) (out node of the LUT)   --->   "%sub_ln316_7 = sub i5 %add_ln316, %zext_ln317_25" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 136 'sub' 'sub_ln316_7' <Predicate = (!tmp_15)> <Delay = 0.35> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 137 [1/1] (0.00ns)   --->   "%sext_ln316_8 = sext i5 %sub_ln316_7 to i32" [../../../../src/hypercube_kernel.cpp:316]   --->   Operation 137 'sext' 'sext_ln316_8' <Predicate = (!tmp_15)> <Delay = 0.00>
+ST_4 : Operation 138 [1/1] (0.00ns)   --->   "%zext_ln317_8 = zext i32 %sext_ln316_8 to i64" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 138 'zext' 'zext_ln317_8' <Predicate = (!tmp_15)> <Delay = 0.00>
+ST_4 : Operation 139 [1/1] (0.00ns)   --->   "%nck2_1_addr = getelementptr [10 x i1]* @nck2_1, i64 0, i64 %zext_ln317_8" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 139 'getelementptr' 'nck2_1_addr' <Predicate = (!tmp_15)> <Delay = 0.00>
+ST_4 : Operation 140 [2/2] (0.59ns)   --->   "%nck2_1_load = load i1* %nck2_1_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 140 'load' 'nck2_1_load' <Predicate = (!tmp_15)> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+
+State 5 <SV = 4> <Delay = 2.22>
+ST_5 : Operation 141 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([10 x i1]* @nck2_1, [10 x i2]* @nck2_2, [10 x i2]* @nck2_3, [10 x i3]* @nck2_4, [10 x i4]* @nck2_5, [10 x i5]* @nck2_6, [10 x i6]* @nck2_7, [10 x i7]* @nck2_8, [10 x i7]* @nck2_9, [1 x i8]* @p_str, [14 x i8]* @p_str9, [1 x i8]* @p_str, i32 -1, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str) nounwind" [../../../../src/hypercube_kernel.cpp:308]   --->   Operation 141 'specmemcore' <Predicate = true> <Delay = 0.00>
+ST_5 : Operation 142 [1/2] (0.59ns)   --->   "%nck2_2_load = load i2* %nck2_2_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 142 'load' 'nck2_2_load' <Predicate = true> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_5 : Operation 143 [1/1] (0.00ns)   --->   "%zext_ln317_24 = zext i2 %nck2_2_load to i9" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 143 'zext' 'zext_ln317_24' <Predicate = (!or_ln317_7)> <Delay = 0.00>
+ST_5 : Operation 144 [1/1] (0.51ns)   --->   "%add_ln317_6 = add i9 %zext_ln317_24, %select_ln317_10" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 144 'add' 'add_ln317_6' <Predicate = (!or_ln317_7)> <Delay = 0.51> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 145 [1/1] (0.30ns)   --->   "%select_ln317_12 = select i1 %or_ln317_7, i9 %select_ln317_10, i9 %add_ln317_6" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 145 'select' 'select_ln317_12' <Predicate = true> <Delay = 0.30> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_5 : Operation 146 [1/1] (0.00ns) (grouped into LUT with out node select_ln312_8)   --->   "%tmp_16 = call i1 @_ssdm_op_BitSelect.i1.i5.i32(i5 %sub_ln316_7, i32 4)" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 146 'bitselect' 'tmp_16' <Predicate = (!tmp_15)> <Delay = 0.00>
+ST_5 : Operation 147 [1/2] (0.59ns)   --->   "%nck2_1_load = load i1* %nck2_1_addr, align 1" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 147 'load' 'nck2_1_load' <Predicate = (!tmp_15)> <Delay = 0.59> <Core = "RAM_1P_LUTRAM">   --->   Core 45 'RAM_1P_LUTRAM' <Latency = 1> <II = 1> <Delay = 0.59> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 1> <Depth = 10> <RAM>
+ST_5 : Operation 148 [1/1] (0.00ns)   --->   "%zext_ln317_26 = zext i1 %nck2_1_load to i9" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 148 'zext' 'zext_ln317_26' <Predicate = (!tmp_15)> <Delay = 0.00>
+ST_5 : Operation 149 [1/1] (0.51ns)   --->   "%add_ln317_7 = add i9 %zext_ln317_26, %select_ln317_12" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 149 'add' 'add_ln317_7' <Predicate = (!tmp_15)> <Delay = 0.51> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.51> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 150 [1/1] (0.00ns) (grouped into LUT with out node select_ln312_8)   --->   "%or_ln317_8 = or i1 %tmp_15, %tmp_16" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 150 'or' 'or_ln317_8' <Predicate = (!tmp_15)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_5 : Operation 151 [1/1] (0.00ns) (grouped into LUT with out node select_ln312_8)   --->   "%select_ln317_14 = select i1 %or_ln317_8, i9 %select_ln317_12, i9 %add_ln317_7" [../../../../src/hypercube_kernel.cpp:317]   --->   Operation 151 'select' 'select_ln317_14' <Predicate = (!tmp_15)> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_5 : Operation 152 [1/1] (0.30ns) (out node of the LUT)   --->   "%select_ln312_8 = select i1 %tmp_15, i9 %select_ln317_12, i9 %select_ln317_14" [../../../../src/hypercube_kernel.cpp:312]   --->   Operation 152 'select' 'select_ln312_8' <Predicate = true> <Delay = 0.30> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.30> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_5 : Operation 153 [1/1] (0.00ns)   --->   "ret i9 %select_ln312_8" [../../../../src/hypercube_kernel.cpp:320]   --->   Operation 153 'ret' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 3.33ns, clock uncertainty: 0.9ns.
+
+ <State 1>: 1.27ns
+The critical path consists of the following:
+	wire read on port 'K' (../../../../src/hypercube_kernel.cpp:293) [12]  (0 ns)
+	'add' operation ('add_ln316', ../../../../src/hypercube_kernel.cpp:316) [17]  (0.336 ns)
+	'sub' operation ('sub_ln316', ../../../../src/hypercube_kernel.cpp:316) [30]  (0.341 ns)
+	'getelementptr' operation ('nck2_8_addr', ../../../../src/hypercube_kernel.cpp:317) [35]  (0 ns)
+	'load' operation ('nck2_8_load', ../../../../src/hypercube_kernel.cpp:317) on array 'nck2_8' [36]  (0.594 ns)
+
+ <State 2>: 2.42ns
+The critical path consists of the following:
+	'sub' operation ('sub_ln316_1', ../../../../src/hypercube_kernel.cpp:316) [45]  (0.341 ns)
+	'or' operation ('or_ln317_3', ../../../../src/hypercube_kernel.cpp:317) [54]  (0.122 ns)
+	'select' operation ('select_ln317_3', ../../../../src/hypercube_kernel.cpp:317) [57]  (0.278 ns)
+	'sub' operation ('sub_ln316_2', ../../../../src/hypercube_kernel.cpp:316) [61]  (0.341 ns)
+	'or' operation ('or_ln317_4', ../../../../src/hypercube_kernel.cpp:317) [70]  (0.122 ns)
+	'select' operation ('select_ln317_5', ../../../../src/hypercube_kernel.cpp:317) [74]  (0.278 ns)
+	'sub' operation ('sub_ln316_3', ../../../../src/hypercube_kernel.cpp:316) [78]  (0.341 ns)
+	'getelementptr' operation ('nck2_5_addr', ../../../../src/hypercube_kernel.cpp:317) [82]  (0 ns)
+	'load' operation ('nck2_5_load', ../../../../src/hypercube_kernel.cpp:317) on array 'nck2_5' [83]  (0.594 ns)
+
+ <State 3>: 2.16ns
+The critical path consists of the following:
+	'load' operation ('nck2_7_load', ../../../../src/hypercube_kernel.cpp:317) on array 'nck2_7' [51]  (0.594 ns)
+	'add' operation ('add_ln317_1', ../../../../src/hypercube_kernel.cpp:317) [53]  (0.481 ns)
+	'select' operation ('select_ln317_2', ../../../../src/hypercube_kernel.cpp:317) [55]  (0.303 ns)
+	'add' operation ('add_ln317_2', ../../../../src/hypercube_kernel.cpp:317) [69]  (0.481 ns)
+	'select' operation ('select_ln317_4', ../../../../src/hypercube_kernel.cpp:317) [71]  (0.303 ns)
+
+ <State 4>: 2.41ns
+The critical path consists of the following:
+	'add' operation ('add_ln317_3', ../../../../src/hypercube_kernel.cpp:317) [85]  (0.481 ns)
+	'select' operation ('select_ln317_6', ../../../../src/hypercube_kernel.cpp:317) [88]  (0.303 ns)
+	'add' operation ('add_ln317_4', ../../../../src/hypercube_kernel.cpp:317) [101]  (0.512 ns)
+	'select' operation ('select_ln317_8', ../../../../src/hypercube_kernel.cpp:317) [103]  (0.303 ns)
+	'add' operation ('add_ln317_5', ../../../../src/hypercube_kernel.cpp:317) [116]  (0.512 ns)
+	'select' operation ('select_ln317_10', ../../../../src/hypercube_kernel.cpp:317) [118]  (0.303 ns)
+
+ <State 5>: 2.22ns
+The critical path consists of the following:
+	'load' operation ('nck2_2_load', ../../../../src/hypercube_kernel.cpp:317) on array 'nck2_2' [130]  (0.594 ns)
+	'add' operation ('add_ln317_6', ../../../../src/hypercube_kernel.cpp:317) [132]  (0.512 ns)
+	'select' operation ('select_ln317_12', ../../../../src/hypercube_kernel.cpp:317) [134]  (0.303 ns)
+	'add' operation ('add_ln317_7', ../../../../src/hypercube_kernel.cpp:317) [146]  (0.512 ns)
+	'select' operation ('select_ln317_14', ../../../../src/hypercube_kernel.cpp:317) [148]  (0 ns)
+	'select' operation ('select_ln312_8', ../../../../src/hypercube_kernel.cpp:312) [149]  (0.303 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A

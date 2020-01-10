@@ -1,0 +1,52 @@
+<profile>
+
+<section name = "Vivado HLS Report for 'hypercube_kernel'" level="0">
+<item name = "Date">Thu Jan  9 21:44:29 2020
+</item>
+<item name = "Version">2019.1 (Build 2552052 on Fri May 24 15:28:33 MDT 2019)</item>
+<item name = "Project">hypercube_kernel</item>
+<item name = "Solution">solution</item>
+<item name = "Product family">virtexuplus</item>
+<item name = "Target device">xcu200-fsgd2104-2-e</item>
+</section>
+
+<section name = "Performance Estimates" level="0">
+<item name = "Timing (ns)">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="4">Clock, Target, Estimated, Uncertainty</keys>
+<column name="ap_clk">3.33, 2.433, 0.90</column>
+</table>
+</item>
+</section>
+</item>
+<item name = "Latency (clock cycles)">
+<section name = "" level="1">
+<item name = "Summary"><table name="" hasTotal="0">
+<keys size="6">, min, max, min, max, Type</keys>
+<column name="">?, ?, ?, ?, none</column>
+</table>
+</item>
+<item name = "Detail">
+<section name = "" level="1">
+<item name = "Instance"><table name="" hasTotal="0">
+<keys size="7">Instance, Module, min, max, min, max, Type</keys>
+</table>
+</item>
+<item name = "Loop"><table name="" hasTotal="0">
+<keys size="8">Loop Name, min, max, Latency, achieved, target, Count, Pipelined</keys>
+<column name="- memcpy.dataset.V.addr.p_dataset.V">1001, 1001, 3, 1, 1, 1000, yes</column>
+<column name="- Loop 2">1000, 1000, 2, 1, 1, 1000, yes</column>
+<column name="- Loop 3">1260, 1260, 5, 5, 1, 252, yes</column>
+<column name="- Loop 4">281, 281, 2, 1, 1, 280, yes</column>
+<column name="- Loop 5">?, ?, ?, -, -, 11, no</column>
+<column name=" + Loop 5.1">211, 757339804, 211 ~ 189334951, -, -, 1 ~ 4, no</column>
+<column name=" + Loop 5.2">?, ?, 12, 5, 1, ?, yes</column>
+</table>
+</item>
+</section>
+</item>
+</section>
+</item>
+</section>
+</profile>

@@ -1,0 +1,1265 @@
+
+
+================================================================
+== Vivado HLS Report for 'calc_bdeu_local_score'
+================================================================
+* Date:           Thu Jan  9 20:27:10 2020
+
+* Version:        2019.1 (Build 2552052 on Fri May 24 15:28:33 MDT 2019)
+* Project:        hypercube_kernel
+* Solution:       solution
+* Product family: virtexuplus
+* Target device:  xcu200-fsgd2104-2-e
+
+
+================================================================
+== Performance Estimates
+================================================================
++ Timing (ns): 
+    * Summary: 
+    +--------+-------+----------+------------+
+    |  Clock | Target| Estimated| Uncertainty|
+    +--------+-------+----------+------------+
+    |ap_clk  |   3.33|     2.317|        0.90|
+    +--------+-------+----------+------------+
+
++ Latency (clock cycles): 
+    * Summary: 
+    +------+--------+------+--------+---------+
+    |    Latency    |    Interval   | Pipeline|
+    |  min |   max  |  min |   max  |   Type  |
+    +------+--------+------+--------+---------+
+    |  1093|  270402|  1093|  270402|   none  |
+    +------+--------+------+--------+---------+
+
+    + Detail: 
+        * Instance: 
+        N/A
+
+        * Loop: 
+        +-----------------------+------+--------+-------------+-----------+-----------+---------+----------+
+        |                       |    Latency    |  Iteration  |  Initiation Interval  |   Trip  |          |
+        |       Loop Name       |  min |   max  |   Latency   |  achieved |   target  |  Count  | Pipelined|
+        +-----------------------+------+--------+-------------+-----------+-----------+---------+----------+
+        |- Loop 1               |    53|      53|            9|          5|          1|       10|    yes   |
+        |- combination_loop     |  1027|  270336| 1027 ~ 1056 |          -|          -| 1 ~ 256 |    no    |
+        | + combination_loop.1  |  1000|    1000|            2|          1|          1|     1000|    yes   |
+        +-----------------------+------+--------+-------------+-----------+-----------+---------+----------+
+
+============================================================
++ Verbose Summary: Synthesis Manager
+============================================================
+InlineROM: 1
+ExposeGlobal: 0
+============================================================
++ Verbose Summary: CDFG Model
+============================================================
+IsTopModel: 0
+ResetActiveHigh: 1
+IsCombinational: 0
+IsDatapathOnly: 0
+HasWiredReturn: 1
+HasMFsm: 0
+HasVarLatency: 1
+IsPipeline: 0
+IsRtlPipelined: 0
+IsInstanceOverlapped: 0
+IsDontTouch: 0
+HasImplIP: 0
+IsGatedGlobalClock: 0
+
++ Individual pipeline summary: 
+  * Pipeline-0: initiation interval (II) = 5, depth = 9
+  * Pipeline-1: initiation interval (II) = 1, depth = 2
+
+
+============================================================
++ Verbose Summary: Schedule
+============================================================
+* Number of FSM states : 78
+* Pipeline : 2
+  Pipeline-0 : II = 5, D = 9, States = { 2 3 4 5 6 7 8 9 10 }
+  Pipeline-1 : II = 1, D = 2, States = { 33 34 }
+* Dataflow Pipeline: 0
+
+* FSM state transitions: 
+1 --> 2 
+2 --> 11 3 
+3 --> 4 
+4 --> 5 
+5 --> 6 
+6 --> 7 
+7 --> 8 
+8 --> 9 
+9 --> 10 
+10 --> 2 
+11 --> 12 
+12 --> 13 
+13 --> 14 
+14 --> 15 
+15 --> 16 
+16 --> 17 
+17 --> 18 
+18 --> 19 
+19 --> 20 
+20 --> 21 
+21 --> 22 
+22 --> 23 
+23 --> 24 
+24 --> 25 
+25 --> 26 
+26 --> 27 
+27 --> 28 
+28 --> 29 
+29 --> 30 
+30 --> 31 
+31 --> 32 
+32 --> 33 
+33 --> 35 34 
+34 --> 33 
+35 --> 36 
+36 --> 37 
+37 --> 38 
+38 --> 39 
+39 --> 40 42 
+40 --> 41 
+41 --> 42 
+42 --> 43 46 
+43 --> 44 
+44 --> 45 
+45 --> 46 
+46 --> 47 50 
+47 --> 48 
+48 --> 49 
+49 --> 50 
+50 --> 51 54 
+51 --> 52 
+52 --> 53 
+53 --> 54 
+54 --> 55 58 
+55 --> 56 
+56 --> 57 
+57 --> 58 
+58 --> 59 62 
+59 --> 60 
+60 --> 61 
+61 --> 62 
+62 --> 63 66 
+63 --> 64 
+64 --> 65 
+65 --> 66 
+66 --> 67 70 
+67 --> 68 
+68 --> 69 
+69 --> 70 
+70 --> 71 74 
+71 --> 72 
+72 --> 73 
+73 --> 74 
+74 --> 75 78 
+75 --> 76 
+76 --> 77 
+77 --> 78 
+78 --> 22 
+
+* FSM state operations: 
+
+State 1 <SV = 0> <Delay = 0.60>
+ST_1 : Operation 79 [1/1] (0.00ns)   --->   "%next_timing_1 = alloca i32"   --->   Operation 79 'alloca' 'next_timing_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 80 [1/1] (0.00ns)   --->   "%itr_num_1 = alloca i32"   --->   Operation 80 'alloca' 'itr_num_1' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 81 [1/1] (0.00ns)   --->   "%max_vals_V_read = call i32 @_ssdm_op_Read.ap_auto.i32(i32 %max_vals_V)"   --->   Operation 81 'read' 'max_vals_V_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 82 [1/1] (0.00ns)   --->   "%parents_read = call i31 @_ssdm_op_Read.ap_auto.i31(i31 %parents)"   --->   Operation 82 'read' 'parents_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 83 [1/1] (0.00ns)   --->   "%child_read = call i4 @_ssdm_op_Read.ap_auto.i4(i4 %child)"   --->   Operation 83 'read' 'child_read' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 84 [1/1] (0.00ns)   --->   "%refresh_timing = alloca [10 x i32], align 16" [../../../../src/hypercube_kernel.cpp:147]   --->   Operation 84 'alloca' 'refresh_timing' <Predicate = true> <Delay = 0.00> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_1 : Operation 85 [1/1] (0.00ns)   --->   "%counters = alloca [10 x i32], align 16" [../../../../src/hypercube_kernel.cpp:148]   --->   Operation 85 'alloca' 'counters' <Predicate = true> <Delay = 0.00> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_1 : Operation 86 [1/1] (0.00ns)   --->   "%now_comb_V = alloca [10 x i2], align 1" [../../../../src/hypercube_kernel.cpp:149]   --->   Operation 86 'alloca' 'now_comb_V' <Predicate = true> <Delay = 0.00> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_1 : Operation 87 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([10 x i32]* %refresh_timing, [1 x i8]* @p_str, [12 x i8]* @p_str3, [1 x i8]* @p_str, i32 -1, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str)" [../../../../src/hypercube_kernel.cpp:153]   --->   Operation 87 'specmemcore' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 88 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([10 x i32]* %counters, [1 x i8]* @p_str, [12 x i8]* @p_str3, [1 x i8]* @p_str, i32 -1, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str)" [../../../../src/hypercube_kernel.cpp:154]   --->   Operation 88 'specmemcore' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 89 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([10 x i2]* %now_comb_V, [1 x i8]* @p_str, [12 x i8]* @p_str3, [1 x i8]* @p_str, i32 -1, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str)" [../../../../src/hypercube_kernel.cpp:155]   --->   Operation 89 'specmemcore' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 90 [1/1] (0.00ns)   --->   "%trunc_ln161 = trunc i31 %parents_read to i10" [../../../../src/hypercube_kernel.cpp:161]   --->   Operation 90 'trunc' 'trunc_ln161' <Predicate = true> <Delay = 0.00>
+ST_1 : Operation 91 [1/1] (0.60ns)   --->   "store i32 1, i32* %itr_num_1" [../../../../src/hypercube_kernel.cpp:157]   --->   Operation 91 'store' <Predicate = true> <Delay = 0.60>
+ST_1 : Operation 92 [1/1] (0.60ns)   --->   "store i32 1, i32* %next_timing_1" [../../../../src/hypercube_kernel.cpp:157]   --->   Operation 92 'store' <Predicate = true> <Delay = 0.60>
+ST_1 : Operation 93 [1/1] (0.60ns)   --->   "br label %0" [../../../../src/hypercube_kernel.cpp:157]   --->   Operation 93 'br' <Predicate = true> <Delay = 0.60>
+
+State 2 <SV = 1> <Delay = 1.15>
+ST_2 : Operation 94 [1/1] (0.00ns)   --->   "%i_0 = phi i4 [ 0, %_ZN8ap_fixedILi32ELi16EL9ap_q_mode5EL9ap_o_mode3ELi0EEC1Ei.exit ], [ %i, %hls_label_0_end ]"   --->   Operation 94 'phi' 'i_0' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 95 [1/1] (0.65ns)   --->   "%icmp_ln157 = icmp eq i4 %i_0, -6" [../../../../src/hypercube_kernel.cpp:157]   --->   Operation 95 'icmp' 'icmp_ln157' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 96 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 10, i64 10, i64 10)"   --->   Operation 96 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 97 [1/1] (0.33ns)   --->   "%i = add i4 %i_0, 1" [../../../../src/hypercube_kernel.cpp:157]   --->   Operation 97 'add' 'i' <Predicate = true> <Delay = 0.33> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 98 [1/1] (0.00ns)   --->   "br i1 %icmp_ln157, label %.preheader.preheader, label %hls_label_0_begin" [../../../../src/hypercube_kernel.cpp:157]   --->   Operation 98 'br' <Predicate = true> <Delay = 0.00>
+ST_2 : Operation 99 [1/1] (0.00ns) (grouped into LUT with out node icmp_ln161)   --->   "%zext_ln157 = zext i4 %i_0 to i10" [../../../../src/hypercube_kernel.cpp:157]   --->   Operation 99 'zext' 'zext_ln157' <Predicate = (!icmp_ln157)> <Delay = 0.00>
+ST_2 : Operation 100 [1/1] (0.00ns)   --->   "%tmp = call i32 (...)* @_ssdm_op_SpecRegionBegin([12 x i8]* @p_str4)" [../../../../src/hypercube_kernel.cpp:157]   --->   Operation 100 'specregionbegin' 'tmp' <Predicate = (!icmp_ln157)> <Delay = 0.00>
+ST_2 : Operation 101 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecPipeline(i32 -1, i32 1, i32 1, i32 0, [1 x i8]* @p_str) nounwind" [../../../../src/hypercube_kernel.cpp:158]   --->   Operation 101 'specpipeline' <Predicate = (!icmp_ln157)> <Delay = 0.00>
+ST_2 : Operation 102 [1/1] (0.00ns)   --->   "%zext_ln159 = zext i4 %i_0 to i64" [../../../../src/hypercube_kernel.cpp:159]   --->   Operation 102 'zext' 'zext_ln159' <Predicate = (!icmp_ln157)> <Delay = 0.00>
+ST_2 : Operation 103 [1/1] (0.00ns)   --->   "%counters_addr = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 %zext_ln159" [../../../../src/hypercube_kernel.cpp:159]   --->   Operation 103 'getelementptr' 'counters_addr' <Predicate = (!icmp_ln157)> <Delay = 0.00>
+ST_2 : Operation 104 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr, align 4" [../../../../src/hypercube_kernel.cpp:159]   --->   Operation 104 'store' <Predicate = (!icmp_ln157)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_2 : Operation 105 [1/1] (0.00ns)   --->   "%now_comb_V_addr_1 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 %zext_ln159" [../../../../src/hypercube_kernel.cpp:160]   --->   Operation 105 'getelementptr' 'now_comb_V_addr_1' <Predicate = (!icmp_ln157)> <Delay = 0.00>
+ST_2 : Operation 106 [1/1] (1.15ns)   --->   "store i2 0, i2* %now_comb_V_addr_1, align 1" [../../../../src/hypercube_kernel.cpp:160]   --->   Operation 106 'store' <Predicate = (!icmp_ln157)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_2 : Operation 107 [1/1] (0.00ns) (grouped into LUT with out node icmp_ln161)   --->   "%shl_ln161 = shl i10 1, %zext_ln157" [../../../../src/hypercube_kernel.cpp:161]   --->   Operation 107 'shl' 'shl_ln161' <Predicate = (!icmp_ln157)> <Delay = 0.00> <Core = "Shift">   --->   Core 28 'Shift' <Latency = 0> <II = 1> <Delay = 0.62> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 108 [1/1] (0.00ns) (grouped into LUT with out node icmp_ln161)   --->   "%and_ln161 = and i10 %shl_ln161, %trunc_ln161" [../../../../src/hypercube_kernel.cpp:161]   --->   Operation 108 'and' 'and_ln161' <Predicate = (!icmp_ln157)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 109 [1/1] (0.60ns) (out node of the LUT)   --->   "%icmp_ln161 = icmp ne i10 %and_ln161, 0" [../../../../src/hypercube_kernel.cpp:161]   --->   Operation 109 'icmp' 'icmp_ln161' <Predicate = (!icmp_ln157)> <Delay = 0.60> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 110 [1/1] (0.65ns)   --->   "%icmp_ln161_1 = icmp eq i4 %i_0, %child_read" [../../../../src/hypercube_kernel.cpp:161]   --->   Operation 110 'icmp' 'icmp_ln161_1' <Predicate = (!icmp_ln157)> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 111 [1/1] (0.12ns)   --->   "%or_ln161 = or i1 %icmp_ln161, %icmp_ln161_1" [../../../../src/hypercube_kernel.cpp:161]   --->   Operation 111 'or' 'or_ln161' <Predicate = (!icmp_ln157)> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_2 : Operation 112 [1/1] (0.00ns)   --->   "br i1 %or_ln161, label %1, label %2" [../../../../src/hypercube_kernel.cpp:161]   --->   Operation 112 'br' <Predicate = (!icmp_ln157)> <Delay = 0.00>
+ST_2 : Operation 113 [1/1] (0.00ns)   --->   "%refresh_timing_addr_1 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 %zext_ln159" [../../../../src/hypercube_kernel.cpp:168]   --->   Operation 113 'getelementptr' 'refresh_timing_addr_1' <Predicate = (!icmp_ln157 & !or_ln161)> <Delay = 0.00>
+ST_2 : Operation 114 [1/1] (1.15ns)   --->   "store i32 0, i32* %refresh_timing_addr_1, align 4" [../../../../src/hypercube_kernel.cpp:168]   --->   Operation 114 'store' <Predicate = (!icmp_ln157 & !or_ln161)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_2 : Operation 115 [1/1] (0.00ns)   --->   "br label %hls_label_0_end"   --->   Operation 115 'br' <Predicate = (!icmp_ln157 & !or_ln161)> <Delay = 0.00>
+ST_2 : Operation 116 [1/1] (0.00ns)   --->   "%empty = call i32 (...)* @_ssdm_op_SpecRegionEnd([12 x i8]* @p_str4, i32 %tmp)" [../../../../src/hypercube_kernel.cpp:170]   --->   Operation 116 'specregionend' 'empty' <Predicate = (!icmp_ln157)> <Delay = 0.00>
+ST_2 : Operation 117 [1/1] (0.00ns)   --->   "br label %0" [../../../../src/hypercube_kernel.cpp:157]   --->   Operation 117 'br' <Predicate = (!icmp_ln157)> <Delay = 0.00>
+
+State 3 <SV = 2> <Delay = 1.69>
+ST_3 : Operation 118 [1/1] (0.00ns)   --->   "%Lo_assign = call i5 @_ssdm_op_BitConcatenate.i5.i4.i1(i4 %i_0, i1 false)" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 118 'bitconcatenate' 'Lo_assign' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_3 : Operation 119 [1/1] (0.00ns)   --->   "%or_ln162 = or i5 %Lo_assign, 1" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 119 'or' 'or_ln162' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_3 : Operation 120 [1/1] (0.63ns)   --->   "%icmp_ln647 = icmp ugt i5 %Lo_assign, %or_ln162" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 120 'icmp' 'icmp_ln647' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.63> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 121 [1/1] (0.00ns)   --->   "%zext_ln647 = zext i5 %Lo_assign to i6" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 121 'zext' 'zext_ln647' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_3 : Operation 122 [1/1] (0.00ns)   --->   "%zext_ln647_1 = zext i5 %or_ln162 to i6" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 122 'zext' 'zext_ln647_1' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_3 : Operation 123 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647)   --->   "%tmp_33 = call i32 @llvm.part.select.i32(i32 %max_vals_V_read, i32 31, i32 0)" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 123 'partselect' 'tmp_33' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_3 : Operation 124 [1/1] (0.34ns)   --->   "%sub_ln647 = sub i6 %zext_ln647, %zext_ln647_1" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 124 'sub' 'sub_ln647' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 125 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647)   --->   "%xor_ln647 = xor i6 %zext_ln647, 31" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 125 'xor' 'xor_ln647' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 126 [1/1] (0.34ns)   --->   "%sub_ln647_1 = sub i6 %zext_ln647_1, %zext_ln647" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 126 'sub' 'sub_ln647_1' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 127 [1/1] (0.00ns) (grouped into LUT with out node sub_ln647_2)   --->   "%select_ln647 = select i1 %icmp_ln647, i6 %sub_ln647, i6 %sub_ln647_1" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 127 'select' 'select_ln647' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 128 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647)   --->   "%select_ln647_1 = select i1 %icmp_ln647, i32 %tmp_33, i32 %max_vals_V_read" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 128 'select' 'select_ln647_1' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 129 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647)   --->   "%select_ln647_2 = select i1 %icmp_ln647, i6 %xor_ln647, i6 %zext_ln647" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 129 'select' 'select_ln647_2' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_3 : Operation 130 [1/1] (0.43ns) (out node of the LUT)   --->   "%sub_ln647_2 = sub i6 31, %select_ln647" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 130 'sub' 'sub_ln647_2' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.43> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_3 : Operation 131 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647)   --->   "%zext_ln647_2 = zext i6 %select_ln647_2 to i32" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 131 'zext' 'zext_ln647_2' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_3 : Operation 132 [1/1] (1.05ns) (out node of the LUT)   --->   "%lshr_ln647 = lshr i32 %select_ln647_1, %zext_ln647_2" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 132 'lshr' 'lshr_ln647' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 1.05> <Core = "Shift">   --->   Core 28 'Shift' <Latency = 0> <II = 1> <Delay = 0.62> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+
+State 4 <SV = 3> <Delay = 0.62>
+ST_4 : Operation 133 [1/1] (0.00ns) (grouped into LUT with out node nof_vals)   --->   "%zext_ln647_3 = zext i6 %sub_ln647_2 to i32" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 133 'zext' 'zext_ln647_3' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_4 : Operation 134 [1/1] (0.00ns) (grouped into LUT with out node nof_vals)   --->   "%lshr_ln647_1 = lshr i32 -1, %zext_ln647_3" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 134 'lshr' 'lshr_ln647_1' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00> <Core = "Shift">   --->   Core 28 'Shift' <Latency = 0> <II = 1> <Delay = 0.62> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 135 [1/1] (0.00ns) (grouped into LUT with out node nof_vals)   --->   "%p_Result_s = and i32 %lshr_ln647, %lshr_ln647_1" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 135 'and' 'p_Result_s' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_4 : Operation 136 [1/1] (0.00ns) (grouped into LUT with out node nof_vals)   --->   "%max_val_i_V = trunc i32 %p_Result_s to i2" [../../../../src/hypercube_kernel.cpp:162]   --->   Operation 136 'trunc' 'max_val_i_V' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_4 : Operation 137 [1/1] (0.00ns) (grouped into LUT with out node nof_vals)   --->   "%zext_ln163 = zext i2 %max_val_i_V to i3" [../../../../src/hypercube_kernel.cpp:163]   --->   Operation 137 'zext' 'zext_ln163' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_4 : Operation 138 [1/1] (0.62ns) (out node of the LUT)   --->   "%nof_vals = add i3 1, %zext_ln163" [../../../../src/hypercube_kernel.cpp:163]   --->   Operation 138 'add' 'nof_vals' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.62> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 5 <SV = 4> <Delay = 2.10>
+ST_5 : Operation 139 [1/1] (0.00ns)   --->   "%itr_num_1_load_1 = load i32* %itr_num_1" [../../../../src/hypercube_kernel.cpp:164]   --->   Operation 139 'load' 'itr_num_1_load_1' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_5 : Operation 140 [1/1] (0.00ns)   --->   "%zext_ln163_1 = zext i3 %nof_vals to i32" [../../../../src/hypercube_kernel.cpp:163]   --->   Operation 140 'zext' 'zext_ln163_1' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_5 : Operation 141 [4/4] (2.10ns)   --->   "%itr_num = mul nsw i32 %zext_ln163_1, %itr_num_1_load_1" [../../../../src/hypercube_kernel.cpp:164]   --->   Operation 141 'mul' 'itr_num' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 2.10> <Core = "Mul4S">   --->   Core 20 'Mul4S' <Latency = 3> <II = 1> <Delay = 2.10> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 6 <SV = 5> <Delay = 2.10>
+ST_6 : Operation 142 [1/1] (0.00ns)   --->   "%next_timing_1_load = load i32* %next_timing_1" [../../../../src/hypercube_kernel.cpp:166]   --->   Operation 142 'load' 'next_timing_1_load' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_6 : Operation 143 [3/4] (2.10ns)   --->   "%itr_num = mul nsw i32 %zext_ln163_1, %itr_num_1_load_1" [../../../../src/hypercube_kernel.cpp:164]   --->   Operation 143 'mul' 'itr_num' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 2.10> <Core = "Mul4S">   --->   Core 20 'Mul4S' <Latency = 3> <II = 1> <Delay = 2.10> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_6 : Operation 144 [1/1] (0.00ns)   --->   "%refresh_timing_addr = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 %zext_ln159" [../../../../src/hypercube_kernel.cpp:165]   --->   Operation 144 'getelementptr' 'refresh_timing_addr' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 0.00>
+ST_6 : Operation 145 [1/1] (1.15ns)   --->   "store i32 %next_timing_1_load, i32* %refresh_timing_addr, align 4" [../../../../src/hypercube_kernel.cpp:165]   --->   Operation 145 'store' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_6 : Operation 146 [4/4] (2.10ns)   --->   "%next_timing = mul nsw i32 %zext_ln163_1, %next_timing_1_load" [../../../../src/hypercube_kernel.cpp:166]   --->   Operation 146 'mul' 'next_timing' <Predicate = (!icmp_ln157 & or_ln161)> <Delay = 2.10> <Core = "Mul4S">   --->   Core 20 'Mul4S' <Latency = 3> <II = 1> <Delay = 2.10> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 7 <SV = 6> <Delay = 2.10>
+ST_7 : Operation 147 [2/4] (2.10ns)   --->   "%itr_num = mul nsw i32 %zext_ln163_1, %itr_num_1_load_1" [../../../../src/hypercube_kernel.cpp:164]   --->   Operation 147 'mul' 'itr_num' <Predicate = (or_ln161)> <Delay = 2.10> <Core = "Mul4S">   --->   Core 20 'Mul4S' <Latency = 3> <II = 1> <Delay = 2.10> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_7 : Operation 148 [3/4] (2.10ns)   --->   "%next_timing = mul nsw i32 %zext_ln163_1, %next_timing_1_load" [../../../../src/hypercube_kernel.cpp:166]   --->   Operation 148 'mul' 'next_timing' <Predicate = (or_ln161)> <Delay = 2.10> <Core = "Mul4S">   --->   Core 20 'Mul4S' <Latency = 3> <II = 1> <Delay = 2.10> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 8 <SV = 7> <Delay = 2.10>
+ST_8 : Operation 149 [1/4] (2.10ns)   --->   "%itr_num = mul nsw i32 %zext_ln163_1, %itr_num_1_load_1" [../../../../src/hypercube_kernel.cpp:164]   --->   Operation 149 'mul' 'itr_num' <Predicate = (or_ln161)> <Delay = 2.10> <Core = "Mul4S">   --->   Core 20 'Mul4S' <Latency = 3> <II = 1> <Delay = 2.10> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_8 : Operation 150 [2/4] (2.10ns)   --->   "%next_timing = mul nsw i32 %zext_ln163_1, %next_timing_1_load" [../../../../src/hypercube_kernel.cpp:166]   --->   Operation 150 'mul' 'next_timing' <Predicate = (or_ln161)> <Delay = 2.10> <Core = "Mul4S">   --->   Core 20 'Mul4S' <Latency = 3> <II = 1> <Delay = 2.10> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+
+State 9 <SV = 8> <Delay = 2.10>
+ST_9 : Operation 151 [1/4] (2.10ns)   --->   "%next_timing = mul nsw i32 %zext_ln163_1, %next_timing_1_load" [../../../../src/hypercube_kernel.cpp:166]   --->   Operation 151 'mul' 'next_timing' <Predicate = (or_ln161)> <Delay = 2.10> <Core = "Mul4S">   --->   Core 20 'Mul4S' <Latency = 3> <II = 1> <Delay = 2.10> <FuncUnit> <Opcode : 'mul'> <InPorts = 2> <OutPorts = 1>
+ST_9 : Operation 152 [1/1] (0.60ns)   --->   "store i32 %itr_num, i32* %itr_num_1" [../../../../src/hypercube_kernel.cpp:167]   --->   Operation 152 'store' <Predicate = (or_ln161)> <Delay = 0.60>
+
+State 10 <SV = 9> <Delay = 0.60>
+ST_10 : Operation 153 [1/1] (0.60ns)   --->   "store i32 %next_timing, i32* %next_timing_1" [../../../../src/hypercube_kernel.cpp:167]   --->   Operation 153 'store' <Predicate = (or_ln161)> <Delay = 0.60>
+ST_10 : Operation 154 [1/1] (0.00ns)   --->   "br label %hls_label_0_end" [../../../../src/hypercube_kernel.cpp:167]   --->   Operation 154 'br' <Predicate = (or_ln161)> <Delay = 0.00>
+
+State 11 <SV = 2> <Delay = 1.15>
+ST_11 : Operation 155 [1/1] (0.00ns)   --->   "%trunc_ln189 = trunc i31 %parents_read to i1" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 155 'trunc' 'trunc_ln189' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 156 [1/1] (0.00ns)   --->   "%tmp_24 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %parents_read, i32 1)" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 156 'bitselect' 'tmp_24' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 157 [1/1] (0.00ns)   --->   "%tmp_25 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %parents_read, i32 2)" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 157 'bitselect' 'tmp_25' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 158 [1/1] (0.00ns)   --->   "%tmp_26 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %parents_read, i32 3)" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 158 'bitselect' 'tmp_26' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 159 [1/1] (0.00ns)   --->   "%tmp_27 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %parents_read, i32 4)" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 159 'bitselect' 'tmp_27' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 160 [1/1] (0.00ns)   --->   "%tmp_28 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %parents_read, i32 5)" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 160 'bitselect' 'tmp_28' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 161 [1/1] (0.00ns)   --->   "%tmp_29 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %parents_read, i32 6)" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 161 'bitselect' 'tmp_29' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 162 [1/1] (0.00ns)   --->   "%tmp_30 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %parents_read, i32 7)" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 162 'bitselect' 'tmp_30' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 163 [1/1] (0.00ns)   --->   "%tmp_31 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %parents_read, i32 8)" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 163 'bitselect' 'tmp_31' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 164 [1/1] (0.00ns)   --->   "%tmp_32 = call i1 @_ssdm_op_BitSelect.i1.i31.i32(i31 %parents_read, i32 9)" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 164 'bitselect' 'tmp_32' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 165 [1/1] (0.00ns)   --->   "%refresh_timing_addr_2 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 0" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 165 'getelementptr' 'refresh_timing_addr_2' <Predicate = true> <Delay = 0.00>
+ST_11 : Operation 166 [2/2] (1.15ns)   --->   "%refresh_timing_load = load i32* %refresh_timing_addr_2, align 16" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 166 'load' 'refresh_timing_load' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 12 <SV = 3> <Delay = 1.15>
+ST_12 : Operation 167 [1/2] (1.15ns)   --->   "%refresh_timing_load = load i32* %refresh_timing_addr_2, align 16" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 167 'load' 'refresh_timing_load' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_12 : Operation 168 [1/1] (0.00ns)   --->   "%refresh_timing_addr_3 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 1" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 168 'getelementptr' 'refresh_timing_addr_3' <Predicate = true> <Delay = 0.00>
+ST_12 : Operation 169 [2/2] (1.15ns)   --->   "%refresh_timing_load_1 = load i32* %refresh_timing_addr_3, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 169 'load' 'refresh_timing_load_1' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 13 <SV = 4> <Delay = 1.15>
+ST_13 : Operation 170 [1/2] (1.15ns)   --->   "%refresh_timing_load_1 = load i32* %refresh_timing_addr_3, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 170 'load' 'refresh_timing_load_1' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_13 : Operation 171 [1/1] (0.00ns)   --->   "%refresh_timing_addr_4 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 2" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 171 'getelementptr' 'refresh_timing_addr_4' <Predicate = true> <Delay = 0.00>
+ST_13 : Operation 172 [2/2] (1.15ns)   --->   "%refresh_timing_load_2 = load i32* %refresh_timing_addr_4, align 8" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 172 'load' 'refresh_timing_load_2' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 14 <SV = 5> <Delay = 1.15>
+ST_14 : Operation 173 [1/2] (1.15ns)   --->   "%refresh_timing_load_2 = load i32* %refresh_timing_addr_4, align 8" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 173 'load' 'refresh_timing_load_2' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_14 : Operation 174 [1/1] (0.00ns)   --->   "%refresh_timing_addr_5 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 3" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 174 'getelementptr' 'refresh_timing_addr_5' <Predicate = true> <Delay = 0.00>
+ST_14 : Operation 175 [2/2] (1.15ns)   --->   "%refresh_timing_load_3 = load i32* %refresh_timing_addr_5, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 175 'load' 'refresh_timing_load_3' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 15 <SV = 6> <Delay = 1.15>
+ST_15 : Operation 176 [1/2] (1.15ns)   --->   "%refresh_timing_load_3 = load i32* %refresh_timing_addr_5, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 176 'load' 'refresh_timing_load_3' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_15 : Operation 177 [1/1] (0.00ns)   --->   "%refresh_timing_addr_6 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 177 'getelementptr' 'refresh_timing_addr_6' <Predicate = true> <Delay = 0.00>
+ST_15 : Operation 178 [2/2] (1.15ns)   --->   "%refresh_timing_load_4 = load i32* %refresh_timing_addr_6, align 16" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 178 'load' 'refresh_timing_load_4' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 16 <SV = 7> <Delay = 1.15>
+ST_16 : Operation 179 [1/2] (1.15ns)   --->   "%refresh_timing_load_4 = load i32* %refresh_timing_addr_6, align 16" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 179 'load' 'refresh_timing_load_4' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_16 : Operation 180 [1/1] (0.00ns)   --->   "%refresh_timing_addr_7 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 5" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 180 'getelementptr' 'refresh_timing_addr_7' <Predicate = true> <Delay = 0.00>
+ST_16 : Operation 181 [2/2] (1.15ns)   --->   "%refresh_timing_load_5 = load i32* %refresh_timing_addr_7, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 181 'load' 'refresh_timing_load_5' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 17 <SV = 8> <Delay = 1.15>
+ST_17 : Operation 182 [1/2] (1.15ns)   --->   "%refresh_timing_load_5 = load i32* %refresh_timing_addr_7, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 182 'load' 'refresh_timing_load_5' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_17 : Operation 183 [1/1] (0.00ns)   --->   "%refresh_timing_addr_8 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 6" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 183 'getelementptr' 'refresh_timing_addr_8' <Predicate = true> <Delay = 0.00>
+ST_17 : Operation 184 [2/2] (1.15ns)   --->   "%refresh_timing_load_6 = load i32* %refresh_timing_addr_8, align 8" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 184 'load' 'refresh_timing_load_6' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 18 <SV = 9> <Delay = 1.15>
+ST_18 : Operation 185 [1/2] (1.15ns)   --->   "%refresh_timing_load_6 = load i32* %refresh_timing_addr_8, align 8" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 185 'load' 'refresh_timing_load_6' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_18 : Operation 186 [1/1] (0.00ns)   --->   "%refresh_timing_addr_9 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 7" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 186 'getelementptr' 'refresh_timing_addr_9' <Predicate = true> <Delay = 0.00>
+ST_18 : Operation 187 [2/2] (1.15ns)   --->   "%refresh_timing_load_7 = load i32* %refresh_timing_addr_9, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 187 'load' 'refresh_timing_load_7' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 19 <SV = 10> <Delay = 1.15>
+ST_19 : Operation 188 [1/2] (1.15ns)   --->   "%refresh_timing_load_7 = load i32* %refresh_timing_addr_9, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 188 'load' 'refresh_timing_load_7' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_19 : Operation 189 [1/1] (0.00ns)   --->   "%refresh_timing_addr_10 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 8" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 189 'getelementptr' 'refresh_timing_addr_10' <Predicate = true> <Delay = 0.00>
+ST_19 : Operation 190 [2/2] (1.15ns)   --->   "%refresh_timing_load_8 = load i32* %refresh_timing_addr_10, align 16" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 190 'load' 'refresh_timing_load_8' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 20 <SV = 11> <Delay = 1.15>
+ST_20 : Operation 191 [1/2] (1.15ns)   --->   "%refresh_timing_load_8 = load i32* %refresh_timing_addr_10, align 16" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 191 'load' 'refresh_timing_load_8' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_20 : Operation 192 [1/1] (0.00ns)   --->   "%refresh_timing_addr_11 = getelementptr inbounds [10 x i32]* %refresh_timing, i64 0, i64 9" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 192 'getelementptr' 'refresh_timing_addr_11' <Predicate = true> <Delay = 0.00>
+ST_20 : Operation 193 [2/2] (1.15ns)   --->   "%refresh_timing_load_9 = load i32* %refresh_timing_addr_11, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 193 'load' 'refresh_timing_load_9' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 21 <SV = 12> <Delay = 1.15>
+ST_21 : Operation 194 [1/1] (0.00ns)   --->   "%Lo_assign_1 = call i5 @_ssdm_op_BitConcatenate.i5.i4.i1(i4 %child_read, i1 false)" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 194 'bitconcatenate' 'Lo_assign_1' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 195 [1/1] (0.00ns)   --->   "%or_ln206 = or i5 %Lo_assign_1, 1" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 195 'or' 'or_ln206' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 196 [1/1] (0.00ns)   --->   "%zext_ln209 = zext i4 %child_read to i64" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 196 'zext' 'zext_ln209' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 197 [1/1] (0.00ns)   --->   "%now_comb_V_addr = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 %zext_ln209" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 197 'getelementptr' 'now_comb_V_addr' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 198 [1/1] (0.65ns)   --->   "%icmp_ln189 = icmp eq i4 %child_read, 0" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 198 'icmp' 'icmp_ln189' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 199 [1/1] (0.12ns)   --->   "%or_ln189 = or i1 %trunc_ln189, %icmp_ln189" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 199 'or' 'or_ln189' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 200 [1/1] (0.00ns)   --->   "%now_comb_V_addr_2 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 0" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 200 'getelementptr' 'now_comb_V_addr_2' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 201 [1/1] (0.65ns)   --->   "%icmp_ln189_1 = icmp eq i4 %child_read, 1" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 201 'icmp' 'icmp_ln189_1' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 202 [1/1] (0.12ns)   --->   "%or_ln189_1 = or i1 %tmp_24, %icmp_ln189_1" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 202 'or' 'or_ln189_1' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 203 [1/1] (0.00ns)   --->   "%now_comb_V_addr_3 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 203 'getelementptr' 'now_comb_V_addr_3' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 204 [1/1] (0.65ns)   --->   "%icmp_ln189_2 = icmp eq i4 %child_read, 2" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 204 'icmp' 'icmp_ln189_2' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 205 [1/1] (0.12ns)   --->   "%or_ln189_2 = or i1 %tmp_25, %icmp_ln189_2" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 205 'or' 'or_ln189_2' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 206 [1/1] (0.00ns)   --->   "%now_comb_V_addr_4 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 2" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 206 'getelementptr' 'now_comb_V_addr_4' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 207 [1/1] (0.65ns)   --->   "%icmp_ln189_3 = icmp eq i4 %child_read, 3" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 207 'icmp' 'icmp_ln189_3' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 208 [1/1] (0.12ns)   --->   "%or_ln189_3 = or i1 %tmp_26, %icmp_ln189_3" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 208 'or' 'or_ln189_3' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 209 [1/1] (0.00ns)   --->   "%now_comb_V_addr_5 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 3" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 209 'getelementptr' 'now_comb_V_addr_5' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 210 [1/1] (0.65ns)   --->   "%icmp_ln189_4 = icmp eq i4 %child_read, 4" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 210 'icmp' 'icmp_ln189_4' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 211 [1/1] (0.12ns)   --->   "%or_ln189_4 = or i1 %tmp_27, %icmp_ln189_4" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 211 'or' 'or_ln189_4' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 212 [1/1] (0.00ns)   --->   "%now_comb_V_addr_6 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 4" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 212 'getelementptr' 'now_comb_V_addr_6' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 213 [1/1] (0.65ns)   --->   "%icmp_ln189_5 = icmp eq i4 %child_read, 5" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 213 'icmp' 'icmp_ln189_5' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 214 [1/1] (0.12ns)   --->   "%or_ln189_5 = or i1 %tmp_28, %icmp_ln189_5" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 214 'or' 'or_ln189_5' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 215 [1/1] (0.00ns)   --->   "%now_comb_V_addr_7 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 5" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 215 'getelementptr' 'now_comb_V_addr_7' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 216 [1/1] (0.65ns)   --->   "%icmp_ln189_6 = icmp eq i4 %child_read, 6" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 216 'icmp' 'icmp_ln189_6' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 217 [1/1] (0.12ns)   --->   "%or_ln189_6 = or i1 %tmp_29, %icmp_ln189_6" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 217 'or' 'or_ln189_6' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 218 [1/1] (0.00ns)   --->   "%now_comb_V_addr_8 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 6" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 218 'getelementptr' 'now_comb_V_addr_8' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 219 [1/1] (0.65ns)   --->   "%icmp_ln189_7 = icmp eq i4 %child_read, 7" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 219 'icmp' 'icmp_ln189_7' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 220 [1/1] (0.12ns)   --->   "%or_ln189_7 = or i1 %tmp_30, %icmp_ln189_7" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 220 'or' 'or_ln189_7' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 221 [1/1] (0.00ns)   --->   "%now_comb_V_addr_9 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 7" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 221 'getelementptr' 'now_comb_V_addr_9' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 222 [1/1] (0.65ns)   --->   "%icmp_ln189_8 = icmp eq i4 %child_read, -8" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 222 'icmp' 'icmp_ln189_8' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 223 [1/1] (0.12ns)   --->   "%or_ln189_8 = or i1 %tmp_31, %icmp_ln189_8" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 223 'or' 'or_ln189_8' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 224 [1/1] (0.00ns)   --->   "%now_comb_V_addr_10 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 8" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 224 'getelementptr' 'now_comb_V_addr_10' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 225 [1/1] (0.65ns)   --->   "%icmp_ln189_9 = icmp eq i4 %child_read, -7" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 225 'icmp' 'icmp_ln189_9' <Predicate = true> <Delay = 0.65> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 226 [1/1] (0.12ns)   --->   "%or_ln189_9 = or i1 %tmp_32, %icmp_ln189_9" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 226 'or' 'or_ln189_9' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 227 [1/1] (0.00ns)   --->   "%now_comb_V_addr_11 = getelementptr [10 x i2]* %now_comb_V, i64 0, i64 9" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 227 'getelementptr' 'now_comb_V_addr_11' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 228 [1/1] (0.00ns)   --->   "%counters_addr_1 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 0" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 228 'getelementptr' 'counters_addr_1' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 229 [1/1] (0.00ns)   --->   "%counters_addr_2 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 229 'getelementptr' 'counters_addr_2' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 230 [1/1] (0.00ns)   --->   "%counters_addr_3 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 2" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 230 'getelementptr' 'counters_addr_3' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 231 [1/1] (0.00ns)   --->   "%counters_addr_4 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 3" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 231 'getelementptr' 'counters_addr_4' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 232 [1/1] (0.00ns)   --->   "%counters_addr_5 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 232 'getelementptr' 'counters_addr_5' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 233 [1/1] (0.00ns)   --->   "%counters_addr_6 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 5" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 233 'getelementptr' 'counters_addr_6' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 234 [1/1] (0.00ns)   --->   "%counters_addr_7 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 6" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 234 'getelementptr' 'counters_addr_7' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 235 [1/1] (0.00ns)   --->   "%counters_addr_8 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 7" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 235 'getelementptr' 'counters_addr_8' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 236 [1/1] (0.00ns)   --->   "%counters_addr_9 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 8" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 236 'getelementptr' 'counters_addr_9' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 237 [1/1] (0.00ns)   --->   "%counters_addr_10 = getelementptr inbounds [10 x i32]* %counters, i64 0, i64 9" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 237 'getelementptr' 'counters_addr_10' <Predicate = true> <Delay = 0.00>
+ST_21 : Operation 238 [1/2] (1.15ns)   --->   "%refresh_timing_load_9 = load i32* %refresh_timing_addr_11, align 4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 238 'load' 'refresh_timing_load_9' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_21 : Operation 239 [1/1] (0.12ns)   --->   "%xor_ln189 = xor i1 %or_ln189, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 239 'xor' 'xor_ln189' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 240 [1/1] (0.12ns)   --->   "%or_ln189_10 = or i1 %icmp_ln189, %xor_ln189" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 240 'or' 'or_ln189_10' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 241 [1/1] (0.12ns)   --->   "%xor_ln189_1 = xor i1 %or_ln189_1, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 241 'xor' 'xor_ln189_1' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 242 [1/1] (0.12ns)   --->   "%or_ln189_13 = or i1 %icmp_ln189_1, %xor_ln189_1" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 242 'or' 'or_ln189_13' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 243 [1/1] (0.12ns)   --->   "%xor_ln189_2 = xor i1 %or_ln189_2, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 243 'xor' 'xor_ln189_2' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 244 [1/1] (0.12ns)   --->   "%or_ln189_16 = or i1 %icmp_ln189_2, %xor_ln189_2" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 244 'or' 'or_ln189_16' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 245 [1/1] (0.12ns)   --->   "%xor_ln189_3 = xor i1 %or_ln189_3, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 245 'xor' 'xor_ln189_3' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 246 [1/1] (0.12ns)   --->   "%or_ln189_19 = or i1 %icmp_ln189_3, %xor_ln189_3" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 246 'or' 'or_ln189_19' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 247 [1/1] (0.12ns)   --->   "%xor_ln189_4 = xor i1 %or_ln189_4, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 247 'xor' 'xor_ln189_4' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 248 [1/1] (0.12ns)   --->   "%or_ln189_22 = or i1 %icmp_ln189_4, %xor_ln189_4" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 248 'or' 'or_ln189_22' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 249 [1/1] (0.12ns)   --->   "%xor_ln189_5 = xor i1 %or_ln189_5, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 249 'xor' 'xor_ln189_5' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 250 [1/1] (0.12ns)   --->   "%or_ln189_25 = or i1 %icmp_ln189_5, %xor_ln189_5" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 250 'or' 'or_ln189_25' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 251 [1/1] (0.12ns)   --->   "%xor_ln189_6 = xor i1 %or_ln189_6, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 251 'xor' 'xor_ln189_6' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 252 [1/1] (0.12ns)   --->   "%or_ln189_28 = or i1 %icmp_ln189_6, %xor_ln189_6" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 252 'or' 'or_ln189_28' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 253 [1/1] (0.12ns)   --->   "%xor_ln189_7 = xor i1 %or_ln189_7, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 253 'xor' 'xor_ln189_7' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 254 [1/1] (0.12ns)   --->   "%or_ln189_31 = or i1 %icmp_ln189_7, %xor_ln189_7" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 254 'or' 'or_ln189_31' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 255 [1/1] (0.12ns)   --->   "%xor_ln189_8 = xor i1 %or_ln189_8, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 255 'xor' 'xor_ln189_8' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 256 [1/1] (0.12ns)   --->   "%or_ln189_34 = or i1 %icmp_ln189_8, %xor_ln189_8" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 256 'or' 'or_ln189_34' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 257 [1/1] (0.12ns)   --->   "%xor_ln189_9 = xor i1 %or_ln189_9, true" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 257 'xor' 'xor_ln189_9' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 258 [1/1] (0.12ns)   --->   "%or_ln189_37 = or i1 %icmp_ln189_9, %xor_ln189_9" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 258 'or' 'or_ln189_37' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_21 : Operation 259 [1/1] (0.60ns)   --->   "br label %.preheader" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 259 'br' <Predicate = true> <Delay = 0.60>
+
+State 22 <SV = 13> <Delay = 1.15>
+ST_22 : Operation 260 [1/1] (0.00ns)   --->   "%agg_result_V_0 = phi i32 [ 0, %.preheader.preheader ], [ %local_score_V_4, %combination_loop_end ]"   --->   Operation 260 'phi' 'agg_result_V_0' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 261 [1/1] (0.00ns)   --->   "%p_Val2_2 = phi i32 [ 0, %.preheader.preheader ], [ %local_score_V_5, %combination_loop_end ]"   --->   Operation 261 'phi' 'p_Val2_2' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 262 [1/1] (0.00ns)   --->   "%i1_0 = phi i31 [ 0, %.preheader.preheader ], [ %add_ln175, %combination_loop_end ]" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 262 'phi' 'i1_0' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 263 [1/1] (0.00ns)   --->   "%itr_num_1_load = load i32* %itr_num_1" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 263 'load' 'itr_num_1_load' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 264 [1/1] (0.00ns)   --->   "%zext_ln175 = zext i31 %i1_0 to i32" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 264 'zext' 'zext_ln175' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 265 [1/1] (0.85ns)   --->   "%icmp_ln175 = icmp slt i32 %zext_ln175, %itr_num_1_load" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 265 'icmp' 'icmp_ln175' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 266 [1/1] (0.66ns)   --->   "%add_ln175 = add i31 %i1_0, 1" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 266 'add' 'add_ln175' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_22 : Operation 267 [1/1] (0.00ns)   --->   "br i1 %icmp_ln175, label %combination_loop_begin, label %14" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 267 'br' <Predicate = true> <Delay = 0.00>
+ST_22 : Operation 268 [2/2] (1.15ns)   --->   "%now_comb_V_load_1 = load i2* %now_comb_V_addr_2, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 268 'load' 'now_comb_V_load_1' <Predicate = (icmp_ln175)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_22 : Operation 269 [1/1] (0.00ns)   --->   "ret i32 %agg_result_V_0" [../../../../src/hypercube_kernel.cpp:227]   --->   Operation 269 'ret' <Predicate = (!icmp_ln175)> <Delay = 0.00>
+
+State 23 <SV = 14> <Delay = 1.15>
+ST_23 : Operation 270 [1/2] (1.15ns)   --->   "%now_comb_V_load_1 = load i2* %now_comb_V_addr_2, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 270 'load' 'now_comb_V_load_1' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_23 : Operation 271 [2/2] (1.15ns)   --->   "%now_comb_V_load_2 = load i2* %now_comb_V_addr_3, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 271 'load' 'now_comb_V_load_2' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 24 <SV = 15> <Delay = 1.15>
+ST_24 : Operation 272 [1/2] (1.15ns)   --->   "%now_comb_V_load_2 = load i2* %now_comb_V_addr_3, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 272 'load' 'now_comb_V_load_2' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_24 : Operation 273 [2/2] (1.15ns)   --->   "%now_comb_V_load_3 = load i2* %now_comb_V_addr_4, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 273 'load' 'now_comb_V_load_3' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 25 <SV = 16> <Delay = 1.15>
+ST_25 : Operation 274 [1/2] (1.15ns)   --->   "%now_comb_V_load_3 = load i2* %now_comb_V_addr_4, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 274 'load' 'now_comb_V_load_3' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_25 : Operation 275 [2/2] (1.15ns)   --->   "%now_comb_V_load_4 = load i2* %now_comb_V_addr_5, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 275 'load' 'now_comb_V_load_4' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 26 <SV = 17> <Delay = 1.15>
+ST_26 : Operation 276 [1/2] (1.15ns)   --->   "%now_comb_V_load_4 = load i2* %now_comb_V_addr_5, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 276 'load' 'now_comb_V_load_4' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_26 : Operation 277 [2/2] (1.15ns)   --->   "%now_comb_V_load_5 = load i2* %now_comb_V_addr_6, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 277 'load' 'now_comb_V_load_5' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 27 <SV = 18> <Delay = 1.15>
+ST_27 : Operation 278 [1/2] (1.15ns)   --->   "%now_comb_V_load_5 = load i2* %now_comb_V_addr_6, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 278 'load' 'now_comb_V_load_5' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_27 : Operation 279 [2/2] (1.15ns)   --->   "%now_comb_V_load_6 = load i2* %now_comb_V_addr_7, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 279 'load' 'now_comb_V_load_6' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 28 <SV = 19> <Delay = 1.15>
+ST_28 : Operation 280 [1/2] (1.15ns)   --->   "%now_comb_V_load_6 = load i2* %now_comb_V_addr_7, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 280 'load' 'now_comb_V_load_6' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_28 : Operation 281 [2/2] (1.15ns)   --->   "%now_comb_V_load_7 = load i2* %now_comb_V_addr_8, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 281 'load' 'now_comb_V_load_7' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 29 <SV = 20> <Delay = 1.15>
+ST_29 : Operation 282 [1/2] (1.15ns)   --->   "%now_comb_V_load_7 = load i2* %now_comb_V_addr_8, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 282 'load' 'now_comb_V_load_7' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_29 : Operation 283 [2/2] (1.15ns)   --->   "%now_comb_V_load_8 = load i2* %now_comb_V_addr_9, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 283 'load' 'now_comb_V_load_8' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 30 <SV = 21> <Delay = 1.15>
+ST_30 : Operation 284 [1/2] (1.15ns)   --->   "%now_comb_V_load_8 = load i2* %now_comb_V_addr_9, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 284 'load' 'now_comb_V_load_8' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_30 : Operation 285 [2/2] (1.15ns)   --->   "%now_comb_V_load_9 = load i2* %now_comb_V_addr_10, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 285 'load' 'now_comb_V_load_9' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 31 <SV = 22> <Delay = 1.15>
+ST_31 : Operation 286 [1/2] (1.15ns)   --->   "%now_comb_V_load_9 = load i2* %now_comb_V_addr_10, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 286 'load' 'now_comb_V_load_9' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_31 : Operation 287 [2/2] (1.15ns)   --->   "%now_comb_V_load_10 = load i2* %now_comb_V_addr_11, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 287 'load' 'now_comb_V_load_10' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 32 <SV = 23> <Delay = 1.15>
+ST_32 : Operation 288 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopName([17 x i8]* @p_str5) nounwind" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 288 'specloopname' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 289 [1/1] (0.00ns)   --->   "%tmp_1 = call i32 (...)* @_ssdm_op_SpecRegionBegin([17 x i8]* @p_str5)" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 289 'specregionbegin' 'tmp_1' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 290 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i32 1, i32 256, i32 34, [1 x i8]* @p_str) nounwind" [../../../../src/hypercube_kernel.cpp:176]   --->   Operation 290 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_32 : Operation 291 [1/2] (1.15ns)   --->   "%now_comb_V_load_10 = load i2* %now_comb_V_addr_11, align 1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 291 'load' 'now_comb_V_load_10' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_32 : Operation 292 [1/1] (0.60ns)   --->   "br label %3" [../../../../src/hypercube_kernel.cpp:181]   --->   Operation 292 'br' <Predicate = true> <Delay = 0.60>
+
+State 33 <SV = 24> <Delay = 1.15>
+ST_33 : Operation 293 [1/1] (0.00ns)   --->   "%nik_0 = phi i32 [ 0, %combination_loop_begin ], [ %nik_1, %_ifconv ]"   --->   Operation 293 'phi' 'nik_0' <Predicate = true> <Delay = 0.00>
+ST_33 : Operation 294 [1/1] (0.00ns)   --->   "%nijk_0 = phi i32 [ 0, %combination_loop_begin ], [ %select_ln196, %_ifconv ]" [../../../../src/hypercube_kernel.cpp:196]   --->   Operation 294 'phi' 'nijk_0' <Predicate = true> <Delay = 0.00>
+ST_33 : Operation 295 [1/1] (0.00ns)   --->   "%j_0 = phi i10 [ 0, %combination_loop_begin ], [ %j, %_ifconv ]"   --->   Operation 295 'phi' 'j_0' <Predicate = true> <Delay = 0.00>
+ST_33 : Operation 296 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecPipeline(i32 -1, i32 1, i32 1, i32 0, [1 x i8]* @p_str)"   --->   Operation 296 'specpipeline' <Predicate = true> <Delay = 0.00>
+ST_33 : Operation 297 [1/1] (0.60ns)   --->   "%icmp_ln181 = icmp eq i10 %j_0, -24" [../../../../src/hypercube_kernel.cpp:181]   --->   Operation 297 'icmp' 'icmp_ln181' <Predicate = true> <Delay = 0.60> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_33 : Operation 298 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecLoopTripCount(i64 1000, i64 1000, i64 1000)"   --->   Operation 298 'speclooptripcount' <Predicate = true> <Delay = 0.00>
+ST_33 : Operation 299 [1/1] (0.54ns)   --->   "%j = add i10 %j_0, 1" [../../../../src/hypercube_kernel.cpp:181]   --->   Operation 299 'add' 'j' <Predicate = true> <Delay = 0.54> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_33 : Operation 300 [1/1] (0.00ns)   --->   "br i1 %icmp_ln181, label %_ifconv1, label %_ifconv" [../../../../src/hypercube_kernel.cpp:181]   --->   Operation 300 'br' <Predicate = true> <Delay = 0.00>
+ST_33 : Operation 301 [1/1] (0.00ns)   --->   "%zext_ln184 = zext i10 %j_0 to i64" [../../../../src/hypercube_kernel.cpp:184]   --->   Operation 301 'zext' 'zext_ln184' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_33 : Operation 302 [1/1] (0.00ns)   --->   "%dataset_V_addr = getelementptr [1000 x i32]* %dataset_V, i64 0, i64 %zext_ln184" [../../../../src/hypercube_kernel.cpp:184]   --->   Operation 302 'getelementptr' 'dataset_V_addr' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_33 : Operation 303 [2/2] (1.15ns)   --->   "%data_V = load i32* %dataset_V_addr, align 4" [../../../../src/hypercube_kernel.cpp:184]   --->   Operation 303 'load' 'data_V' <Predicate = (!icmp_ln181)> <Delay = 1.15> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 1000> <RAM>
+
+State 34 <SV = 25> <Delay = 2.09>
+ST_34 : Operation 304 [1/2] (1.15ns)   --->   "%data_V = load i32* %dataset_V_addr, align 4" [../../../../src/hypercube_kernel.cpp:184]   --->   Operation 304 'load' 'data_V' <Predicate = (!icmp_ln181)> <Delay = 1.15> <Core = "RAM">   --->   Core 37 'RAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 2> <Width = 32> <Depth = 1000> <RAM>
+ST_34 : Operation 305 [1/1] (0.00ns)   --->   "%trunc_ln647 = trunc i32 %data_V to i2" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 305 'trunc' 'trunc_ln647' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 306 [1/1] (0.34ns)   --->   "%icmp_ln883 = icmp eq i2 %trunc_ln647, %now_comb_V_load_1" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 306 'icmp' 'icmp_ln883' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 307 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_3)   --->   "%or_ln189_11 = or i1 %or_ln189_10, %icmp_ln883" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 307 'or' 'or_ln189_11' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 308 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_12)   --->   "%or_ln189_12 = or i1 %icmp_ln883, %xor_ln189" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 308 'or' 'or_ln189_12' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 309 [1/1] (0.00ns)   --->   "%p_Result_1_1 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %data_V, i32 2, i32 3)" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 309 'partselect' 'p_Result_1_1' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 310 [1/1] (0.34ns)   --->   "%icmp_ln883_1 = icmp eq i2 %p_Result_1_1, %now_comb_V_load_2" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 310 'icmp' 'icmp_ln883_1' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 311 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_3)   --->   "%or_ln189_14 = or i1 %or_ln189_13, %icmp_ln883_1" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 311 'or' 'or_ln189_14' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 312 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_12)   --->   "%or_ln189_15 = or i1 %icmp_ln883_1, %xor_ln189_1" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 312 'or' 'or_ln189_15' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 313 [1/1] (0.00ns)   --->   "%p_Result_1_2 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %data_V, i32 4, i32 5)" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 313 'partselect' 'p_Result_1_2' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 314 [1/1] (0.34ns)   --->   "%icmp_ln883_2 = icmp eq i2 %p_Result_1_2, %now_comb_V_load_3" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 314 'icmp' 'icmp_ln883_2' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 315 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_2)   --->   "%or_ln189_17 = or i1 %or_ln189_16, %icmp_ln883_2" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 315 'or' 'or_ln189_17' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 316 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_11)   --->   "%or_ln189_18 = or i1 %icmp_ln883_2, %xor_ln189_2" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 316 'or' 'or_ln189_18' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 317 [1/1] (0.00ns)   --->   "%p_Result_1_3 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %data_V, i32 6, i32 7)" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 317 'partselect' 'p_Result_1_3' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 318 [1/1] (0.34ns)   --->   "%icmp_ln883_3 = icmp eq i2 %p_Result_1_3, %now_comb_V_load_4" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 318 'icmp' 'icmp_ln883_3' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 319 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_2)   --->   "%or_ln189_20 = or i1 %or_ln189_19, %icmp_ln883_3" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 319 'or' 'or_ln189_20' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 320 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_11)   --->   "%or_ln189_21 = or i1 %icmp_ln883_3, %xor_ln189_3" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 320 'or' 'or_ln189_21' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 321 [1/1] (0.00ns)   --->   "%p_Result_1_4 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %data_V, i32 8, i32 9)" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 321 'partselect' 'p_Result_1_4' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 322 [1/1] (0.34ns)   --->   "%icmp_ln883_4 = icmp eq i2 %p_Result_1_4, %now_comb_V_load_5" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 322 'icmp' 'icmp_ln883_4' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 323 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_2)   --->   "%or_ln189_23 = or i1 %or_ln189_22, %icmp_ln883_4" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 323 'or' 'or_ln189_23' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 324 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_11)   --->   "%or_ln189_24 = or i1 %icmp_ln883_4, %xor_ln189_4" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 324 'or' 'or_ln189_24' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 325 [1/1] (0.00ns)   --->   "%p_Result_1_5 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %data_V, i32 10, i32 11)" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 325 'partselect' 'p_Result_1_5' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 326 [1/1] (0.34ns)   --->   "%icmp_ln883_5 = icmp eq i2 %p_Result_1_5, %now_comb_V_load_6" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 326 'icmp' 'icmp_ln883_5' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 327 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_8)   --->   "%or_ln189_26 = or i1 %or_ln189_25, %icmp_ln883_5" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 327 'or' 'or_ln189_26' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 328 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_17)   --->   "%or_ln189_27 = or i1 %icmp_ln883_5, %xor_ln189_5" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 328 'or' 'or_ln189_27' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 329 [1/1] (0.00ns)   --->   "%p_Result_1_6 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %data_V, i32 12, i32 13)" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 329 'partselect' 'p_Result_1_6' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 330 [1/1] (0.34ns)   --->   "%icmp_ln883_6 = icmp eq i2 %p_Result_1_6, %now_comb_V_load_7" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 330 'icmp' 'icmp_ln883_6' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 331 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_8)   --->   "%or_ln189_29 = or i1 %or_ln189_28, %icmp_ln883_6" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 331 'or' 'or_ln189_29' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 332 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_17)   --->   "%or_ln189_30 = or i1 %icmp_ln883_6, %xor_ln189_6" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 332 'or' 'or_ln189_30' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 333 [1/1] (0.00ns)   --->   "%p_Result_1_7 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %data_V, i32 14, i32 15)" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 333 'partselect' 'p_Result_1_7' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 334 [1/1] (0.34ns)   --->   "%icmp_ln883_7 = icmp eq i2 %p_Result_1_7, %now_comb_V_load_8" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 334 'icmp' 'icmp_ln883_7' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 335 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_6)   --->   "%or_ln189_32 = or i1 %or_ln189_31, %icmp_ln883_7" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 335 'or' 'or_ln189_32' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 336 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_15)   --->   "%or_ln189_33 = or i1 %icmp_ln883_7, %xor_ln189_7" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 336 'or' 'or_ln189_33' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 337 [1/1] (0.00ns)   --->   "%p_Result_1_8 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %data_V, i32 16, i32 17)" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 337 'partselect' 'p_Result_1_8' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 338 [1/1] (0.34ns)   --->   "%icmp_ln883_8 = icmp eq i2 %p_Result_1_8, %now_comb_V_load_9" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 338 'icmp' 'icmp_ln883_8' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 339 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_6)   --->   "%or_ln189_35 = or i1 %or_ln189_34, %icmp_ln883_8" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 339 'or' 'or_ln189_35' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 340 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_15)   --->   "%or_ln189_36 = or i1 %icmp_ln883_8, %xor_ln189_8" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 340 'or' 'or_ln189_36' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 341 [1/1] (0.00ns)   --->   "%p_Result_1_9 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %data_V, i32 18, i32 19)" [../../../../src/hypercube_kernel.cpp:188]   --->   Operation 341 'partselect' 'p_Result_1_9' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+ST_34 : Operation 342 [1/1] (0.34ns)   --->   "%icmp_ln883_9 = icmp eq i2 %p_Result_1_9, %now_comb_V_load_10" [../../../../src/hypercube_kernel.cpp:190]   --->   Operation 342 'icmp' 'icmp_ln883_9' <Predicate = (!icmp_ln181)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 343 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_6)   --->   "%or_ln189_38 = or i1 %or_ln189_37, %icmp_ln883_9" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 343 'or' 'or_ln189_38' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 344 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_3)   --->   "%and_ln189 = and i1 %or_ln189_11, %or_ln189_14" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 344 'and' 'and_ln189' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 345 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_2)   --->   "%and_ln189_1 = and i1 %or_ln189_20, %or_ln189_23" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 345 'and' 'and_ln189_1' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 346 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln189_2 = and i1 %and_ln189_1, %or_ln189_17" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 346 'and' 'and_ln189_2' <Predicate = (!icmp_ln181)> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 347 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln189_3 = and i1 %and_ln189_2, %and_ln189" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 347 'and' 'and_ln189_3' <Predicate = (!icmp_ln181)> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 348 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_8)   --->   "%and_ln189_4 = and i1 %or_ln189_26, %or_ln189_29" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 348 'and' 'and_ln189_4' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 349 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_6)   --->   "%and_ln189_5 = and i1 %or_ln189_35, %or_ln189_38" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 349 'and' 'and_ln189_5' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 350 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln189_6 = and i1 %and_ln189_5, %or_ln189_32" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 350 'and' 'and_ln189_6' <Predicate = (!icmp_ln181)> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 351 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_8)   --->   "%and_ln189_7 = and i1 %and_ln189_6, %and_ln189_4" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 351 'and' 'and_ln189_7' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 352 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln189_8 = and i1 %and_ln189_7, %and_ln189_3" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 352 'and' 'and_ln189_8' <Predicate = (!icmp_ln181)> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 353 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_15)   --->   "%or_ln189_39 = or i1 %icmp_ln883_9, %xor_ln189_9" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 353 'or' 'or_ln189_39' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 354 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_12)   --->   "%and_ln189_9 = and i1 %or_ln189_12, %or_ln189_15" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 354 'and' 'and_ln189_9' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 355 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_11)   --->   "%and_ln189_10 = and i1 %or_ln189_21, %or_ln189_24" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 355 'and' 'and_ln189_10' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 356 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln189_11 = and i1 %and_ln189_10, %or_ln189_18" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 356 'and' 'and_ln189_11' <Predicate = (!icmp_ln181)> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 357 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln189_12 = and i1 %and_ln189_11, %and_ln189_9" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 357 'and' 'and_ln189_12' <Predicate = (!icmp_ln181)> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 358 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_17)   --->   "%and_ln189_13 = and i1 %or_ln189_27, %or_ln189_30" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 358 'and' 'and_ln189_13' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 359 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_15)   --->   "%and_ln189_14 = and i1 %or_ln189_36, %or_ln189_39" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 359 'and' 'and_ln189_14' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 360 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln189_15 = and i1 %and_ln189_14, %or_ln189_33" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 360 'and' 'and_ln189_15' <Predicate = (!icmp_ln181)> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 361 [1/1] (0.00ns) (grouped into LUT with out node and_ln189_17)   --->   "%and_ln189_16 = and i1 %and_ln189_15, %and_ln189_13" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 361 'and' 'and_ln189_16' <Predicate = (!icmp_ln181)> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 362 [1/1] (0.12ns) (out node of the LUT)   --->   "%and_ln189_17 = and i1 %and_ln189_16, %and_ln189_12" [../../../../src/hypercube_kernel.cpp:189]   --->   Operation 362 'and' 'and_ln189_17' <Predicate = (!icmp_ln181)> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 363 [1/1] (0.66ns)   --->   "%nijk = add nsw i32 1, %nijk_0" [../../../../src/hypercube_kernel.cpp:196]   --->   Operation 363 'add' 'nijk' <Predicate = (!icmp_ln181)> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 364 [1/1] (0.22ns) (out node of the LUT)   --->   "%select_ln196 = select i1 %and_ln189_17, i32 %nijk, i32 %nijk_0" [../../../../src/hypercube_kernel.cpp:196]   --->   Operation 364 'select' 'select_ln196' <Predicate = (!icmp_ln181)> <Delay = 0.22> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_34 : Operation 365 [1/1] (0.66ns)   --->   "%nik = add nsw i32 1, %nik_0" [../../../../src/hypercube_kernel.cpp:197]   --->   Operation 365 'add' 'nik' <Predicate = (!icmp_ln181)> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_34 : Operation 366 [1/1] (0.22ns) (out node of the LUT)   --->   "%nik_1 = select i1 %and_ln189_8, i32 %nik, i32 %nik_0" [../../../../src/hypercube_kernel.cpp:197]   --->   Operation 366 'select' 'nik_1' <Predicate = (!icmp_ln181)> <Delay = 0.22> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_34 : Operation 367 [1/1] (0.00ns)   --->   "br label %3" [../../../../src/hypercube_kernel.cpp:181]   --->   Operation 367 'br' <Predicate = (!icmp_ln181)> <Delay = 0.00>
+
+State 35 <SV = 25> <Delay = 2.31>
+ST_35 : Operation 368 [1/1] (0.63ns)   --->   "%icmp_ln647_1 = icmp ugt i5 %Lo_assign_1, %or_ln206" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 368 'icmp' 'icmp_ln647_1' <Predicate = true> <Delay = 0.63> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 369 [1/1] (0.00ns)   --->   "%zext_ln647_4 = zext i5 %Lo_assign_1 to i6" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 369 'zext' 'zext_ln647_4' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 370 [1/1] (0.00ns)   --->   "%zext_ln647_5 = zext i5 %or_ln206 to i6" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 370 'zext' 'zext_ln647_5' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 371 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647_2)   --->   "%tmp_34 = call i32 @llvm.part.select.i32(i32 %max_vals_V_read, i32 31, i32 0)" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 371 'partselect' 'tmp_34' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 372 [1/1] (0.34ns)   --->   "%sub_ln647_3 = sub i6 %zext_ln647_4, %zext_ln647_5" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 372 'sub' 'sub_ln647_3' <Predicate = true> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 373 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647_2)   --->   "%xor_ln647_1 = xor i6 %zext_ln647_4, 31" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 373 'xor' 'xor_ln647_1' <Predicate = true> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 374 [1/1] (0.34ns)   --->   "%sub_ln647_4 = sub i6 %zext_ln647_5, %zext_ln647_4" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 374 'sub' 'sub_ln647_4' <Predicate = true> <Delay = 0.34> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 375 [1/1] (0.00ns) (grouped into LUT with out node sub_ln647_5)   --->   "%select_ln647_3 = select i1 %icmp_ln647_1, i6 %sub_ln647_3, i6 %sub_ln647_4" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 375 'select' 'select_ln647_3' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_35 : Operation 376 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647_2)   --->   "%select_ln647_4 = select i1 %icmp_ln647_1, i32 %tmp_34, i32 %max_vals_V_read" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 376 'select' 'select_ln647_4' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_35 : Operation 377 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647_2)   --->   "%select_ln647_5 = select i1 %icmp_ln647_1, i6 %xor_ln647_1, i6 %zext_ln647_4" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 377 'select' 'select_ln647_5' <Predicate = true> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_35 : Operation 378 [1/1] (0.43ns) (out node of the LUT)   --->   "%sub_ln647_5 = sub i6 31, %select_ln647_3" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 378 'sub' 'sub_ln647_5' <Predicate = true> <Delay = 0.43> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 379 [1/1] (0.00ns) (grouped into LUT with out node lshr_ln647_2)   --->   "%zext_ln647_6 = zext i6 %select_ln647_5 to i32" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 379 'zext' 'zext_ln647_6' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 380 [1/1] (0.00ns) (grouped into LUT with out node r)   --->   "%zext_ln647_7 = zext i6 %sub_ln647_5 to i32" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 380 'zext' 'zext_ln647_7' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 381 [1/1] (1.05ns) (out node of the LUT)   --->   "%lshr_ln647_2 = lshr i32 %select_ln647_4, %zext_ln647_6" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 381 'lshr' 'lshr_ln647_2' <Predicate = true> <Delay = 1.05> <Core = "Shift">   --->   Core 28 'Shift' <Latency = 0> <II = 1> <Delay = 0.62> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 382 [1/1] (0.00ns) (grouped into LUT with out node r)   --->   "%lshr_ln647_3 = lshr i32 -1, %zext_ln647_7" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 382 'lshr' 'lshr_ln647_3' <Predicate = true> <Delay = 0.00> <Core = "Shift">   --->   Core 28 'Shift' <Latency = 0> <II = 1> <Delay = 0.62> <FuncUnit> <Opcode : 'shl' 'lshr' 'ashr'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 383 [1/1] (0.00ns) (grouped into LUT with out node r)   --->   "%p_Result_6 = and i32 %lshr_ln647_2, %lshr_ln647_3" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 383 'and' 'p_Result_6' <Predicate = true> <Delay = 0.00> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 384 [1/1] (0.00ns) (grouped into LUT with out node r)   --->   "%child_max_val_V = trunc i32 %p_Result_6 to i2" [../../../../src/hypercube_kernel.cpp:206]   --->   Operation 384 'trunc' 'child_max_val_V' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 385 [1/1] (0.00ns) (grouped into LUT with out node r)   --->   "%zext_ln207 = zext i2 %child_max_val_V to i3" [../../../../src/hypercube_kernel.cpp:207]   --->   Operation 385 'zext' 'zext_ln207' <Predicate = true> <Delay = 0.00>
+ST_35 : Operation 386 [1/1] (0.62ns) (out node of the LUT)   --->   "%r = add i3 1, %zext_ln207" [../../../../src/hypercube_kernel.cpp:207]   --->   Operation 386 'add' 'r' <Predicate = true> <Delay = 0.62> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 387 [2/2] (1.15ns)   --->   "%now_comb_V_load = load i2* %now_comb_V_addr, align 1" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 387 'load' 'now_comb_V_load' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_35 : Operation 388 [1/1] (0.85ns)   --->   "%icmp_ln211 = icmp sgt i32 %nijk_0, 0" [../../../../src/hypercube_kernel.cpp:211]   --->   Operation 388 'icmp' 'icmp_ln211' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_35 : Operation 389 [1/1] (0.66ns)   --->   "%add_ln211 = add nsw i32 1, %nijk_0" [../../../../src/hypercube_kernel.cpp:211]   --->   Operation 389 'add' 'add_ln211' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 36 <SV = 26> <Delay = 1.62>
+ST_36 : Operation 390 [1/1] (0.00ns)   --->   "%zext_ln207_1 = zext i3 %r to i32" [../../../../src/hypercube_kernel.cpp:207]   --->   Operation 390 'zext' 'zext_ln207_1' <Predicate = true> <Delay = 0.00>
+ST_36 : Operation 391 [1/2] (1.15ns)   --->   "%now_comb_V_load = load i2* %now_comb_V_addr, align 1" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 391 'load' 'now_comb_V_load' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_36 : Operation 392 [1/1] (0.34ns)   --->   "%icmp_ln879 = icmp eq i2 %now_comb_V_load, 0" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 392 'icmp' 'icmp_ln879' <Predicate = true> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_36 : Operation 393 [1/1] (0.85ns)   --->   "%icmp_ln209 = icmp sgt i32 %nik_0, 0" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 393 'icmp' 'icmp_ln209' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_36 : Operation 394 [1/1] (0.12ns)   --->   "%and_ln209 = and i1 %icmp_ln879, %icmp_ln209" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 394 'and' 'and_ln209' <Predicate = true> <Delay = 0.12> <Core = "LogicGate">   --->   Core 27 'LogicGate' <Latency = 0> <II = 1> <Delay = 0.12> <FuncUnit> <Opcode : 'and' 'or' 'xor'> <InPorts = 2> <OutPorts = 1>
+ST_36 : Operation 395 [1/1] (0.00ns)   --->   "%zext_ln141 = zext i3 %r to i64" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 395 'zext' 'zext_ln141' <Predicate = true> <Delay = 0.00>
+ST_36 : Operation 396 [1/1] (0.00ns)   --->   "%lgamma_table_addr = getelementptr [1024 x i29]* @lgamma_table, i64 0, i64 %zext_ln141" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 396 'getelementptr' 'lgamma_table_addr' <Predicate = true> <Delay = 0.00>
+ST_36 : Operation 397 [2/2] (1.15ns)   --->   "%p_Val2_s = load i29* %lgamma_table_addr, align 4" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 397 'load' 'p_Val2_s' <Predicate = true> <Delay = 1.15> <Core = "ROM_1P_BRAM">   --->   Core 61 'ROM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load'> <Ports = 1> <Width = 29> <Depth = 1024> <ROM>
+ST_36 : Operation 398 [1/1] (0.66ns)   --->   "%add_ln209 = add nsw i32 %nik_0, %zext_ln207_1" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 398 'add' 'add_ln209' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+
+State 37 <SV = 27> <Delay = 1.15>
+ST_37 : Operation 399 [1/2] (1.15ns)   --->   "%p_Val2_s = load i29* %lgamma_table_addr, align 4" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 399 'load' 'p_Val2_s' <Predicate = true> <Delay = 1.15> <Core = "ROM_1P_BRAM">   --->   Core 61 'ROM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load'> <Ports = 1> <Width = 29> <Depth = 1024> <ROM>
+ST_37 : Operation 400 [1/1] (0.00ns)   --->   "%sext_ln141 = sext i32 %add_ln209 to i64" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 400 'sext' 'sext_ln141' <Predicate = true> <Delay = 0.00>
+ST_37 : Operation 401 [1/1] (0.00ns)   --->   "%lgamma_table_addr_1 = getelementptr [1024 x i29]* @lgamma_table, i64 0, i64 %sext_ln141" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 401 'getelementptr' 'lgamma_table_addr_1' <Predicate = true> <Delay = 0.00>
+ST_37 : Operation 402 [2/2] (1.15ns)   --->   "%p_Val2_3 = load i29* %lgamma_table_addr_1, align 4" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 402 'load' 'p_Val2_3' <Predicate = true> <Delay = 1.15> <Core = "ROM_1P_BRAM">   --->   Core 61 'ROM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load'> <Ports = 1> <Width = 29> <Depth = 1024> <ROM>
+
+State 38 <SV = 28> <Delay = 1.80>
+ST_38 : Operation 403 [1/1] (0.00ns)   --->   "%zext_ln141_1 = zext i29 %p_Val2_s to i30" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 403 'zext' 'zext_ln141_1' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 404 [1/2] (1.15ns)   --->   "%p_Val2_3 = load i29* %lgamma_table_addr_1, align 4" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 404 'load' 'p_Val2_3' <Predicate = true> <Delay = 1.15> <Core = "ROM_1P_BRAM">   --->   Core 61 'ROM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load'> <Ports = 1> <Width = 29> <Depth = 1024> <ROM>
+ST_38 : Operation 405 [1/1] (0.00ns)   --->   "%zext_ln141_2 = zext i29 %p_Val2_3 to i30" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 405 'zext' 'zext_ln141_2' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 406 [1/1] (0.64ns)   --->   "%sub_ln703 = sub i30 %zext_ln141_1, %zext_ln141_2" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 406 'sub' 'sub_ln703' <Predicate = true> <Delay = 0.64> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_38 : Operation 407 [1/1] (0.00ns)   --->   "%sext_ln141_1 = sext i32 %add_ln211 to i64" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:211]   --->   Operation 407 'sext' 'sext_ln141_1' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 408 [1/1] (0.00ns)   --->   "%lgamma_table_addr_2 = getelementptr [1024 x i29]* @lgamma_table, i64 0, i64 %sext_ln141_1" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:211]   --->   Operation 408 'getelementptr' 'lgamma_table_addr_2' <Predicate = true> <Delay = 0.00>
+ST_38 : Operation 409 [2/2] (1.15ns)   --->   "%p_Val2_5 = load i29* %lgamma_table_addr_2, align 4" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:211]   --->   Operation 409 'load' 'p_Val2_5' <Predicate = true> <Delay = 1.15> <Core = "ROM_1P_BRAM">   --->   Core 61 'ROM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load'> <Ports = 1> <Width = 29> <Depth = 1024> <ROM>
+
+State 39 <SV = 29> <Delay = 2.05>
+ST_39 : Operation 410 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([1024 x i29]* @lgamma_table, [1 x i8]* @p_str, [12 x i8]* @p_str1, [1 x i8]* @p_str, i32 -1, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str)" [../../../../src/hypercube_kernel.cpp:140->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 410 'specmemcore' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 411 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([1024 x i29]* @lgamma_table, [1 x i8]* @p_str, [12 x i8]* @p_str1, [1 x i8]* @p_str, i32 -1, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str)" [../../../../src/hypercube_kernel.cpp:140->../../../../src/hypercube_kernel.cpp:209]   --->   Operation 411 'specmemcore' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 412 [1/1] (0.00ns)   --->   "%sext_ln703 = sext i30 %sub_ln703 to i32" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 412 'sext' 'sext_ln703' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 413 [1/1] (0.66ns)   --->   "%local_score_V = add i32 %sext_ln703, %p_Val2_2" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 413 'add' 'local_score_V' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_39 : Operation 414 [1/1] (0.00ns) (grouped into LUT with out node local_score_V_4)   --->   "%local_score_V_1 = select i1 %and_ln209, i32 %local_score_V, i32 %agg_result_V_0" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 414 'select' 'local_score_V_1' <Predicate = (!icmp_ln211)> <Delay = 0.00> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_39 : Operation 415 [1/1] (0.22ns)   --->   "%local_score_V_6 = select i1 %and_ln209, i32 %local_score_V, i32 %p_Val2_2" [../../../../src/hypercube_kernel.cpp:209]   --->   Operation 415 'select' 'local_score_V_6' <Predicate = true> <Delay = 0.22> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_39 : Operation 416 [1/1] (0.00ns)   --->   "call void (...)* @_ssdm_op_SpecMemCore([1024 x i29]* @lgamma_table, [1 x i8]* @p_str, [12 x i8]* @p_str1, [1 x i8]* @p_str, i32 -1, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str, [1 x i8]* @p_str)" [../../../../src/hypercube_kernel.cpp:140->../../../../src/hypercube_kernel.cpp:211]   --->   Operation 416 'specmemcore' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 417 [1/2] (1.15ns)   --->   "%p_Val2_5 = load i29* %lgamma_table_addr_2, align 4" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:211]   --->   Operation 417 'load' 'p_Val2_5' <Predicate = true> <Delay = 1.15> <Core = "ROM_1P_BRAM">   --->   Core 61 'ROM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load'> <Ports = 1> <Width = 29> <Depth = 1024> <ROM>
+ST_39 : Operation 418 [1/1] (0.00ns)   --->   "%zext_ln141_3 = zext i29 %p_Val2_5 to i32" [../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:211]   --->   Operation 418 'zext' 'zext_ln141_3' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 419 [1/1] (0.66ns)   --->   "%local_score_V_3 = add i32 %zext_ln141_3, %local_score_V_6" [../../../../src/hypercube_kernel.cpp:211]   --->   Operation 419 'add' 'local_score_V_3' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_39 : Operation 420 [1/1] (0.22ns) (out node of the LUT)   --->   "%local_score_V_4 = select i1 %icmp_ln211, i32 %local_score_V_3, i32 %local_score_V_1" [../../../../src/hypercube_kernel.cpp:211]   --->   Operation 420 'select' 'local_score_V_4' <Predicate = true> <Delay = 0.22> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_39 : Operation 421 [1/1] (0.22ns)   --->   "%local_score_V_5 = select i1 %icmp_ln211, i32 %local_score_V_3, i32 %local_score_V_6" [../../../../src/hypercube_kernel.cpp:211]   --->   Operation 421 'select' 'local_score_V_5' <Predicate = true> <Delay = 0.22> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_39 : Operation 422 [1/1] (0.00ns)   --->   "br i1 %or_ln189, label %4, label %._crit_edge355.0" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 422 'br' <Predicate = true> <Delay = 0.00>
+ST_39 : Operation 423 [2/2] (1.15ns)   --->   "%counters_load = load i32* %counters_addr_1, align 16" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 423 'load' 'counters_load' <Predicate = (or_ln189)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 40 <SV = 30> <Delay = 1.15>
+ST_40 : Operation 424 [1/2] (1.15ns)   --->   "%counters_load = load i32* %counters_addr_1, align 16" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 424 'load' 'counters_load' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 41 <SV = 31> <Delay = 1.82>
+ST_41 : Operation 425 [1/1] (0.66ns)   --->   "%add_ln218 = add nsw i32 %counters_load, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 425 'add' 'add_ln218' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 426 [1/1] (1.15ns)   --->   "store i32 %add_ln218, i32* %counters_addr_1, align 16" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 426 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_41 : Operation 427 [1/1] (0.85ns)   --->   "%icmp_ln219 = icmp eq i32 %add_ln218, %refresh_timing_load" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 427 'icmp' 'icmp_ln219' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 428 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219, label %._crit_edge357.0, label %._crit_edge356.0" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 428 'br' <Predicate = true> <Delay = 0.00>
+ST_41 : Operation 429 [1/1] (0.00ns)   --->   "%trunc_ln647_1 = trunc i32 %max_vals_V_read to i2" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 429 'trunc' 'trunc_ln647_1' <Predicate = (icmp_ln219)> <Delay = 0.00>
+ST_41 : Operation 430 [1/1] (0.34ns)   --->   "%icmp_ln879_1 = icmp eq i2 %now_comb_V_load_1, %trunc_ln647_1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 430 'icmp' 'icmp_ln879_1' <Predicate = (icmp_ln219)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 431 [1/1] (0.23ns)   --->   "%add_ln301 = add i2 1, %now_comb_V_load_1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 431 'add' 'add_ln301' <Predicate = (icmp_ln219)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_41 : Operation 432 [1/1] (0.27ns)   --->   "%select_ln221 = select i1 %icmp_ln879_1, i2 0, i2 %add_ln301" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 432 'select' 'select_ln221' <Predicate = (icmp_ln219)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_41 : Operation 433 [1/1] (1.15ns)   --->   "store i2 %select_ln221, i2* %now_comb_V_addr_2, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 433 'store' <Predicate = (icmp_ln219)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 42 <SV = 32> <Delay = 1.15>
+ST_42 : Operation 434 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_1, align 16" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 434 'store' <Predicate = (or_ln189 & icmp_ln219)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_42 : Operation 435 [1/1] (0.00ns)   --->   "br label %._crit_edge356.0" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 435 'br' <Predicate = (or_ln189 & icmp_ln219)> <Delay = 0.00>
+ST_42 : Operation 436 [1/1] (0.00ns)   --->   "br label %._crit_edge355.0" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 436 'br' <Predicate = (or_ln189)> <Delay = 0.00>
+ST_42 : Operation 437 [1/1] (0.00ns)   --->   "br i1 %or_ln189_1, label %5, label %._crit_edge355.1" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 437 'br' <Predicate = true> <Delay = 0.00>
+
+State 43 <SV = 33> <Delay = 1.15>
+ST_43 : Operation 438 [2/2] (1.15ns)   --->   "%counters_load_1 = load i32* %counters_addr_2, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 438 'load' 'counters_load_1' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 44 <SV = 34> <Delay = 1.15>
+ST_44 : Operation 439 [1/2] (1.15ns)   --->   "%counters_load_1 = load i32* %counters_addr_2, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 439 'load' 'counters_load_1' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 45 <SV = 35> <Delay = 1.82>
+ST_45 : Operation 440 [1/1] (0.66ns)   --->   "%add_ln218_1 = add nsw i32 %counters_load_1, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 440 'add' 'add_ln218_1' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_45 : Operation 441 [1/1] (1.15ns)   --->   "store i32 %add_ln218_1, i32* %counters_addr_2, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 441 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_45 : Operation 442 [1/1] (0.85ns)   --->   "%icmp_ln219_1 = icmp eq i32 %add_ln218_1, %refresh_timing_load_1" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 442 'icmp' 'icmp_ln219_1' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_45 : Operation 443 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219_1, label %._crit_edge357.1, label %._crit_edge356.1" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 443 'br' <Predicate = true> <Delay = 0.00>
+ST_45 : Operation 444 [1/1] (0.00ns)   --->   "%p_Result_3_1 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %max_vals_V_read, i32 2, i32 3)" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 444 'partselect' 'p_Result_3_1' <Predicate = (icmp_ln219_1)> <Delay = 0.00>
+ST_45 : Operation 445 [1/1] (0.34ns)   --->   "%icmp_ln879_2 = icmp eq i2 %now_comb_V_load_2, %p_Result_3_1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 445 'icmp' 'icmp_ln879_2' <Predicate = (icmp_ln219_1)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_45 : Operation 446 [1/1] (0.23ns)   --->   "%add_ln301_1 = add i2 %now_comb_V_load_2, 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 446 'add' 'add_ln301_1' <Predicate = (icmp_ln219_1)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_45 : Operation 447 [1/1] (0.27ns)   --->   "%select_ln221_1 = select i1 %icmp_ln879_2, i2 0, i2 %add_ln301_1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 447 'select' 'select_ln221_1' <Predicate = (icmp_ln219_1)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_45 : Operation 448 [1/1] (1.15ns)   --->   "store i2 %select_ln221_1, i2* %now_comb_V_addr_3, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 448 'store' <Predicate = (icmp_ln219_1)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 46 <SV = 36> <Delay = 1.15>
+ST_46 : Operation 449 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_2, align 4" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 449 'store' <Predicate = (or_ln189_1 & icmp_ln219_1)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_46 : Operation 450 [1/1] (0.00ns)   --->   "br label %._crit_edge356.1" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 450 'br' <Predicate = (or_ln189_1 & icmp_ln219_1)> <Delay = 0.00>
+ST_46 : Operation 451 [1/1] (0.00ns)   --->   "br label %._crit_edge355.1" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 451 'br' <Predicate = (or_ln189_1)> <Delay = 0.00>
+ST_46 : Operation 452 [1/1] (0.00ns)   --->   "br i1 %or_ln189_2, label %6, label %._crit_edge355.2" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 452 'br' <Predicate = true> <Delay = 0.00>
+
+State 47 <SV = 37> <Delay = 1.15>
+ST_47 : Operation 453 [2/2] (1.15ns)   --->   "%counters_load_2 = load i32* %counters_addr_3, align 8" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 453 'load' 'counters_load_2' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 48 <SV = 38> <Delay = 1.15>
+ST_48 : Operation 454 [1/2] (1.15ns)   --->   "%counters_load_2 = load i32* %counters_addr_3, align 8" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 454 'load' 'counters_load_2' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 49 <SV = 39> <Delay = 1.82>
+ST_49 : Operation 455 [1/1] (0.66ns)   --->   "%add_ln218_2 = add nsw i32 %counters_load_2, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 455 'add' 'add_ln218_2' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_49 : Operation 456 [1/1] (1.15ns)   --->   "store i32 %add_ln218_2, i32* %counters_addr_3, align 8" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 456 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_49 : Operation 457 [1/1] (0.85ns)   --->   "%icmp_ln219_2 = icmp eq i32 %add_ln218_2, %refresh_timing_load_2" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 457 'icmp' 'icmp_ln219_2' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_49 : Operation 458 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219_2, label %._crit_edge357.2, label %._crit_edge356.2" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 458 'br' <Predicate = true> <Delay = 0.00>
+ST_49 : Operation 459 [1/1] (0.00ns)   --->   "%p_Result_3_2 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %max_vals_V_read, i32 4, i32 5)" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 459 'partselect' 'p_Result_3_2' <Predicate = (icmp_ln219_2)> <Delay = 0.00>
+ST_49 : Operation 460 [1/1] (0.34ns)   --->   "%icmp_ln879_3 = icmp eq i2 %now_comb_V_load_3, %p_Result_3_2" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 460 'icmp' 'icmp_ln879_3' <Predicate = (icmp_ln219_2)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_49 : Operation 461 [1/1] (0.23ns)   --->   "%add_ln301_2 = add i2 %now_comb_V_load_3, 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 461 'add' 'add_ln301_2' <Predicate = (icmp_ln219_2)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_49 : Operation 462 [1/1] (0.27ns)   --->   "%select_ln221_2 = select i1 %icmp_ln879_3, i2 0, i2 %add_ln301_2" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 462 'select' 'select_ln221_2' <Predicate = (icmp_ln219_2)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_49 : Operation 463 [1/1] (1.15ns)   --->   "store i2 %select_ln221_2, i2* %now_comb_V_addr_4, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 463 'store' <Predicate = (icmp_ln219_2)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 50 <SV = 40> <Delay = 1.15>
+ST_50 : Operation 464 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_3, align 8" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 464 'store' <Predicate = (or_ln189_2 & icmp_ln219_2)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_50 : Operation 465 [1/1] (0.00ns)   --->   "br label %._crit_edge356.2" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 465 'br' <Predicate = (or_ln189_2 & icmp_ln219_2)> <Delay = 0.00>
+ST_50 : Operation 466 [1/1] (0.00ns)   --->   "br label %._crit_edge355.2" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 466 'br' <Predicate = (or_ln189_2)> <Delay = 0.00>
+ST_50 : Operation 467 [1/1] (0.00ns)   --->   "br i1 %or_ln189_3, label %7, label %._crit_edge355.3" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 467 'br' <Predicate = true> <Delay = 0.00>
+
+State 51 <SV = 41> <Delay = 1.15>
+ST_51 : Operation 468 [2/2] (1.15ns)   --->   "%counters_load_3 = load i32* %counters_addr_4, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 468 'load' 'counters_load_3' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 52 <SV = 42> <Delay = 1.15>
+ST_52 : Operation 469 [1/2] (1.15ns)   --->   "%counters_load_3 = load i32* %counters_addr_4, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 469 'load' 'counters_load_3' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 53 <SV = 43> <Delay = 1.82>
+ST_53 : Operation 470 [1/1] (0.66ns)   --->   "%add_ln218_3 = add nsw i32 %counters_load_3, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 470 'add' 'add_ln218_3' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_53 : Operation 471 [1/1] (1.15ns)   --->   "store i32 %add_ln218_3, i32* %counters_addr_4, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 471 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_53 : Operation 472 [1/1] (0.85ns)   --->   "%icmp_ln219_3 = icmp eq i32 %add_ln218_3, %refresh_timing_load_3" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 472 'icmp' 'icmp_ln219_3' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_53 : Operation 473 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219_3, label %._crit_edge357.3, label %._crit_edge356.3" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 473 'br' <Predicate = true> <Delay = 0.00>
+ST_53 : Operation 474 [1/1] (0.00ns)   --->   "%p_Result_3_3 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %max_vals_V_read, i32 6, i32 7)" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 474 'partselect' 'p_Result_3_3' <Predicate = (icmp_ln219_3)> <Delay = 0.00>
+ST_53 : Operation 475 [1/1] (0.34ns)   --->   "%icmp_ln879_4 = icmp eq i2 %now_comb_V_load_4, %p_Result_3_3" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 475 'icmp' 'icmp_ln879_4' <Predicate = (icmp_ln219_3)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_53 : Operation 476 [1/1] (0.23ns)   --->   "%add_ln301_3 = add i2 %now_comb_V_load_4, 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 476 'add' 'add_ln301_3' <Predicate = (icmp_ln219_3)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_53 : Operation 477 [1/1] (0.27ns)   --->   "%select_ln221_3 = select i1 %icmp_ln879_4, i2 0, i2 %add_ln301_3" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 477 'select' 'select_ln221_3' <Predicate = (icmp_ln219_3)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_53 : Operation 478 [1/1] (1.15ns)   --->   "store i2 %select_ln221_3, i2* %now_comb_V_addr_5, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 478 'store' <Predicate = (icmp_ln219_3)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 54 <SV = 44> <Delay = 1.15>
+ST_54 : Operation 479 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_4, align 4" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 479 'store' <Predicate = (or_ln189_3 & icmp_ln219_3)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_54 : Operation 480 [1/1] (0.00ns)   --->   "br label %._crit_edge356.3" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 480 'br' <Predicate = (or_ln189_3 & icmp_ln219_3)> <Delay = 0.00>
+ST_54 : Operation 481 [1/1] (0.00ns)   --->   "br label %._crit_edge355.3" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 481 'br' <Predicate = (or_ln189_3)> <Delay = 0.00>
+ST_54 : Operation 482 [1/1] (0.00ns)   --->   "br i1 %or_ln189_4, label %8, label %._crit_edge355.4" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 482 'br' <Predicate = true> <Delay = 0.00>
+
+State 55 <SV = 45> <Delay = 1.15>
+ST_55 : Operation 483 [2/2] (1.15ns)   --->   "%counters_load_4 = load i32* %counters_addr_5, align 16" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 483 'load' 'counters_load_4' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 56 <SV = 46> <Delay = 1.15>
+ST_56 : Operation 484 [1/2] (1.15ns)   --->   "%counters_load_4 = load i32* %counters_addr_5, align 16" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 484 'load' 'counters_load_4' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 57 <SV = 47> <Delay = 1.82>
+ST_57 : Operation 485 [1/1] (0.66ns)   --->   "%add_ln218_4 = add nsw i32 %counters_load_4, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 485 'add' 'add_ln218_4' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_57 : Operation 486 [1/1] (1.15ns)   --->   "store i32 %add_ln218_4, i32* %counters_addr_5, align 16" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 486 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_57 : Operation 487 [1/1] (0.85ns)   --->   "%icmp_ln219_4 = icmp eq i32 %add_ln218_4, %refresh_timing_load_4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 487 'icmp' 'icmp_ln219_4' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_57 : Operation 488 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219_4, label %._crit_edge357.4, label %._crit_edge356.4" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 488 'br' <Predicate = true> <Delay = 0.00>
+ST_57 : Operation 489 [1/1] (0.00ns)   --->   "%p_Result_3_4 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %max_vals_V_read, i32 8, i32 9)" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 489 'partselect' 'p_Result_3_4' <Predicate = (icmp_ln219_4)> <Delay = 0.00>
+ST_57 : Operation 490 [1/1] (0.34ns)   --->   "%icmp_ln879_5 = icmp eq i2 %now_comb_V_load_5, %p_Result_3_4" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 490 'icmp' 'icmp_ln879_5' <Predicate = (icmp_ln219_4)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_57 : Operation 491 [1/1] (0.23ns)   --->   "%add_ln301_4 = add i2 %now_comb_V_load_5, 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 491 'add' 'add_ln301_4' <Predicate = (icmp_ln219_4)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_57 : Operation 492 [1/1] (0.27ns)   --->   "%select_ln221_4 = select i1 %icmp_ln879_5, i2 0, i2 %add_ln301_4" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 492 'select' 'select_ln221_4' <Predicate = (icmp_ln219_4)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_57 : Operation 493 [1/1] (1.15ns)   --->   "store i2 %select_ln221_4, i2* %now_comb_V_addr_6, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 493 'store' <Predicate = (icmp_ln219_4)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 58 <SV = 48> <Delay = 1.15>
+ST_58 : Operation 494 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_5, align 16" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 494 'store' <Predicate = (or_ln189_4 & icmp_ln219_4)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_58 : Operation 495 [1/1] (0.00ns)   --->   "br label %._crit_edge356.4" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 495 'br' <Predicate = (or_ln189_4 & icmp_ln219_4)> <Delay = 0.00>
+ST_58 : Operation 496 [1/1] (0.00ns)   --->   "br label %._crit_edge355.4" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 496 'br' <Predicate = (or_ln189_4)> <Delay = 0.00>
+ST_58 : Operation 497 [1/1] (0.00ns)   --->   "br i1 %or_ln189_5, label %9, label %._crit_edge355.5" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 497 'br' <Predicate = true> <Delay = 0.00>
+
+State 59 <SV = 49> <Delay = 1.15>
+ST_59 : Operation 498 [2/2] (1.15ns)   --->   "%counters_load_5 = load i32* %counters_addr_6, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 498 'load' 'counters_load_5' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 60 <SV = 50> <Delay = 1.15>
+ST_60 : Operation 499 [1/2] (1.15ns)   --->   "%counters_load_5 = load i32* %counters_addr_6, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 499 'load' 'counters_load_5' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 61 <SV = 51> <Delay = 1.82>
+ST_61 : Operation 500 [1/1] (0.66ns)   --->   "%add_ln218_5 = add nsw i32 %counters_load_5, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 500 'add' 'add_ln218_5' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_61 : Operation 501 [1/1] (1.15ns)   --->   "store i32 %add_ln218_5, i32* %counters_addr_6, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 501 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_61 : Operation 502 [1/1] (0.85ns)   --->   "%icmp_ln219_5 = icmp eq i32 %add_ln218_5, %refresh_timing_load_5" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 502 'icmp' 'icmp_ln219_5' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_61 : Operation 503 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219_5, label %._crit_edge357.5, label %._crit_edge356.5" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 503 'br' <Predicate = true> <Delay = 0.00>
+ST_61 : Operation 504 [1/1] (0.00ns)   --->   "%p_Result_3_5 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %max_vals_V_read, i32 10, i32 11)" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 504 'partselect' 'p_Result_3_5' <Predicate = (icmp_ln219_5)> <Delay = 0.00>
+ST_61 : Operation 505 [1/1] (0.34ns)   --->   "%icmp_ln879_6 = icmp eq i2 %now_comb_V_load_6, %p_Result_3_5" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 505 'icmp' 'icmp_ln879_6' <Predicate = (icmp_ln219_5)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_61 : Operation 506 [1/1] (0.23ns)   --->   "%add_ln301_5 = add i2 %now_comb_V_load_6, 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 506 'add' 'add_ln301_5' <Predicate = (icmp_ln219_5)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_61 : Operation 507 [1/1] (0.27ns)   --->   "%select_ln221_5 = select i1 %icmp_ln879_6, i2 0, i2 %add_ln301_5" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 507 'select' 'select_ln221_5' <Predicate = (icmp_ln219_5)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_61 : Operation 508 [1/1] (1.15ns)   --->   "store i2 %select_ln221_5, i2* %now_comb_V_addr_7, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 508 'store' <Predicate = (icmp_ln219_5)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 62 <SV = 52> <Delay = 1.15>
+ST_62 : Operation 509 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_6, align 4" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 509 'store' <Predicate = (or_ln189_5 & icmp_ln219_5)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_62 : Operation 510 [1/1] (0.00ns)   --->   "br label %._crit_edge356.5" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 510 'br' <Predicate = (or_ln189_5 & icmp_ln219_5)> <Delay = 0.00>
+ST_62 : Operation 511 [1/1] (0.00ns)   --->   "br label %._crit_edge355.5" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 511 'br' <Predicate = (or_ln189_5)> <Delay = 0.00>
+ST_62 : Operation 512 [1/1] (0.00ns)   --->   "br i1 %or_ln189_6, label %10, label %._crit_edge355.6" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 512 'br' <Predicate = true> <Delay = 0.00>
+
+State 63 <SV = 53> <Delay = 1.15>
+ST_63 : Operation 513 [2/2] (1.15ns)   --->   "%counters_load_6 = load i32* %counters_addr_7, align 8" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 513 'load' 'counters_load_6' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 64 <SV = 54> <Delay = 1.15>
+ST_64 : Operation 514 [1/2] (1.15ns)   --->   "%counters_load_6 = load i32* %counters_addr_7, align 8" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 514 'load' 'counters_load_6' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 65 <SV = 55> <Delay = 1.82>
+ST_65 : Operation 515 [1/1] (0.66ns)   --->   "%add_ln218_6 = add nsw i32 %counters_load_6, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 515 'add' 'add_ln218_6' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_65 : Operation 516 [1/1] (1.15ns)   --->   "store i32 %add_ln218_6, i32* %counters_addr_7, align 8" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 516 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_65 : Operation 517 [1/1] (0.85ns)   --->   "%icmp_ln219_6 = icmp eq i32 %add_ln218_6, %refresh_timing_load_6" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 517 'icmp' 'icmp_ln219_6' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_65 : Operation 518 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219_6, label %._crit_edge357.6, label %._crit_edge356.6" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 518 'br' <Predicate = true> <Delay = 0.00>
+ST_65 : Operation 519 [1/1] (0.00ns)   --->   "%p_Result_3_6 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %max_vals_V_read, i32 12, i32 13)" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 519 'partselect' 'p_Result_3_6' <Predicate = (icmp_ln219_6)> <Delay = 0.00>
+ST_65 : Operation 520 [1/1] (0.34ns)   --->   "%icmp_ln879_7 = icmp eq i2 %now_comb_V_load_7, %p_Result_3_6" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 520 'icmp' 'icmp_ln879_7' <Predicate = (icmp_ln219_6)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_65 : Operation 521 [1/1] (0.23ns)   --->   "%add_ln301_6 = add i2 %now_comb_V_load_7, 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 521 'add' 'add_ln301_6' <Predicate = (icmp_ln219_6)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_65 : Operation 522 [1/1] (0.27ns)   --->   "%select_ln221_6 = select i1 %icmp_ln879_7, i2 0, i2 %add_ln301_6" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 522 'select' 'select_ln221_6' <Predicate = (icmp_ln219_6)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_65 : Operation 523 [1/1] (1.15ns)   --->   "store i2 %select_ln221_6, i2* %now_comb_V_addr_8, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 523 'store' <Predicate = (icmp_ln219_6)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 66 <SV = 56> <Delay = 1.15>
+ST_66 : Operation 524 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_7, align 8" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 524 'store' <Predicate = (or_ln189_6 & icmp_ln219_6)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_66 : Operation 525 [1/1] (0.00ns)   --->   "br label %._crit_edge356.6" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 525 'br' <Predicate = (or_ln189_6 & icmp_ln219_6)> <Delay = 0.00>
+ST_66 : Operation 526 [1/1] (0.00ns)   --->   "br label %._crit_edge355.6" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 526 'br' <Predicate = (or_ln189_6)> <Delay = 0.00>
+ST_66 : Operation 527 [1/1] (0.00ns)   --->   "br i1 %or_ln189_7, label %11, label %._crit_edge355.7" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 527 'br' <Predicate = true> <Delay = 0.00>
+
+State 67 <SV = 57> <Delay = 1.15>
+ST_67 : Operation 528 [2/2] (1.15ns)   --->   "%counters_load_7 = load i32* %counters_addr_8, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 528 'load' 'counters_load_7' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 68 <SV = 58> <Delay = 1.15>
+ST_68 : Operation 529 [1/2] (1.15ns)   --->   "%counters_load_7 = load i32* %counters_addr_8, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 529 'load' 'counters_load_7' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 69 <SV = 59> <Delay = 1.82>
+ST_69 : Operation 530 [1/1] (0.66ns)   --->   "%add_ln218_7 = add nsw i32 %counters_load_7, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 530 'add' 'add_ln218_7' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_69 : Operation 531 [1/1] (1.15ns)   --->   "store i32 %add_ln218_7, i32* %counters_addr_8, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 531 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_69 : Operation 532 [1/1] (0.85ns)   --->   "%icmp_ln219_7 = icmp eq i32 %add_ln218_7, %refresh_timing_load_7" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 532 'icmp' 'icmp_ln219_7' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_69 : Operation 533 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219_7, label %._crit_edge357.7, label %._crit_edge356.7" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 533 'br' <Predicate = true> <Delay = 0.00>
+ST_69 : Operation 534 [1/1] (0.00ns)   --->   "%p_Result_3_7 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %max_vals_V_read, i32 14, i32 15)" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 534 'partselect' 'p_Result_3_7' <Predicate = (icmp_ln219_7)> <Delay = 0.00>
+ST_69 : Operation 535 [1/1] (0.34ns)   --->   "%icmp_ln879_8 = icmp eq i2 %now_comb_V_load_8, %p_Result_3_7" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 535 'icmp' 'icmp_ln879_8' <Predicate = (icmp_ln219_7)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_69 : Operation 536 [1/1] (0.23ns)   --->   "%add_ln301_7 = add i2 %now_comb_V_load_8, 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 536 'add' 'add_ln301_7' <Predicate = (icmp_ln219_7)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_69 : Operation 537 [1/1] (0.27ns)   --->   "%select_ln221_7 = select i1 %icmp_ln879_8, i2 0, i2 %add_ln301_7" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 537 'select' 'select_ln221_7' <Predicate = (icmp_ln219_7)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_69 : Operation 538 [1/1] (1.15ns)   --->   "store i2 %select_ln221_7, i2* %now_comb_V_addr_9, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 538 'store' <Predicate = (icmp_ln219_7)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 70 <SV = 60> <Delay = 1.15>
+ST_70 : Operation 539 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_8, align 4" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 539 'store' <Predicate = (or_ln189_7 & icmp_ln219_7)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_70 : Operation 540 [1/1] (0.00ns)   --->   "br label %._crit_edge356.7" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 540 'br' <Predicate = (or_ln189_7 & icmp_ln219_7)> <Delay = 0.00>
+ST_70 : Operation 541 [1/1] (0.00ns)   --->   "br label %._crit_edge355.7" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 541 'br' <Predicate = (or_ln189_7)> <Delay = 0.00>
+ST_70 : Operation 542 [1/1] (0.00ns)   --->   "br i1 %or_ln189_8, label %12, label %._crit_edge355.8" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 542 'br' <Predicate = true> <Delay = 0.00>
+
+State 71 <SV = 61> <Delay = 1.15>
+ST_71 : Operation 543 [2/2] (1.15ns)   --->   "%counters_load_8 = load i32* %counters_addr_9, align 16" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 543 'load' 'counters_load_8' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 72 <SV = 62> <Delay = 1.15>
+ST_72 : Operation 544 [1/2] (1.15ns)   --->   "%counters_load_8 = load i32* %counters_addr_9, align 16" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 544 'load' 'counters_load_8' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 73 <SV = 63> <Delay = 1.82>
+ST_73 : Operation 545 [1/1] (0.66ns)   --->   "%add_ln218_8 = add nsw i32 %counters_load_8, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 545 'add' 'add_ln218_8' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_73 : Operation 546 [1/1] (1.15ns)   --->   "store i32 %add_ln218_8, i32* %counters_addr_9, align 16" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 546 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_73 : Operation 547 [1/1] (0.85ns)   --->   "%icmp_ln219_8 = icmp eq i32 %add_ln218_8, %refresh_timing_load_8" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 547 'icmp' 'icmp_ln219_8' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_73 : Operation 548 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219_8, label %._crit_edge357.8, label %._crit_edge356.8" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 548 'br' <Predicate = true> <Delay = 0.00>
+ST_73 : Operation 549 [1/1] (0.00ns)   --->   "%p_Result_3_8 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %max_vals_V_read, i32 16, i32 17)" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 549 'partselect' 'p_Result_3_8' <Predicate = (icmp_ln219_8)> <Delay = 0.00>
+ST_73 : Operation 550 [1/1] (0.34ns)   --->   "%icmp_ln879_9 = icmp eq i2 %now_comb_V_load_9, %p_Result_3_8" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 550 'icmp' 'icmp_ln879_9' <Predicate = (icmp_ln219_8)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_73 : Operation 551 [1/1] (0.23ns)   --->   "%add_ln301_8 = add i2 %now_comb_V_load_9, 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 551 'add' 'add_ln301_8' <Predicate = (icmp_ln219_8)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_73 : Operation 552 [1/1] (0.27ns)   --->   "%select_ln221_8 = select i1 %icmp_ln879_9, i2 0, i2 %add_ln301_8" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 552 'select' 'select_ln221_8' <Predicate = (icmp_ln219_8)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_73 : Operation 553 [1/1] (1.15ns)   --->   "store i2 %select_ln221_8, i2* %now_comb_V_addr_10, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 553 'store' <Predicate = (icmp_ln219_8)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 74 <SV = 64> <Delay = 1.15>
+ST_74 : Operation 554 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_9, align 16" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 554 'store' <Predicate = (or_ln189_8 & icmp_ln219_8)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_74 : Operation 555 [1/1] (0.00ns)   --->   "br label %._crit_edge356.8" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 555 'br' <Predicate = (or_ln189_8 & icmp_ln219_8)> <Delay = 0.00>
+ST_74 : Operation 556 [1/1] (0.00ns)   --->   "br label %._crit_edge355.8" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 556 'br' <Predicate = (or_ln189_8)> <Delay = 0.00>
+ST_74 : Operation 557 [1/1] (0.00ns)   --->   "br i1 %or_ln189_9, label %13, label %combination_loop_end" [../../../../src/hypercube_kernel.cpp:217]   --->   Operation 557 'br' <Predicate = true> <Delay = 0.00>
+
+State 75 <SV = 65> <Delay = 1.15>
+ST_75 : Operation 558 [2/2] (1.15ns)   --->   "%counters_load_9 = load i32* %counters_addr_10, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 558 'load' 'counters_load_9' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 76 <SV = 66> <Delay = 1.15>
+ST_76 : Operation 559 [1/2] (1.15ns)   --->   "%counters_load_9 = load i32* %counters_addr_10, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 559 'load' 'counters_load_9' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 77 <SV = 67> <Delay = 1.82>
+ST_77 : Operation 560 [1/1] (0.66ns)   --->   "%add_ln218_9 = add nsw i32 %counters_load_9, 1" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 560 'add' 'add_ln218_9' <Predicate = true> <Delay = 0.66> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_77 : Operation 561 [1/1] (1.15ns)   --->   "store i32 %add_ln218_9, i32* %counters_addr_10, align 4" [../../../../src/hypercube_kernel.cpp:218]   --->   Operation 561 'store' <Predicate = true> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_77 : Operation 562 [1/1] (0.85ns)   --->   "%icmp_ln219_9 = icmp eq i32 %add_ln218_9, %refresh_timing_load_9" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 562 'icmp' 'icmp_ln219_9' <Predicate = true> <Delay = 0.85> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_77 : Operation 563 [1/1] (0.00ns)   --->   "br i1 %icmp_ln219_9, label %._crit_edge357.9, label %._crit_edge356.9" [../../../../src/hypercube_kernel.cpp:219]   --->   Operation 563 'br' <Predicate = true> <Delay = 0.00>
+ST_77 : Operation 564 [1/1] (0.00ns)   --->   "%p_Result_3_9 = call i2 @_ssdm_op_PartSelect.i2.i32.i32.i32(i32 %max_vals_V_read, i32 18, i32 19)" [../../../../src/hypercube_kernel.cpp:220]   --->   Operation 564 'partselect' 'p_Result_3_9' <Predicate = (icmp_ln219_9)> <Delay = 0.00>
+ST_77 : Operation 565 [1/1] (0.34ns)   --->   "%icmp_ln879_10 = icmp eq i2 %now_comb_V_load_10, %p_Result_3_9" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 565 'icmp' 'icmp_ln879_10' <Predicate = (icmp_ln219_9)> <Delay = 0.34> <Core = "Cmp">   --->   Core 25 'Cmp' <Latency = 0> <II = 1> <Delay = 0.34> <FuncUnit> <Opcode : 'icmp'> <InPorts = 2> <OutPorts = 1>
+ST_77 : Operation 566 [1/1] (0.23ns)   --->   "%add_ln301_9 = add i2 %now_comb_V_load_10, 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 566 'add' 'add_ln301_9' <Predicate = (icmp_ln219_9)> <Delay = 0.23> <Core = "AddSub">   --->   Core 14 'AddSub' <Latency = 0> <II = 1> <Delay = 0.23> <FuncUnit> <Opcode : 'add' 'sub'> <InPorts = 2> <OutPorts = 1>
+ST_77 : Operation 567 [1/1] (0.27ns)   --->   "%select_ln221_9 = select i1 %icmp_ln879_10, i2 0, i2 %add_ln301_9" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 567 'select' 'select_ln221_9' <Predicate = (icmp_ln219_9)> <Delay = 0.27> <Core = "Sel">   --->   Core 26 'Sel' <Latency = 0> <II = 1> <Delay = 0.27> <FuncUnit> <Opcode : 'select'> <InPorts = 3> <OutPorts = 1>
+ST_77 : Operation 568 [1/1] (1.15ns)   --->   "store i2 %select_ln221_9, i2* %now_comb_V_addr_11, align 1" [../../../../src/hypercube_kernel.cpp:221]   --->   Operation 568 'store' <Predicate = (icmp_ln219_9)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+
+State 78 <SV = 68> <Delay = 1.15>
+ST_78 : Operation 569 [1/1] (1.15ns)   --->   "store i32 0, i32* %counters_addr_10, align 4" [../../../../src/hypercube_kernel.cpp:222]   --->   Operation 569 'store' <Predicate = (or_ln189_9 & icmp_ln219_9)> <Delay = 1.15> <Core = "RAM_1P_BRAM">   --->   Core 46 'RAM_1P_BRAM' <Latency = 1> <II = 1> <Delay = 1.15> <Storage> <Opcode : 'load' 'store'> <Ports = 1> <Width = 32> <Depth = 10> <RAM>
+ST_78 : Operation 570 [1/1] (0.00ns)   --->   "br label %._crit_edge356.9" [../../../../src/hypercube_kernel.cpp:223]   --->   Operation 570 'br' <Predicate = (or_ln189_9 & icmp_ln219_9)> <Delay = 0.00>
+ST_78 : Operation 571 [1/1] (0.00ns)   --->   "br label %combination_loop_end" [../../../../src/hypercube_kernel.cpp:224]   --->   Operation 571 'br' <Predicate = (or_ln189_9)> <Delay = 0.00>
+ST_78 : Operation 572 [1/1] (0.00ns)   --->   "%empty_16 = call i32 (...)* @_ssdm_op_SpecRegionEnd([17 x i8]* @p_str5, i32 %tmp_1)" [../../../../src/hypercube_kernel.cpp:226]   --->   Operation 572 'specregionend' 'empty_16' <Predicate = true> <Delay = 0.00>
+ST_78 : Operation 573 [1/1] (0.00ns)   --->   "br label %.preheader" [../../../../src/hypercube_kernel.cpp:175]   --->   Operation 573 'br' <Predicate = true> <Delay = 0.00>
+
+
+============================================================
++ Verbose Summary: Timing violations
+============================================================
+Target clock period: 3.33ns, clock uncertainty: 0.9ns.
+
+ <State 1>: 0.603ns
+The critical path consists of the following:
+	'alloca' operation ('next_timing') [6]  (0 ns)
+	'store' operation ('store_ln157', ../../../../src/hypercube_kernel.cpp:157) of constant 1 on local variable 'next_timing' [19]  (0.603 ns)
+
+ <State 2>: 1.16ns
+The critical path consists of the following:
+	'phi' operation ('i') with incoming values : ('i', ../../../../src/hypercube_kernel.cpp:157) [22]  (0 ns)
+	'getelementptr' operation ('refresh_timing_addr_1', ../../../../src/hypercube_kernel.cpp:168) [43]  (0 ns)
+	'store' operation ('store_ln168', ../../../../src/hypercube_kernel.cpp:168) of constant 0 on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [44]  (1.16 ns)
+
+ <State 3>: 1.69ns
+The critical path consists of the following:
+	'icmp' operation ('icmp_ln647', ../../../../src/hypercube_kernel.cpp:162) [51]  (0.637 ns)
+	'select' operation ('select_ln647_2', ../../../../src/hypercube_kernel.cpp:162) [60]  (0 ns)
+	'lshr' operation ('lshr_ln647', ../../../../src/hypercube_kernel.cpp:162) [64]  (1.05 ns)
+
+ <State 4>: 0.627ns
+The critical path consists of the following:
+	'lshr' operation ('lshr_ln647_1', ../../../../src/hypercube_kernel.cpp:162) [65]  (0 ns)
+	'and' operation ('__Result__', ../../../../src/hypercube_kernel.cpp:162) [66]  (0 ns)
+	'add' operation ('nof_vals', ../../../../src/hypercube_kernel.cpp:163) [69]  (0.627 ns)
+
+ <State 5>: 2.1ns
+The critical path consists of the following:
+	'load' operation ('itr_num_1_load_1', ../../../../src/hypercube_kernel.cpp:164) on local variable 'itr_num' [48]  (0 ns)
+	'mul' operation ('itr_num', ../../../../src/hypercube_kernel.cpp:164) [71]  (2.1 ns)
+
+ <State 6>: 2.1ns
+The critical path consists of the following:
+	'load' operation ('next_timing_1_load', ../../../../src/hypercube_kernel.cpp:166) on local variable 'next_timing' [47]  (0 ns)
+	'mul' operation ('next_timing', ../../../../src/hypercube_kernel.cpp:166) [74]  (2.1 ns)
+
+ <State 7>: 2.1ns
+The critical path consists of the following:
+	'mul' operation ('itr_num', ../../../../src/hypercube_kernel.cpp:164) [71]  (2.1 ns)
+
+ <State 8>: 2.1ns
+The critical path consists of the following:
+	'mul' operation ('itr_num', ../../../../src/hypercube_kernel.cpp:164) [71]  (2.1 ns)
+
+ <State 9>: 2.1ns
+The critical path consists of the following:
+	'mul' operation ('next_timing', ../../../../src/hypercube_kernel.cpp:166) [74]  (2.1 ns)
+
+ <State 10>: 0.603ns
+The critical path consists of the following:
+	'store' operation ('store_ln167', ../../../../src/hypercube_kernel.cpp:167) of variable 'next_timing', ../../../../src/hypercube_kernel.cpp:166 on local variable 'next_timing' [76]  (0.603 ns)
+
+ <State 11>: 1.16ns
+The critical path consists of the following:
+	'getelementptr' operation ('refresh_timing_addr_2', ../../../../src/hypercube_kernel.cpp:219) [127]  (0 ns)
+	'load' operation ('refresh_timing_load', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [128]  (1.16 ns)
+
+ <State 12>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [128]  (1.16 ns)
+
+ <State 13>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load_1', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [131]  (1.16 ns)
+
+ <State 14>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load_2', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [134]  (1.16 ns)
+
+ <State 15>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load_3', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [137]  (1.16 ns)
+
+ <State 16>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load_4', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [140]  (1.16 ns)
+
+ <State 17>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load_5', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [143]  (1.16 ns)
+
+ <State 18>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load_6', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [146]  (1.16 ns)
+
+ <State 19>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load_7', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [149]  (1.16 ns)
+
+ <State 20>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load_8', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [152]  (1.16 ns)
+
+ <State 21>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('refresh_timing_load_9', ../../../../src/hypercube_kernel.cpp:219) on array 'refresh_timing', ../../../../src/hypercube_kernel.cpp:147 [155]  (1.16 ns)
+
+ <State 22>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_1', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [190]  (1.16 ns)
+
+ <State 23>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_1', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [190]  (1.16 ns)
+
+ <State 24>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_2', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [191]  (1.16 ns)
+
+ <State 25>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_3', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [192]  (1.16 ns)
+
+ <State 26>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_4', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [193]  (1.16 ns)
+
+ <State 27>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_5', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [194]  (1.16 ns)
+
+ <State 28>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_6', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [195]  (1.16 ns)
+
+ <State 29>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_7', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [196]  (1.16 ns)
+
+ <State 30>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_8', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [197]  (1.16 ns)
+
+ <State 31>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_9', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [198]  (1.16 ns)
+
+ <State 32>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load_10', ../../../../src/hypercube_kernel.cpp:190) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [199]  (1.16 ns)
+
+ <State 33>: 1.16ns
+The critical path consists of the following:
+	'phi' operation ('j') with incoming values : ('j', ../../../../src/hypercube_kernel.cpp:181) [204]  (0 ns)
+	'getelementptr' operation ('dataset_V_addr', ../../../../src/hypercube_kernel.cpp:184) [212]  (0 ns)
+	'load' operation ('data.V', ../../../../src/hypercube_kernel.cpp:184) on array 'dataset_V' [213]  (1.16 ns)
+
+ <State 34>: 2.09ns
+The critical path consists of the following:
+	'load' operation ('data.V', ../../../../src/hypercube_kernel.cpp:184) on array 'dataset_V' [213]  (1.16 ns)
+	'icmp' operation ('icmp_ln883_2', ../../../../src/hypercube_kernel.cpp:190) [223]  (0.343 ns)
+	'or' operation ('or_ln189_18', ../../../../src/hypercube_kernel.cpp:189) [225]  (0 ns)
+	'and' operation ('and_ln189_11', ../../../../src/hypercube_kernel.cpp:189) [265]  (0.122 ns)
+	'and' operation ('and_ln189_12', ../../../../src/hypercube_kernel.cpp:189) [266]  (0.122 ns)
+	'and' operation ('and_ln189_17', ../../../../src/hypercube_kernel.cpp:189) [271]  (0.122 ns)
+	'select' operation ('select_ln196', ../../../../src/hypercube_kernel.cpp:196) [273]  (0.227 ns)
+
+ <State 35>: 2.32ns
+The critical path consists of the following:
+	'icmp' operation ('icmp_ln647_1', ../../../../src/hypercube_kernel.cpp:206) [278]  (0.637 ns)
+	'select' operation ('select_ln647_4', ../../../../src/hypercube_kernel.cpp:206) [286]  (0 ns)
+	'lshr' operation ('lshr_ln647_2', ../../../../src/hypercube_kernel.cpp:206) [291]  (1.05 ns)
+	'and' operation ('__Result__', ../../../../src/hypercube_kernel.cpp:206) [293]  (0 ns)
+	'add' operation ('r', ../../../../src/hypercube_kernel.cpp:207) [296]  (0.627 ns)
+
+ <State 36>: 1.62ns
+The critical path consists of the following:
+	'load' operation ('now_comb_V_load', ../../../../src/hypercube_kernel.cpp:209) on array 'now_comb.V', ../../../../src/hypercube_kernel.cpp:149 [298]  (1.16 ns)
+	'icmp' operation ('icmp_ln879', ../../../../src/hypercube_kernel.cpp:209) [299]  (0.343 ns)
+	'and' operation ('and_ln209', ../../../../src/hypercube_kernel.cpp:209) [301]  (0.122 ns)
+
+ <State 37>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('__Val2__', ../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209) on array 'lgamma_table' [305]  (1.16 ns)
+
+ <State 38>: 1.81ns
+The critical path consists of the following:
+	'load' operation ('__Val2__', ../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:209) on array 'lgamma_table' [311]  (1.16 ns)
+	'sub' operation ('sub_ln703', ../../../../src/hypercube_kernel.cpp:209) [313]  (0.648 ns)
+
+ <State 39>: 2.05ns
+The critical path consists of the following:
+	'load' operation ('__Val2__', ../../../../src/hypercube_kernel.cpp:141->../../../../src/hypercube_kernel.cpp:211) on array 'lgamma_table' [323]  (1.16 ns)
+	'add' operation ('local_score.V', ../../../../src/hypercube_kernel.cpp:211) [325]  (0.669 ns)
+	'select' operation ('local_score.V', ../../../../src/hypercube_kernel.cpp:211) [326]  (0.227 ns)
+
+ <State 40>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [330]  (1.16 ns)
+
+ <State 41>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218', ../../../../src/hypercube_kernel.cpp:218) [331]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [332]  (1.16 ns)
+
+ <State 42>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [341]  (1.16 ns)
+
+ <State 43>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_1', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [348]  (1.16 ns)
+
+ <State 44>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_1', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [348]  (1.16 ns)
+
+ <State 45>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218_1', ../../../../src/hypercube_kernel.cpp:218) [349]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218_1', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [350]  (1.16 ns)
+
+ <State 46>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [359]  (1.16 ns)
+
+ <State 47>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_2', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [366]  (1.16 ns)
+
+ <State 48>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_2', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [366]  (1.16 ns)
+
+ <State 49>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218_2', ../../../../src/hypercube_kernel.cpp:218) [367]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218_2', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [368]  (1.16 ns)
+
+ <State 50>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [377]  (1.16 ns)
+
+ <State 51>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_3', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [384]  (1.16 ns)
+
+ <State 52>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_3', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [384]  (1.16 ns)
+
+ <State 53>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218_3', ../../../../src/hypercube_kernel.cpp:218) [385]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218_3', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [386]  (1.16 ns)
+
+ <State 54>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [395]  (1.16 ns)
+
+ <State 55>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_4', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [402]  (1.16 ns)
+
+ <State 56>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_4', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [402]  (1.16 ns)
+
+ <State 57>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218_4', ../../../../src/hypercube_kernel.cpp:218) [403]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218_4', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [404]  (1.16 ns)
+
+ <State 58>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [413]  (1.16 ns)
+
+ <State 59>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_5', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [420]  (1.16 ns)
+
+ <State 60>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_5', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [420]  (1.16 ns)
+
+ <State 61>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218_5', ../../../../src/hypercube_kernel.cpp:218) [421]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218_5', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [422]  (1.16 ns)
+
+ <State 62>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [431]  (1.16 ns)
+
+ <State 63>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_6', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [438]  (1.16 ns)
+
+ <State 64>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_6', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [438]  (1.16 ns)
+
+ <State 65>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218_6', ../../../../src/hypercube_kernel.cpp:218) [439]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218_6', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [440]  (1.16 ns)
+
+ <State 66>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [449]  (1.16 ns)
+
+ <State 67>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_7', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [456]  (1.16 ns)
+
+ <State 68>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_7', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [456]  (1.16 ns)
+
+ <State 69>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218_7', ../../../../src/hypercube_kernel.cpp:218) [457]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218_7', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [458]  (1.16 ns)
+
+ <State 70>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [467]  (1.16 ns)
+
+ <State 71>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_8', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [474]  (1.16 ns)
+
+ <State 72>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_8', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [474]  (1.16 ns)
+
+ <State 73>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218_8', ../../../../src/hypercube_kernel.cpp:218) [475]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218_8', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [476]  (1.16 ns)
+
+ <State 74>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [485]  (1.16 ns)
+
+ <State 75>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_9', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [492]  (1.16 ns)
+
+ <State 76>: 1.16ns
+The critical path consists of the following:
+	'load' operation ('counters_load_9', ../../../../src/hypercube_kernel.cpp:218) on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [492]  (1.16 ns)
+
+ <State 77>: 1.83ns
+The critical path consists of the following:
+	'add' operation ('add_ln218_9', ../../../../src/hypercube_kernel.cpp:218) [493]  (0.669 ns)
+	'store' operation ('store_ln218', ../../../../src/hypercube_kernel.cpp:218) of variable 'add_ln218_9', ../../../../src/hypercube_kernel.cpp:218 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [494]  (1.16 ns)
+
+ <State 78>: 1.16ns
+The critical path consists of the following:
+	'store' operation ('store_ln222', ../../../../src/hypercube_kernel.cpp:222) of constant 0 on array 'counters', ../../../../src/hypercube_kernel.cpp:148 [503]  (1.16 ns)
+
+
+============================================================
++ Verbose Summary: Binding
+============================================================
+N/A
+* FSMD analyzer results:
+  - Output states:
+ - Input state : 
+  - Chain level:
+	State 1
+	State 2
+	State 3
+	State 4
+	State 5
+	State 6
+	State 7
+	State 8
+	State 9
+	State 10
+	State 11
+	State 12
+	State 13
+	State 14
+	State 15
+	State 16
+	State 17
+	State 18
+	State 19
+	State 20
+	State 21
+	State 22
+	State 23
+	State 24
+	State 25
+	State 26
+	State 27
+	State 28
+	State 29
+	State 30
+	State 31
+	State 32
+	State 33
+	State 34
+	State 35
+	State 36
+	State 37
+	State 38
+	State 39
+	State 40
+	State 41
+	State 42
+	State 43
+	State 44
+	State 45
+	State 46
+	State 47
+	State 48
+	State 49
+	State 50
+	State 51
+	State 52
+	State 53
+	State 54
+	State 55
+	State 56
+	State 57
+	State 58
+	State 59
+	State 60
+	State 61
+	State 62
+	State 63
+	State 64
+	State 65
+	State 66
+	State 67
+	State 68
+	State 69
+	State 70
+	State 71
+	State 72
+	State 73
+	State 74
+	State 75
+	State 76
+	State 77
+	State 78
+
+
+============================================================
++ Verbose Summary: Datapath Resource usage 
+============================================================
+N/A
