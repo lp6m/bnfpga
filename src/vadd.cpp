@@ -8,7 +8,7 @@
 #include <ap_axi_sdata.h>
 #include <ap_fixed.h>
 
-#define NUMOF_VARS 8
+#define NUMOF_VARS 10
 #define NUMOF_DATASETS 1000
 
 #define DATA_BIT 8
@@ -21,7 +21,7 @@ using namespace std;
 
 void load_data(ap_uint<32> data[NUMOF_DATASETS]){
 	ifstream ifs;
-	ifs.open("../asia.idt", std::ios::in);
+	ifs.open("../asia10.idt", std::ios::in);
 	if (!ifs) {
 	  cerr << "training file open failed" << endl;
 	}
@@ -36,6 +36,7 @@ void load_data(ap_uint<32> data[NUMOF_DATASETS]){
 			if(pos >= NUMOF_VARS) break;
 			if(line[j] != ' '){
 				unsigned int tmp_d = ((unsigned int)(line[j] - '0'));
+				cout << tmp_d;
 				if(tmp_d > 3) cerr << "Warning: the value of dataset must be less than 4. line = " <<  i << "tmp_d = " << tmp_d << endl;
 				d |= (tmp_d << pos*2);
 				pos++;
