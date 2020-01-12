@@ -155,11 +155,13 @@ namespace mylib{
   #pragma HLS RESOURCE variable=now_comb core=RAM_1P_BRAM
     int next_timing = 1;
     for(int i = 0; i < NUMOF_VARS; i++){
-  #pragma HLS PIPELINE
+  //#pragma HLS PIPELINE
+#pragma HLS UNROLL
       counters[i] = 0;
       now_comb[i] = 0;
       if(((parents >> i) & 1) || i == child){
-    	ap_uint<2> max_val_i = max_vals.range(2*i+1, 2*i);
+    	//ap_uint<2> max_val_i = max_vals.range(2*i+1, 2*i);
+      ap_uint<2> max_val_i = (((ap_uint<32>) max_vals >> (2*i)) & 3);
     	int nof_vals = ((int)max_val_i) + 1;
         itr_num *= nof_vals;
         refresh_timing[i] = next_timing;
@@ -185,7 +187,8 @@ namespace mylib{
         for(int k = 0; k < NUMOF_VARS; k++){
   #pragma HLS UNROLL
           //2bit slice
-          ap_uint<2> sliced = data.range(2*k+1, 2*k);
+          //ap_uint<2>  = data.range(2*k+1, 2*k);
+          ap_uint<2> sliced = (((ap_uint<32>) data >> (2*k)) & 3);
           if(((parents >> k) & 1) || k == child){
             if(sliced != now_comb[k]){
               nijk_match = false;
@@ -203,7 +206,8 @@ namespace mylib{
 
       //K2Score
       //The reason of the condition : now_comb[child] == 0 is, there is only one time when child value is 0 for each parents combination.
-      ap_uint<2> child_max_val = max_vals.range(child*2+1, child*2);
+      //ap_uint<2> child_max_val = max_vals.range(child*2+1, child*2);
+      ap_uint<2> child_max_val = (((ap_uint<32>) max_vals >> (2*child)) & 3);
       int r = (int)(child_max_val) + 1;
 #pragma HLS allocation instances=lgamma_int limit=1 function
       if(now_comb[child] == 0 && nik > 0) local_score += (lgamma_int(r) - lgamma_int(nik + r));
@@ -217,7 +221,8 @@ namespace mylib{
         if(((parents >> k) & 1) || k == child){
           counters[k]++;
           if(counters[k] == refresh_timing[k]){
-        	ap_uint<2> nof_vals = max_vals.range(k*2+1, k*2);
+        	//ap_uint<2> nof_vals = max_vals.range(k*2+1, k*2);
+            ap_uint<2> nof_vals = (((ap_uint<32>) max_vals >> (2*k)) & 3);
             now_comb[k] = (now_comb[k] == nof_vals) ? (ap_uint<2>)0 : ((ap_uint<2>)((int)now_comb[k]+1));
             counters[k] = 0;
           }
@@ -227,18 +232,20 @@ namespace mylib{
     return local_score;
   }
 }
-extern "C" {
 
 typedef struct{
   score_t q;
   score_t f[NUMOF_VARS];
 } pe_out;
 
-void PE(int A, int stage,
+//template <int an_unused_template_parameter>
+void PE(int A, int inside_i, int stage,
   ap_uint<32> dataset[NUMOF_DATASETS], ap_uint<32> max_vals,
-  pe_out indata[NUMOF_VARS], pe_out& outdata){
+  pe_out indata1[NUMOF_VARS], pe_out indata2[NUMOF_VARS], pe_out indata3[NUMOF_VARS], pe_out indata4[NUMOF_VARS],
+  pe_out& outdata1, pe_out& outdata2, pe_out& outdata3, pe_out& outdata4){
 
   if(stage == 0 || A < 0) return;
+  //pe_out* inptr = (inside_i == 0 ? indata1 : (inside_i == 1 ? indata2 : (inside_i == 2 ? indata3 : indata4)));
 
   pe_out tmp_outdata;
   int cnt = 0;
@@ -258,7 +265,9 @@ void PE(int A, int stage,
       score_t f = s;
       for(int k = 0; k < NUMOF_VARS; k++){
         if((indexbit >> k) & 1U){
-          f = max(f, indata[k].f[indexcnt[k]]);
+          //f = max(f, indata[k].f[indexcnt[k]]);
+          int indexcnt_k = indexcnt[k];
+          score_t in_f = (inside_i == 0 ? indata1[k].f[indexcnt_k] : (inside_i == 1 ? indata2[k].f[indexcnt_k] : (inside_i == 2 ? indata3[k].f[indexcnt_k] : indata4[k].f[indexcnt_k])));
         }
       }
       //next status
@@ -268,16 +277,21 @@ void PE(int A, int stage,
       }
       indexbit = (indexbit >> 1) | (1U << (stage - 1));
 
-      score_t nowq = f + indata[stage-1-cnt].q;
+      //score_t nowq = f + indata[stage-1-cnt].q;
+      int in_q_index = stage - 1 - cnt;
+      score_t in_q = (inside_i == 0 ? indata1[in_q_index].q : (inside_i == 1 ? indata2[in_q_index].q : (inside_i == 2 ? indata3[in_q_index].q : indata4[in_q_index].q)));
+      score_t nowq = f + in_q;
       tmp_outdata.f[cnt] = f;
       tmp_outdata.q = firstflag ? nowq : max(tmp_outdata.q, nowq);
       firstflag = false;
       cnt++;
     }
   }
-  outdata = tmp_outdata;
+  if(inside_i == 0) outdata1 = tmp_outdata;
+  else if(inside_i == 1) outdata2 = tmp_outdata;
+  else if(inside_i == 2) outdata3 = tmp_outdata;
+  else outdata4 = tmp_outdata;
 }
-
 /*int nck(int n, int k){
   int ans = 1;
   for(int i = 0; i < k; i++){
@@ -320,6 +334,7 @@ int val2index(int val, int K){
   return res;
 }
 
+extern "C" {
 //top function
 void hypercube_kernel(
     ap_uint<32> *p_dataset,
@@ -333,113 +348,17 @@ void hypercube_kernel(
 #pragma HLS INTERFACE s_axilite port=p_best_score bundle=control
 #pragma HLS INTERFACE s_axilite port=return bundle=control
 
-  ap_uint<32> dataset[NUMOF_DATASETS];
-  ap_uint<32> dataset2[NUMOF_DATASETS];
-  ap_uint<32> dataset3[NUMOF_DATASETS];
-  ap_uint<32> dataset4[NUMOF_DATASETS];
-  ap_uint<32> dataset5[NUMOF_DATASETS];
-  ap_uint<32> dataset6[NUMOF_DATASETS];
-  ap_uint<32> dataset7[NUMOF_DATASETS];
-  ap_uint<32> dataset8[NUMOF_DATASETS];
-  ap_uint<32> dataset9[NUMOF_DATASETS];
-  ap_uint<32> dataset10[NUMOF_DATASETS];
-  ap_uint<32> dataset11[NUMOF_DATASETS];
-  ap_uint<32> dataset12[NUMOF_DATASETS];
-  ap_uint<32> dataset13[NUMOF_DATASETS];
-  ap_uint<32> dataset14[NUMOF_DATASETS];
-  ap_uint<32> dataset15[NUMOF_DATASETS];
-  ap_uint<32> dataset16[NUMOF_DATASETS];
-  ap_uint<32> dataset17[NUMOF_DATASETS];
-  ap_uint<32> dataset18[NUMOF_DATASETS];
-  ap_uint<32> dataset19[NUMOF_DATASETS];
-  ap_uint<32> dataset20[NUMOF_DATASETS];
-  ap_uint<32> dataset21[NUMOF_DATASETS];
-  ap_uint<32> dataset22[NUMOF_DATASETS];
-  ap_uint<32> dataset23[NUMOF_DATASETS];
-  ap_uint<32> dataset24[NUMOF_DATASETS];
-  ap_uint<32> dataset25[NUMOF_DATASETS];
-  ap_uint<32> dataset26[NUMOF_DATASETS];
-  ap_uint<32> dataset27[NUMOF_DATASETS];
-  ap_uint<32> dataset28[NUMOF_DATASETS];
-  ap_uint<32> dataset29[NUMOF_DATASETS];
-  ap_uint<32> dataset30[NUMOF_DATASETS];
-  ap_uint<32> dataset31[NUMOF_DATASETS];
-  ap_uint<32> dataset32[NUMOF_DATASETS];
-  ap_uint<32> dataset33[NUMOF_DATASETS];
-  ap_uint<32> dataset34[NUMOF_DATASETS];
-  ap_uint<32> dataset35[NUMOF_DATASETS];
-  ap_uint<32> dataset36[NUMOF_DATASETS];
-  ap_uint<32> dataset37[NUMOF_DATASETS];
-  ap_uint<32> dataset38[NUMOF_DATASETS];
-  ap_uint<32> dataset39[NUMOF_DATASETS];
-  ap_uint<32> dataset40[NUMOF_DATASETS];
-  ap_uint<32> dataset41[NUMOF_DATASETS];
-  ap_uint<32> dataset42[NUMOF_DATASETS];
-  ap_uint<32> dataset43[NUMOF_DATASETS];
-  ap_uint<32> dataset44[NUMOF_DATASETS];
-  ap_uint<32> dataset45[NUMOF_DATASETS];
-  ap_uint<32> dataset46[NUMOF_DATASETS];
-  ap_uint<32> dataset47[NUMOF_DATASETS];
-  ap_uint<32> dataset48[NUMOF_DATASETS];
-  ap_uint<32> dataset49[NUMOF_DATASETS];
-  ap_uint<32> dataset50[NUMOF_DATASETS];
-  ap_uint<32> dataset51[NUMOF_DATASETS];
-  ap_uint<32> dataset52[NUMOF_DATASETS];
-  ap_uint<32> dataset53[NUMOF_DATASETS];
-  ap_uint<32> dataset54[NUMOF_DATASETS];
-  ap_uint<32> dataset55[NUMOF_DATASETS];
-  ap_uint<32> dataset56[NUMOF_DATASETS];
-  ap_uint<32> dataset57[NUMOF_DATASETS];
-  ap_uint<32> dataset58[NUMOF_DATASETS];
-  ap_uint<32> dataset59[NUMOF_DATASETS];
-  ap_uint<32> dataset60[NUMOF_DATASETS];
-  ap_uint<32> dataset61[NUMOF_DATASETS];
-  ap_uint<32> dataset62[NUMOF_DATASETS];
-  ap_uint<32> dataset63[NUMOF_DATASETS];
-  ap_uint<32> dataset64[NUMOF_DATASETS];
-  ap_uint<32> dataset65[NUMOF_DATASETS];
-  ap_uint<32> dataset66[NUMOF_DATASETS];
-  ap_uint<32> dataset67[NUMOF_DATASETS];
-  ap_uint<32> dataset68[NUMOF_DATASETS];
-  ap_uint<32> dataset69[NUMOF_DATASETS];
-  ap_uint<32> dataset70[NUMOF_DATASETS];
-
+  ap_uint<32> dataset[PE_NUM][NUMOF_DATASETS];
   ap_uint<32> max_vals;
-
-/*#pragma HLS stable variable=dataset
-#pragma HLS stable variable=dataset2
-#pragma HLS stable variable=dataset3
-#pragma HLS stable variable=dataset4
-#pragma HLS stable variable=dataset5
-#pragma HLS stable variable=dataset6*/
-
-  memcpy(dataset, p_dataset, NUMOF_DATASETS * sizeof(ap_uint<32>));
+#pragma HLS ARRAY_PARTITION variable=dataset complete dim=1
+  memcpy(dataset[0], p_dataset, NUMOF_DATASETS * sizeof(ap_uint<32>));
 
   for(int j = 0; j < NUMOF_DATASETS; j++){
-    ap_uint<32> d = dataset[j];
-    dataset2[j] = d; dataset3[j] = d; dataset4[j] = d;
-    dataset5[j] = d; dataset6[j] = d; dataset7[j] = d;
-    dataset8[j] = d; dataset9[j] = d; dataset10[j] = d;
-    dataset11[j] = d; dataset12[j] = d; dataset13[j] = d;
-    dataset14[j] = d; dataset15[j] = d; dataset16[j] = d;
-    dataset17[j] = d; dataset18[j] = d; dataset19[j] = d;
-    dataset20[j] = d; dataset21[j] = d; dataset22[j] = d;
-    dataset23[j] = d; dataset24[j] = d; dataset25[j] = d;
-    dataset26[j] = d; dataset27[j] = d; dataset28[j] = d;
-    dataset29[j] = d; dataset30[j] = d; dataset31[j] = d;
-    dataset32[j] = d; dataset33[j] = d; dataset34[j] = d;
-    dataset35[j] = d; dataset36[j] = d; dataset37[j] = d;
-    dataset38[j] = d; dataset39[j] = d; dataset40[j] = d;
-    dataset41[j] = d; dataset42[j] = d; dataset43[j] = d;
-    dataset44[j] = d; dataset45[j] = d; dataset46[j] = d;
-    dataset47[j] = d; dataset48[j] = d; dataset49[j] = d;
-    dataset50[j] = d; dataset51[j] = d; dataset52[j] = d;
-    dataset53[j] = d; dataset54[j] = d; dataset55[j] = d;
-    dataset56[j] = d; dataset57[j] = d; dataset58[j] = d;
-    dataset59[j] = d; dataset60[j] = d; dataset61[j] = d;
-    dataset62[j] = d; dataset63[j] = d; dataset64[j] = d;
-    dataset65[j] = d; dataset66[j] = d; dataset67[j] = d;
-    dataset68[j] = d; dataset69[j] = d; dataset70[j] = d;
+    ap_uint<32> d = dataset[0][j];
+    for(int k = 1; k < PE_NUM; k++){
+#pragma HLS UNROLL
+      dataset[k][j] = d;
+    }
   }
   max_vals = *p_max_vals;
   const int A_offset[9] = {0, 3, 7, 12, 18, 25, 33, 42, 56};
@@ -537,7 +456,7 @@ void hypercube_kernel(
 //#pragma HLS ARRAY_PARTITION variable=a complete dim=1
 //#pragma HLS RESOURCE variable=a core=RAM_1P_LUTRAM
   int buf[4][PE_NUM];
-#pragma HLS ARRAY PARTITION variable=buf complete dim=0
+#pragma HLS ARRAY PARTITION variable=buf complete dim=2
   pe_out indata[252][NUMOF_VARS];
   pe_out outdata[252];
   //initialize (output of stage 0)
@@ -568,78 +487,11 @@ void hypercube_kernel(
 			else if(stage == 5) loop_num = 4;
 		}
 		for(int inside_i = 0; inside_i < loop_num; inside_i++){
-			int offset = 70*inside_i;
-			PE(buf[3][0], stage, dataset, max_vals, indata[0+offset], outdata[0+offset]);
-			PE(buf[3][1], stage, dataset2, max_vals, indata[1+offset], outdata[1+offset]);
-			PE(buf[3][2], stage, dataset3, max_vals, indata[2+offset], outdata[2+offset]);
-			PE(buf[3][3], stage, dataset4, max_vals, indata[3+offset], outdata[3+offset]);
-			PE(buf[3][4], stage, dataset5, max_vals, indata[4+offset], outdata[4+offset]);
-			PE(buf[3][5], stage, dataset6, max_vals, indata[5+offset], outdata[5+offset]);
-			PE(buf[3][6], stage, dataset7, max_vals, indata[6+offset], outdata[6+offset]);
-			PE(buf[3][7], stage, dataset8, max_vals, indata[7+offset], outdata[7+offset]);
-			PE(buf[3][8], stage, dataset9, max_vals, indata[8+offset], outdata[8+offset]);
-			PE(buf[3][9], stage, dataset10, max_vals, indata[9+offset], outdata[9+offset]);
-			PE(buf[3][10], stage, dataset11, max_vals, indata[10+offset], outdata[10+offset]);
-			PE(buf[3][11], stage, dataset12, max_vals, indata[11+offset], outdata[11+offset]);
-			PE(buf[3][12], stage, dataset13, max_vals, indata[12+offset], outdata[12+offset]);
-			PE(buf[3][13], stage, dataset14, max_vals, indata[13+offset], outdata[13+offset]);
-			PE(buf[3][14], stage, dataset15, max_vals, indata[14+offset], outdata[14+offset]);
-			PE(buf[3][15], stage, dataset16, max_vals, indata[15+offset], outdata[15+offset]);
-			PE(buf[3][16], stage, dataset17, max_vals, indata[16+offset], outdata[16+offset]);
-			PE(buf[3][17], stage, dataset18, max_vals, indata[17+offset], outdata[17+offset]);
-			PE(buf[3][18], stage, dataset19, max_vals, indata[18+offset], outdata[18+offset]);
-			PE(buf[3][19], stage, dataset20, max_vals, indata[19+offset], outdata[19+offset]);
-			PE(buf[3][20], stage, dataset21, max_vals, indata[20+offset], outdata[20+offset]);
-			PE(buf[3][21], stage, dataset22, max_vals, indata[21+offset], outdata[21+offset]);
-			PE(buf[3][22], stage, dataset23, max_vals, indata[22+offset], outdata[22+offset]);
-			PE(buf[3][23], stage, dataset24, max_vals, indata[23+offset], outdata[23+offset]);
-			PE(buf[3][24], stage, dataset25, max_vals, indata[24+offset], outdata[24+offset]);
-			PE(buf[3][25], stage, dataset26, max_vals, indata[25+offset], outdata[25+offset]);
-			PE(buf[3][26], stage, dataset27, max_vals, indata[26+offset], outdata[26+offset]);
-			PE(buf[3][27], stage, dataset28, max_vals, indata[27+offset], outdata[27+offset]);
-			PE(buf[3][28], stage, dataset29, max_vals, indata[28+offset], outdata[28+offset]);
-			PE(buf[3][29], stage, dataset30, max_vals, indata[29+offset], outdata[29+offset]);
-			PE(buf[3][30], stage, dataset31, max_vals, indata[30+offset], outdata[30+offset]);
-			PE(buf[3][31], stage, dataset32, max_vals, indata[31+offset], outdata[31+offset]);
-			PE(buf[3][32], stage, dataset33, max_vals, indata[32+offset], outdata[32+offset]);
-			PE(buf[3][33], stage, dataset34, max_vals, indata[33+offset], outdata[33+offset]);
-			PE(buf[3][34], stage, dataset35, max_vals, indata[34+offset], outdata[34+offset]);
-			PE(buf[3][35], stage, dataset36, max_vals, indata[35+offset], outdata[35+offset]);
-			PE(buf[3][36], stage, dataset37, max_vals, indata[36+offset], outdata[36+offset]);
-			PE(buf[3][37], stage, dataset38, max_vals, indata[37+offset], outdata[37+offset]);
-			PE(buf[3][38], stage, dataset39, max_vals, indata[38+offset], outdata[38+offset]);
-			PE(buf[3][39], stage, dataset40, max_vals, indata[39+offset], outdata[39+offset]);
-			PE(buf[3][40], stage, dataset41, max_vals, indata[40+offset], outdata[40+offset]);
-			PE(buf[3][41], stage, dataset42, max_vals, indata[41+offset], outdata[41+offset]);
-			PE(buf[3][42], stage, dataset43, max_vals, indata[42+offset], outdata[42+offset]);
-			PE(buf[3][43], stage, dataset44, max_vals, indata[43+offset], outdata[43+offset]);
-			PE(buf[3][44], stage, dataset45, max_vals, indata[44+offset], outdata[44+offset]);
-			PE(buf[3][45], stage, dataset46, max_vals, indata[45+offset], outdata[45+offset]);
-			PE(buf[3][46], stage, dataset47, max_vals, indata[46+offset], outdata[46+offset]);
-			PE(buf[3][47], stage, dataset48, max_vals, indata[47+offset], outdata[47+offset]);
-			PE(buf[3][48], stage, dataset49, max_vals, indata[48+offset], outdata[48+offset]);
-			PE(buf[3][49], stage, dataset50, max_vals, indata[49+offset], outdata[49+offset]);
-			PE(buf[3][50], stage, dataset51, max_vals, indata[50+offset], outdata[50+offset]);
-			PE(buf[3][51], stage, dataset52, max_vals, indata[51+offset], outdata[51+offset]);
-			PE(buf[3][52], stage, dataset53, max_vals, indata[52+offset], outdata[52+offset]);
-			PE(buf[3][53], stage, dataset54, max_vals, indata[53+offset], outdata[53+offset]);
-			PE(buf[3][54], stage, dataset55, max_vals, indata[54+offset], outdata[54+offset]);
-			PE(buf[3][55], stage, dataset56, max_vals, indata[55+offset], outdata[55+offset]);
-			PE(buf[3][56], stage, dataset57, max_vals, indata[56+offset], outdata[56+offset]);
-			PE(buf[3][57], stage, dataset58, max_vals, indata[57+offset], outdata[57+offset]);
-			PE(buf[3][58], stage, dataset59, max_vals, indata[58+offset], outdata[58+offset]);
-			PE(buf[3][59], stage, dataset60, max_vals, indata[59+offset], outdata[59+offset]);
-			PE(buf[3][60], stage, dataset61, max_vals, indata[60+offset], outdata[60+offset]);
-			PE(buf[3][61], stage, dataset62, max_vals, indata[61+offset], outdata[61+offset]);
-			PE(buf[3][62], stage, dataset63, max_vals, indata[62+offset], outdata[62+offset]);
-			PE(buf[3][63], stage, dataset64, max_vals, indata[63+offset], outdata[63+offset]);
-			PE(buf[3][64], stage, dataset65, max_vals, indata[64+offset], outdata[64+offset]);
-			PE(buf[3][65], stage, dataset66, max_vals, indata[65+offset], outdata[65+offset]);
-			PE(buf[3][66], stage, dataset67, max_vals, indata[66+offset], outdata[66+offset]);
-			PE(buf[3][67], stage, dataset68, max_vals, indata[67+offset], outdata[67+offset]);
-			PE(buf[3][68], stage, dataset69, max_vals, indata[68+offset], outdata[68+offset]);
-			PE(buf[3][69], stage, dataset70, max_vals, indata[69+offset], outdata[69+offset]);
-
+		  for(int k = 0; k < 70; k++){
+#pragma HLS UNROLL
+		    if(k < 42) PE(buf[3][k], inside_i,  stage, dataset[k], max_vals, indata[k], indata[70+k], indata[140+k], indata[210+k], outdata[k], outdata[70+k], outdata[140+k], outdata[210+k]);
+		    else PE(buf[3][k], inside_i,  stage, dataset[k], max_vals, indata[k], indata[70+k], indata[140+k], indata[140+k], outdata[k], outdata[70+k], outdata[140+k], outdata[140+k]);
+		  }
 			if(stage < NUMOF_VARS){
 				//read Next A
 				for(int i = 0; i < PE_NUM; i++){
