@@ -8,7 +8,6 @@
 #include <ap_axi_sdata.h>
 #include <ap_fixed.h>
 
-#define NUMOF_VARS 10
 #define NUMOF_DATASETS 1000
 
 #define DATA_BIT 8
@@ -19,7 +18,7 @@ static const std::string error_message =
 
 using namespace std;
 
-void load_data(ap_uint<32> data[NUMOF_DATASETS]){
+void load_data(int NUMOF_VARS, ap_uint<32> data[NUMOF_DATASETS]){
 	ifstream ifs;
 	ifs.open("../asia10.idt", std::ios::in);
 	if (!ifs) {
@@ -36,7 +35,6 @@ void load_data(ap_uint<32> data[NUMOF_DATASETS]){
 			if(pos >= NUMOF_VARS) break;
 			if(line[j] != ' '){
 				unsigned int tmp_d = ((unsigned int)(line[j] - '0'));
-				cout << tmp_d;
 				if(tmp_d > 3) cerr << "Warning: the value of dataset must be less than 4. line = " <<  i << "tmp_d = " << tmp_d << endl;
 				d |= (tmp_d << pos*2);
 				pos++;
@@ -118,6 +116,7 @@ int main(int argc, char* argv[]) {
     // These commands will allocate memory on the Device. The cl::Buffer objects can
     // be used to reference the memory locations on the device.
     // size_t size_in_bytes = DATA_SIZE * sizeof(int);
+    cl::Buffer buffer_nof_vars(context, CL_MEM_READ_ONLY, 1 * sizeof(int));
     cl::Buffer buffer_dataset(context, CL_MEM_READ_ONLY, NUMOF_DATASETS * sizeof(ap_uint<32>));
     cl::Buffer buffer_max_vals(context, CL_MEM_READ_ONLY, sizeof(ap_uint<32>));
     //cl::Buffer buffer_adjacent_matrix(context, CL_MEM_WRITE_ONLY, NUMOF_VARS * NUMOF_VARS * sizeof(int));
@@ -125,6 +124,7 @@ int main(int argc, char* argv[]) {
     cl::Buffer buffer_best_score(context, CL_MEM_WRITE_ONLY, 1 * sizeof(float));
     //set the kernel Arguments
     int narg=0;
+    krnl.setArg(narg++, buffer_nof_vars);
     krnl.setArg(narg++, buffer_dataset);
     krnl.setArg(narg++, buffer_max_vals);
     krnl.setArg(narg++, buffer_best_score);
@@ -132,13 +132,16 @@ int main(int argc, char* argv[]) {
     krnl.setArg(narg++, buffer_best_order);}*/
 
     //We then need to map our OpenCL buffers to get the pointers
+    int *ptr_nof_vars = (int*)q.enqueueMapBuffer(buffer_nof_vars, CL_TRUE, CL_MAP_READ, 0, 1 * sizeof(int));
     ap_uint<32> *ptr_dataset = (ap_uint<32>*) q.enqueueMapBuffer (buffer_dataset , CL_TRUE , CL_MAP_READ , 0, NUMOF_DATASETS * sizeof(ap_uint<32>));
     ap_uint<32> *ptr_max_vals = (ap_uint<32>*) q.enqueueMapBuffer (buffer_max_vals , CL_TRUE , CL_MAP_READ , 0, sizeof(ap_uint<32>));
     //int *ptr_adjacent_matrix = (int *) q.enqueueMapBuffer (buffer_adjacent_matrix , CL_TRUE , CL_MAP_WRITE , 0, NUMOF_VARS * NUMOF_VARS * sizeof(int));
     //int *ptr_best_order = (int *) q.enqueueMapBuffer (buffer_best_order , CL_TRUE , CL_MAP_WRITE , 0, NUMOF_VARS * sizeof(int));
     float *ptr_best_score = (float *)q.enqueueMapBuffer (buffer_best_score , CL_TRUE , CL_MAP_WRITE , 0, 1 * sizeof(float));
+    int NUMOF_VARS = 10;
+    *ptr_nof_vars = NUMOF_VARS;
     //load dataset file
-    load_data(ptr_dataset);
+    load_data(NUMOF_VARS, ptr_dataset);
     //setting input data
     *ptr_max_vals = 0;
     for(int i = 0; i < NUMOF_VARS; i++){

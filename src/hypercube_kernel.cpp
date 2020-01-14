@@ -5,15 +5,11 @@
 #include <ap_axi_sdata.h>
 #include <ap_fixed.h>
 #include <iomanip>
-// #include "my_lgamma.h"
 typedef ap_fixed<32, 16> score_t;
 //typedef ap_fixed<32,10> score_t;
 //typedef double score_t;
 typedef unsigned int varset_t;
-//#define DATA_BIT 8
-//typedef ap_uint<DATA_BIT> data_t;
-//#define MAXOF_VARS 8
-#define NUMOF_VARS 10
+#define MAXOF_VARS 10
 #define PE_NUM 70
 #define BUFFER_NUM 252
 #define NUMOF_DATASETS 1000
@@ -140,23 +136,23 @@ namespace mylib{
 #pragma HLS RESOURCE variable=lgamma_table core=ROM_1P_BRAM
     return lgamma_table[k];
   }
-  score_t calc_bdeu_local_score(int child, varset_t parents, ap_uint<32> dataset[NUMOF_DATASETS], ap_uint<32> max_vals){
+  score_t calc_bdeu_local_score(int NUMOF_VARS, int child, varset_t parents, ap_uint<32> dataset[NUMOF_DATASETS], ap_uint<32> max_vals){
     score_t local_score = 0;
     //const score_t ess = 10.0;
     int itr_num = 1;
-    int refresh_timing[NUMOF_VARS];
-    int counters[NUMOF_VARS];
-    ap_uint<2> now_comb[NUMOF_VARS];
-  #pragma HLS ARRAY_PARTITION variable=refresh_timing complete dim = 1
-  #pragma HLS ARRAY_PARTITION variable=counters complete dim = 1
-  #pragma HLS ARRAY_PARTITION variable=now_comb complete dim = 1
-  #pragma HLS RESOURCE variable=refresh_timing core=RAM_1P_BRAM
-  #pragma HLS RESOURCE variable=counters core=RAM_1P_BRAM
-  #pragma HLS RESOURCE variable=now_comb core=RAM_1P_BRAM
+    int refresh_timing[MAXOF_VARS];
+    int counters[MAXOF_VARS];
+    ap_uint<2> now_comb[MAXOF_VARS];
+  //#pragma HLS ARRAY_PARTITION variable=refresh_timing complete dim = 1
+  //#pragma HLS ARRAY_PARTITION variable=counters complete dim = 1
+  //#pragma HLS ARRAY_PARTITION variable=now_comb complete dim = 1
+  //#pragma HLS RESOURCE variable=refresh_timing core=RAM_1P_BRAM
+  //#pragma HLS RESOURCE variable=counters core=RAM_1P_BRAM
+  //#pragma HLS RESOURCE variable=now_comb core=RAM_1P_BRAM
     int next_timing = 1;
     for(int i = 0; i < NUMOF_VARS; i++){
-  //#pragma HLS PIPELINE
-#pragma HLS UNROLL
+ //#pragma HLS PIPELINE
+//#pragma HLS UNROLL
       counters[i] = 0;
       now_comb[i] = 0;
       if(((parents >> i) & 1) || i == child){
@@ -166,9 +162,9 @@ namespace mylib{
         itr_num *= nof_vals;
         refresh_timing[i] = next_timing;
         next_timing *= nof_vals;
-      }else{
+      }/*else{
         refresh_timing[i] = 0;//no need
-      }
+      }*/
     }
     int status = 0;
     //score_t nijk_prime = (score_t)ess/(score_t)itr_num;
@@ -185,7 +181,7 @@ namespace mylib{
         bool nijk_match = true;
         ap_uint<32> data = dataset[j];
         for(int k = 0; k < NUMOF_VARS; k++){
-  #pragma HLS UNROLL
+  //#pragma HLS UNROLL
           //2bit slice
           //ap_uint<2>  = data.range(2*k+1, 2*k);
           ap_uint<2> sliced = (((ap_uint<32>) data >> (2*k)) & 3);
@@ -217,7 +213,7 @@ namespace mylib{
 
       //next combination
       for(int k = 0; k < NUMOF_VARS; k++){
-  #pragma HLS UNROLL
+  //#pragma HLS UNROLL
         if(((parents >> k) & 1) || k == child){
           counters[k]++;
           if(counters[k] == refresh_timing[k]){
@@ -235,13 +231,13 @@ namespace mylib{
 
 typedef struct{
   score_t q;
-  score_t f[NUMOF_VARS];
+  score_t f[MAXOF_VARS];
 } pe_out;
 
 //template <int an_unused_template_parameter>
-void PE(int A, int inside_i, int stage,
+void PE(int NUMOF_VARS, int A, int inside_i, int stage,
   ap_uint<32> dataset[NUMOF_DATASETS], ap_uint<32> max_vals,
-  pe_out indata1[NUMOF_VARS], pe_out indata2[NUMOF_VARS], pe_out indata3[NUMOF_VARS], pe_out indata4[NUMOF_VARS],
+  pe_out indata1[MAXOF_VARS], pe_out indata2[MAXOF_VARS], pe_out indata3[MAXOF_VARS], pe_out indata4[MAXOF_VARS],
   pe_out& outdata1, pe_out& outdata2, pe_out& outdata3, pe_out& outdata4){
 
   if(stage == 0 || A < 0) return;
@@ -250,31 +246,29 @@ void PE(int A, int inside_i, int stage,
   pe_out tmp_outdata;
   int cnt = 0;
   bool firstflag = true;
-  int indexcnt[NUMOF_VARS];
-#pragma HLS RESOURCE variable=indexcnt core=RAM_1P_LUTRAM
-#pragma HLS ARRAY_PARTITION variable=indexcnt complete dim = 1
+  int indexcnt[MAXOF_VARS];
+//#pragma HLS RESOURCE variable=indexcnt core=RAM_1P_LUTRAM
+//#pragma HLS ARRAY_PARTITION variable=indexcnt complete dim = 1
   unsigned int indexbit = (1U << (stage - 1)) - 1;
   for(int i = 0; i < NUMOF_VARS; i++){
-#pragma HLS UNROLL
+//#pragma HLS UNROLL
     indexcnt[i] = 0;
   }
   for(int i = 0; i < NUMOF_VARS; i++){
     if((A >> i) & 1U){
       varset_t parents = (A^(1U << i));
-      score_t s = mylib::calc_bdeu_local_score(i, parents, dataset, max_vals);
+      score_t s = mylib::calc_bdeu_local_score(NUMOF_VARS, i, parents, dataset, max_vals);
       score_t f = s;
       for(int k = 0; k < NUMOF_VARS; k++){
         if((indexbit >> k) & 1U){
           //f = max(f, indata[k].f[indexcnt[k]]);
           int indexcnt_k = indexcnt[k];
           score_t in_f = (inside_i == 0 ? indata1[k].f[indexcnt_k] : (inside_i == 1 ? indata2[k].f[indexcnt_k] : (inside_i == 2 ? indata3[k].f[indexcnt_k] : indata4[k].f[indexcnt_k])));
+          f = max(f, in_f);
+          indexcnt[k]++;
         }
       }
       //next status
-      for(int k = 0; k < NUMOF_VARS; k++){
-#pragma HLS UNROLL
-        if((indexbit >> k) & 1U) indexcnt[k]++;
-      }
       indexbit = (indexbit >> 1) | (1U << (stage - 1));
 
       //score_t nowq = f + indata[stage-1-cnt].q;
@@ -304,10 +298,10 @@ void PE(int A, int inside_i, int stage,
 }*/
 
 //K: popcount of val
-int val2index(int val, int K){
+int val2index(int NUMOF_VARS, int val, int K){
   int res = 0;
   int onecnt = 0;
-  int nck[NUMOF_VARS][NUMOF_VARS] = {
+  int nck[MAXOF_VARS][MAXOF_VARS] = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0}, //dummy data
         {1, 1, 0, 0, 0, 0, 0, 0, 0, 0},
         {1, 2, 1, 0, 0, 0, 0, 0, 0, 0},
@@ -319,7 +313,7 @@ int val2index(int val, int K){
 				{1, 8, 28, 56, 70, 56, 28, 8, 1, 0},
 				{1, 9, 36, 84, 126, 126, 84, 36, 9, 1},
     };
-  #pragma HLS RESOURCE variable=nck core=RAM_1P_LUTRAM
+  //#pragma HLS RESOURCE variable=nck core=RAM_1P_LUTRAM
   #pragma HLS ARRAY_PARTITION variable=nck complete dim = 0
   for(int i = 0; i < NUMOF_VARS; i++){
 #pragma HLS PIPELINE
@@ -337,19 +331,21 @@ int val2index(int val, int K){
 extern "C" {
 //top function
 void hypercube_kernel(
+		int *p_nof_vars,
     ap_uint<32> *p_dataset,
     ap_uint<32> *p_max_vals, float* p_best_score){
-
-#pragma HLS INTERFACE m_axi port=p_dataset offset=slave bundle=gmem2
+#pragma HLS INTERFACE m_axi port=p_nof_vars offset=slave bundle=gmem
+#pragma HLS INTERFACE m_axi port=p_dataset offset=slave bundle=gmem
 #pragma HLS INTERFACE m_axi port=p_max_vals offset=slave bundle=gmem
-#pragma HLS INTERFACE m_axi port=p_best_score offset=slave bundle=gmem2
+#pragma HLS INTERFACE m_axi port=p_best_score offset=slave bundle=gmem
+#pragma HLS INTERFACE s_axilite port=p_nof_vars bundle=control
 #pragma HLS INTERFACE s_axilite port=p_dataset bundle=control
 #pragma HLS INTERFACE s_axilite port=p_max_vals bundle=control
 #pragma HLS INTERFACE s_axilite port=p_best_score bundle=control
 #pragma HLS INTERFACE s_axilite port=return bundle=control
-
-  ap_uint<32> dataset[PE_NUM][NUMOF_DATASETS];
+	int NUMOF_VARS = *p_nof_vars;
   ap_uint<32> max_vals;
+  ap_uint<32> dataset[PE_NUM][NUMOF_DATASETS];
 #pragma HLS ARRAY_PARTITION variable=dataset complete dim=1
   memcpy(dataset[0], p_dataset, NUMOF_DATASETS * sizeof(ap_uint<32>));
 
@@ -450,22 +446,24 @@ void hypercube_kernel(
 		  {1023, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1},
   };
 #pragma HLS ARRAY_PARTITION variable=A complete dim=2
-#pragma HLS RESOURCE variable=A core=ROM_1P_BRAM
+//#pragma HLS RESOURCE variable=A core=ROM_1P_BRAM
 
   //int a[PE_NUM] = {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 //#pragma HLS ARRAY_PARTITION variable=a complete dim=1
 //#pragma HLS RESOURCE variable=a core=RAM_1P_LUTRAM
   int buf[4][PE_NUM];
-#pragma HLS ARRAY PARTITION variable=buf complete dim=2
-  pe_out indata[252][NUMOF_VARS];
+//#pragma HLS ARRAY PARTITION variable=buf complete dim=2
+#pragma HLS ARRAY PARTITION variable=buf complete dim=0
+  pe_out indata[252][MAXOF_VARS];
   pe_out outdata[252];
   //initialize (output of stage 0)
-  for(int i = 0; i < BUFFER_NUM; i++){
+  /*for(int i = 0; i < BUFFER_NUM; i++){
+#pragma HLS UNROLL
 	outdata[i].q = 0;
     for(int j = 0; j < NUMOF_VARS; j++){
       outdata[i].f[j] = 0;
     }
-  }
+  }*/
 #pragma HLS ARRAY_PARTITION variable=indata complete dim=1
 //#pragma HLS ARRAY_PARTITION variable=indata->f complete dim=1
 
@@ -474,7 +472,10 @@ void hypercube_kernel(
   score_t res = 0;
   int A_indexcnt = A_offset[NUMOF_VARS-2];
   for(int i = 3; i>= 0; i--){
-  	for(int j = 0; j < PE_NUM; j++) buf[i][j] = A[A_indexcnt][j];
+  	for(int j = 0; j < PE_NUM; j++){
+#pragma HLS UNROLL
+  	  buf[i][j] = A[A_indexcnt][j];
+  	}
   	A_indexcnt++;
   }
   //main function
@@ -489,8 +490,8 @@ void hypercube_kernel(
 		for(int inside_i = 0; inside_i < loop_num; inside_i++){
 		  for(int k = 0; k < 70; k++){
 #pragma HLS UNROLL
-		    if(k < 42) PE(buf[3][k], inside_i,  stage, dataset[k], max_vals, indata[k], indata[70+k], indata[140+k], indata[210+k], outdata[k], outdata[70+k], outdata[140+k], outdata[210+k]);
-		    else PE(buf[3][k], inside_i,  stage, dataset[k], max_vals, indata[k], indata[70+k], indata[140+k], indata[140+k], outdata[k], outdata[70+k], outdata[140+k], outdata[140+k]);
+		    if(k < 42) PE(NUMOF_VARS, buf[3][k], inside_i,  stage, dataset[k], max_vals, indata[k], indata[70+k], indata[140+k], indata[210+k], outdata[k], outdata[70+k], outdata[140+k], outdata[210+k]);
+		    else PE(NUMOF_VARS, buf[3][k], inside_i,  stage, dataset[k], max_vals, indata[k], indata[70+k], indata[140+k], indata[140+k], outdata[k], outdata[70+k], outdata[140+k], outdata[140+k]);
 		  }
 			if(stage < NUMOF_VARS){
 				//read Next A
@@ -506,14 +507,14 @@ void hypercube_kernel(
 		}
 		if(stage < NUMOF_VARS){
 			//prepare next input
-			int indexcnt[BUFFER_NUM];
-#pragma HLS ARRAY_PARTITION variable=indexcnt complete dim=1
+			//int indexcnt[BUFFER_NUM];
+//#pragma HLS ARRAY_PARTITION variable=indexcnt complete dim=1
 	//#pragma HLS RESOURCE variable=A core=ROM_1P_BRAM
-			loop_initialize_indexcnt:for(int i = 0; i < BUFFER_NUM; i++){
+			/*loop_initialize_indexcnt:for(int i = 0; i < BUFFER_NUM; i++){
 #pragma HLS UNROLL
 				indexcnt[i] = 0;
-			}
-			int nck[NUMOF_VARS+1][NUMOF_VARS+1] = {
+			}*/
+			int nck[MAXOF_VARS+1][MAXOF_VARS+1] = {
 			        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}, //dummy data
 			        {1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 			        {1, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -526,12 +527,14 @@ void hypercube_kernel(
 							{1, 9, 36, 84, 126, 126, 84, 36, 9, 1, 0},
 							{1, 10, 45, 120, 210, 252, 210, 120, 45, 10, 1}
 			    };
-			#pragma HLS RESOURCE variable=nck core=RAM_1P_LUTRAM
+			//#pragma HLS RESOURCE variable=nck core=RAM_1P_LUTRAM
+#pragma HLS ARRAY_PARTITION variable=nck complete dim=0
 			//for each j, all "index" values calculated by k are different
 			int next_indata_num = nck[NUMOF_VARS][stage+1];
 			for(int k = NUMOF_VARS - 1; k >= 0; k--){
+			  int indexcnt_j = 0;
 				for(int j = 0; j < next_indata_num; j++){//nC(stage+1)
-	#pragma HLS PIPELINE
+	//#pragma HLS PIPELINE
 				  int a;
 				  if(j < 70) a = buf[3][j];
 				  else if(j < 140) a = buf[2][j-70];
@@ -541,11 +544,13 @@ void hypercube_kernel(
 					if((a >> k) & 1U){
 					  int tmp = a^(1U << k);
 						//cout << j << " " << a[j] << " " << tmp << endl;
-						int index = val2index(a^(1U << k), stage);
+						int index = val2index(NUMOF_VARS, a^(1U << k), stage);
 						pe_out data = outdata[index];
 						//cout << "indata[" << j << "][" << indexcnt[j] << "] = " << "outdata[" << index << "]" << " " << data.q.to_string(10) << endl;
-						indata[j][indexcnt[j]] = data;
-						indexcnt[j]++;
+						//indata[j][indexcnt[j]] = data;
+						//indexcnt[j]++;
+						indata[j][indexcnt_j] = data;
+						indexcnt_j++;
 					}
 				}
 			}
