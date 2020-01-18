@@ -47,13 +47,14 @@ void load_data(int NUMOF_VARS, ap_uint<32> data[NUMOF_DATASETS], string filepath
 }
 int main(int argc, char* argv[]) {
     //TARGET_DEVICE macro needs to be passed from gcc command line
-    if(argc != 2) {
-    std::cout << "Usage: " << argv[0] <<" <xclbin>" << std::endl;
+    if(argc != 4) {
+    std::cout << "Usage: " << argv[0] <<" <xclbin> <NUMOF_VARS> <dataset filepath>" << std::endl;
     return EXIT_FAILURE;
   }
 
     char* xclbinFilename = argv[1];
-
+    int NUMOF_VARS = atoi(argv[2]);
+    string dataset_filepath = string(argv[3]);
 
     // Creates a vector of DATA_SIZE elements with an initial value of 10 and 32
     // using customized allocator for getting buffer alignment to 4k boundary
@@ -112,7 +113,6 @@ int main(int argc, char* argv[]) {
 
     // These commands will allocate memory on the Device. The cl::Buffer objects can
     // be used to reference the memory locations on the device.
-    int NUMOF_VARS = 10;
     cl::Buffer buffer_nof_vars(context, CL_MEM_READ_ONLY, 1 * sizeof(int));
     cl::Buffer buffer_dataset(context, CL_MEM_READ_ONLY, NUMOF_DATASETS * sizeof(ap_uint<32>));
     cl::Buffer buffer_max_vals(context, CL_MEM_READ_ONLY, sizeof(ap_uint<32>));
@@ -135,7 +135,7 @@ int main(int argc, char* argv[]) {
 
     *ptr_nof_vars = NUMOF_VARS;
     //load dataset file
-    load_data(NUMOF_VARS, ptr_dataset, "../asia10.idt");
+    load_data(NUMOF_VARS, ptr_dataset, dataset_filepath);
     //setting input data
     *ptr_max_vals = 0;
     for(int i = 0; i < NUMOF_VARS; i++){
@@ -147,18 +147,18 @@ int main(int argc, char* argv[]) {
     // Data will be migrated to kernel space
     q.enqueueMigrateMemObjects({buffer_dataset, buffer_max_vals},0/* 0 means from host*/);
     	/* 0 means from host*/
-    t2 = std::chrono::system_clock::now();
+
     //Launch the Kernel
     q.enqueueTask(krnl);
-    t3 = std::chrono::system_clock::now();
 
     // The result of the previous kernel execution will need to be retrieved in
     // order to view the results. This call will transfer the data from FPGA to
     // source_results vector
     q.enqueueMigrateMemObjects({buffer_best_score, buffer_best_matrix},CL_MIGRATE_MEM_OBJECT_HOST);
-
+    t2 = std::chrono::system_clock::now();
+    // Wait kernel execution complete
     q.finish();
-    t4 = std::chrono::system_clock::now();
+    t3 = std::chrono::system_clock::now();
     //Verify the result
     int match = 0;
     //Show the result
@@ -190,12 +190,11 @@ int main(int argc, char* argv[]) {
     }
     double elapsed1 = (double)std::chrono::duration_cast<std::chrono::microseconds>(t2-t1).count();
     double elapsed2 = (double)std::chrono::duration_cast<std::chrono::microseconds>(t3-t2).count();
-    double elapsed3 = (double)std::chrono::duration_cast<std::chrono::microseconds>(t4-t3).count();
-    double elapsed4 = (double)std::chrono::duration_cast<std::chrono::microseconds>(t4-t1).count();
-    cout << "HOST DDR->FPGA DDR : " << elapsed1 << "[microseconds]" << endl;
-    cout << "FPGA Running Time : " << elapsed2 << "[microseconds]" << endl;
-    cout << "FPGA DDR->HOST DDR : " << elapsed3 << "[microseconds]" << endl;
-    cout << "ALL TIME : " << elapsed4 << "[microseconds]" << endl;
+    double elapsed3 = (double)std::chrono::duration_cast<std::chrono::microseconds>(t3-t1).count();
+    //double elapsed4 = (double)std::chrono::duration_cast<std::chrono::microseconds>(t4-t1).count();
+    cout << "Loading Time : " << elapsed1 << "[us]" << endl;
+    cout << "FPGA Running Time : " << elapsed2 << "[us]" << endl;
+    cout << "ALL TIME : " << elapsed3 << "[us]" << endl;
     q.enqueueUnmapMemObject(buffer_dataset , ptr_dataset);
     q.enqueueUnmapMemObject(buffer_max_vals ,ptr_max_vals);
     q.enqueueUnmapMemObject(buffer_best_score ,ptr_best_score);
